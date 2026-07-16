@@ -56,7 +56,7 @@ button {
 
 .btn-primary {
   background-color: var(--color-dark-green);
-  color: white;
+  color: #FAF9F6;
 }
 
 .btn-primary:hover {
@@ -71,7 +71,7 @@ button {
 
 .btn-secondary:hover {
   background-color: var(--color-primary-text);
-  color: white;
+  color: #FAF9F6;
 }
 
 /* Header */
