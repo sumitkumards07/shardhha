@@ -1,0 +1,50 @@
+<style>
+.default-page {
+  padding: var(--section-spacing) 0;
+  background-color: var(--color-warm-ivory);
+}
+.default-page__container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.default-page__title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--color-dark-green);
+  margin-bottom: 3rem;
+}
+.default-page__content {
+  font-family: var(--font-body);
+  color: var(--color-primary-text);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+.default-page__content h2, 
+.default-page__content h3 {
+  font-family: var(--font-heading);
+  color: var(--color-dark-green);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.default-page__content a {
+  color: var(--color-dark-green);
+  text-decoration: underline;
+}
+</style>
+
+<div class="default-page">
+  <div class="container default-page__container">
+    <h1 class="default-page__title">{{ page.title }}</h1>
+    <div class="default-page__content">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,209 @@
+<style>
+.product-page {
+  padding: var(--section-spacing) 0;
+  background-color: var(--color-warm-ivory);
+}
+.product-container {
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+.product-media {
+  flex: 1 1 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.product-main-image {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.product-thumbnails {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+.product-thumbnail {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.product-thumbnail:hover {
+  border-color: var(--color-dark-green);
+}
+.product-info {
+  flex: 1 1 400px;
+}
+.product-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-primary-text);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+.product-price {
+  font-size: 1.25rem;
+  color: var(--color-secondary-text);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.product-price-compare {
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-size: 1rem;
+}
+.product-description {
+  font-family: var(--font-body);
+  color: var(--color-secondary-text);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+.product-form {
+  margin-bottom: 2rem;
+}
+.product-form__input {
+  margin-bottom: 1.5rem;
+}
+.product-form__label {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.product-form__select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+  font-family: var(--font-body);
+}
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  width: max-content;
+}
+.quantity-selector button {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.quantity-selector input {
+  width: 50px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  -moz-appearance: textfield;
+}
+.product-add-to-cart {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-dark-green);
+  color: white;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+.product-add-to-cart:hover {
+  background-color: var(--color-muted-gold);
+}
+@media (max-width: 768px) {
+  .product-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+</style>
+
+<div class="product-page">
+  <div class="container product-container">
+    <div class="product-media">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 1000 | image_tag: class: 'product-main-image', id: 'MainImage' }}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg product-main-image' }}
+      {% endif %}
+      
+      {% if product.images.size > 1 %}
+        <div class="product-thumbnails">
+          {% for image in product.images %}
+            {{ image | image_url: width: 200 | image_tag: class: 'product-thumbnail' }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="product-info">
+      <h1 class="product-title">{{ product.title }}</h1>
+      <div class="product-price">
+        <span class="price-regular">{{ product.price | money }}</span>
+        {% if product.compare_at_price > product.price %}
+          <span class="product-price-compare">{{ product.compare_at_price | money }}</span>
+        {% endif %}
+      </div>
+
+      <div class="product-description">
+        {{ product.description }}
+      </div>
+
+      {% form 'product', product, class: 'product-form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            <div class="product-form__input">
+              <label class="product-form__label">{{ option.name }}</label>
+              <select class="product-form__select">
+                {% for value in option.values %}
+                  <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                    {{ value }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endfor %}
+        {% endunless %}
+
+        <div class="product-form__input">
+          <label class="product-form__label">Quantity</label>
+          <div class="quantity-selector">
+            <button type="button">-</button>
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="button">+</button>
+          </div>
+        </div>
+
+        <button type="submit" name="add" class="product-add-to-cart" {% unless product.available %}disabled{% endunless %}>
+          {% if product.available %}
+            Add to Cart
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": []
+}
+{% endschema %}
