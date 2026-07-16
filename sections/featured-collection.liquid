@@ -79,7 +79,7 @@
       {% endif %}
     </div>
 
-    {% if section.settings.show_view_all and collection.all_products_count > section.settings.products_to_show %}
+    {% if section.settings.show_view_all and collection != blank and collection.all_products_count > section.settings.products_to_show %}
       <div class="featured-collection__view-all">
         <a href="{{ collection.url }}" class="btn btn-secondary">View All</a>
       </div>
