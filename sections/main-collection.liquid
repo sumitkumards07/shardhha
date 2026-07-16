@@ -35,24 +35,8 @@
 <div class="bg-antique-cream text-deep-forest font-body-md pb-32">
   <div class="max-w-[1280px] mx-auto px-5 md:px-16">
     
-    <!-- Hero Section -->
-    <section class="mt-12 md:mt-24 mb-16 text-center md:text-left">
-      <h1 class="text-[32px] md:text-[56px] text-deep-forest mb-4 leading-tight" style="font-family: var(--font-heading);">
-        {{ collection.title }}
-      </h1>
-      {% if collection.description != blank %}
-        <div class="text-[16px] text-subtle-grey max-w-xl leading-relaxed" style="font-family: var(--font-body);">
-          {{ collection.description }}
-        </div>
-      {% else %}
-        <p class="text-[16px] text-subtle-grey max-w-xl leading-relaxed" style="font-family: var(--font-body);">
-          A curation of intentional pieces crafted for the modern individual. Discover our latest exploration of traditional weaving techniques reimagined through a minimalist lens.
-        </p>
-      {% endif %}
-    </section>
-
-    <!-- Filter Bar -->
-    <section class="sticky top-0 z-40 bg-[#F5F0E8] py-6 border-y border-outline-variant/30 mb-12">
+    <!-- Filter Bar (Moved to top since Hero is gone) -->
+    <section class="sticky top-0 z-40 bg-[#F5F0E8] py-4 border-b border-outline-variant/30 mb-8 mt-4">
       <div class="flex items-center justify-between overflow-x-auto hide-scrollbar gap-8">
         <div class="flex items-center gap-8">
           <div class="relative group cursor-pointer">
@@ -81,36 +65,61 @@
 
     <!-- Product Grid -->
     {% paginate collection.products by section.settings.products_per_page %}
-      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12 mb-24">
+      <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-4 md:gap-x-6 mb-24">
         {% for product in collection.products %}
-          <a href="{{ product.url }}" class="group cursor-pointer block">
-            <div class="product-image-container mb-6 bg-surface-container-low border border-outline-variant/30 relative">
-              {% if product.featured_image %}
-                {{ product.featured_image | image_url: width: 800 | image_tag: class: 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105', alt: product.title }}
-              {% else %}
-                <div class="w-full h-full flex items-center justify-center bg-gray-100 text-subtle-grey">No Image</div>
-              {% endif %}
-              
-              <!-- Quick Shop Hover Overlay (Optional enhancement) -->
-              <div class="absolute inset-0 bg-deep-forest/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="group block flex flex-col h-full">
+            <a href="{{ product.url }}" class="block mb-4">
+              <div class="product-image-container bg-surface-container-low border border-outline-variant/30 relative rounded-2xl">
+                {% if product.featured_image %}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: class: 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-2xl', alt: product.title }}
+                {% else %}
+                  <div class="w-full h-full flex items-center justify-center bg-gray-100 text-subtle-grey rounded-2xl">No Image</div>
+                {% endif %}
+                
+                <!-- Quick Shop Hover Overlay (Optional enhancement) -->
+                <div class="absolute inset-0 bg-deep-forest/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+              </div>
+            </a>
+            
+            <div class="space-y-1 flex-grow text-center">
+              <h3 class="text-[14px] md:text-[16px] text-deep-forest group-hover:text-soft-gold transition-colors font-semibold" style="font-family: var(--font-body);">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <p class="text-[14px] font-semibold text-subtle-grey pt-1" style="font-family: var(--font-body);">{{ product.price | money }}</p>
             </div>
-            <div class="space-y-2">
-              <h3 class="text-[16px] text-deep-forest group-hover:text-soft-gold transition-colors" style="font-family: var(--font-body);">{{ product.title }}</h3>
-              <p class="text-[12px] text-subtle-grey uppercase tracking-widest font-semibold" style="font-family: var(--font-body);">{{ product.type | default: 'Collection' }}</p>
-              <p class="text-[16px] font-semibold text-deep-forest pt-1" style="font-family: var(--font-body);">{{ product.price | money }}</p>
+            
+            <div class="mt-4 flex gap-2 w-full">
+              {% form 'product', product, class: 'w-1/2' %}
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button type="submit" class="w-full py-2.5 bg-deep-forest text-antique-cream text-[10px] md:text-[11px] uppercase tracking-wider font-semibold rounded-full hover:bg-opacity-90 transition-all">Add to Cart</button>
+              {% endform %}
+              {% form 'product', product, class: 'w-1/2' %}
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <input type="hidden" name="return_to" value="/checkout">
+                <button type="submit" class="w-full py-2.5 border border-deep-forest text-deep-forest text-[10px] md:text-[11px] uppercase tracking-wider font-semibold rounded-full hover:bg-surface-container-low transition-all">Buy Now</button>
+              {% endform %}
             </div>
-          </a>
+          </div>
         {% else %}
           <!-- Demo Products if collection is empty -->
-          {% for i in (1..6) %}
-            <div class="group cursor-pointer block">
-              <div class="product-image-container mb-6 bg-surface-container-low border border-outline-variant/30">
-                <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Demo Product">
+          {% for i in (1..8) %}
+            <div class="group block flex flex-col h-full">
+              <a href="#" class="block mb-4">
+                <div class="product-image-container bg-surface-container-low border border-outline-variant/30 relative rounded-2xl">
+                  <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-2xl" alt="Demo Product">
+                </div>
+              </a>
+              
+              <div class="space-y-1 flex-grow text-center">
+                <h3 class="text-[14px] md:text-[16px] text-deep-forest group-hover:text-soft-gold transition-colors font-semibold" style="font-family: var(--font-body);">
+                  <a href="#">Handcrafted Kurti Set</a>
+                </h3>
+                <p class="text-[14px] font-semibold text-subtle-grey pt-1" style="font-family: var(--font-body);">₹4,250</p>
               </div>
-              <div class="space-y-2">
-                <h3 class="text-[16px] text-deep-forest group-hover:text-soft-gold transition-colors" style="font-family: var(--font-body);">Handcrafted Kurti Set</h3>
-                <p class="text-[12px] text-subtle-grey uppercase tracking-widest font-semibold" style="font-family: var(--font-body);">New Arrival</p>
-                <p class="text-[16px] font-semibold text-deep-forest pt-1" style="font-family: var(--font-body);">₹4,250</p>
+              
+              <div class="mt-4 flex gap-2 w-full">
+                <button type="button" class="w-1/2 py-2.5 bg-deep-forest text-antique-cream text-[10px] md:text-[11px] uppercase tracking-wider font-semibold rounded-full hover:bg-opacity-90 transition-all">Add to Cart</button>
+                <button type="button" class="w-1/2 py-2.5 border border-deep-forest text-deep-forest text-[10px] md:text-[11px] uppercase tracking-wider font-semibold rounded-full hover:bg-surface-container-low transition-all">Buy Now</button>
               </div>
             </div>
           {% endfor %}
@@ -134,11 +143,11 @@
     {
       "type": "range",
       "id": "products_per_page",
-      "min": 6,
+      "min": 8,
       "max": 24,
-      "step": 3,
+      "step": 4,
       "label": "Products per page",
-      "default": 12
+      "default": 16
     }
   ]
 }
