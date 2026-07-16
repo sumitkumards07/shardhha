@@ -14,7 +14,7 @@
   flex: 0 0 100%;
   width: 100%;
   scroll-snap-align: start;
-  height: 80vh;
+  height: 85vh;
   position: relative;
   background-color: var(--color-warm-ivory);
 }
@@ -33,69 +33,112 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.3); /* Slight darkening for text readability */
+  /* Gradient to ensure text on the left is readable without darkening the model */
+  background: linear-gradient(to right, rgba(248, 244, 238, 0.9) 0%, rgba(248, 244, 238, 0.4) 40%, rgba(248, 244, 238, 0) 60%);
   z-index: 2;
 }
-.hero-slide__content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+.hero-slide__content-wrapper {
+  position: relative;
   z-index: 3;
-  width: 90%;
-  max-width: 800px;
-  color: white; /* Forcing white text over images */
+  width: 100%;
+  height: 100%;
+  max-width: var(--container-xl-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+}
+.hero-slide__content {
+  text-align: center;
+  max-width: 500px;
+  color: var(--color-primary-text);
+  margin-top: -2rem; /* visually balance vertical alignment */
 }
 .hero-slide__subheading {
-  font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  font-style: italic;
-  margin-bottom: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  color: var(--color-secondary-text);
 }
 .hero-slide__heading {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.05em;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  color: var(--color-dark-green);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.hero-slide__heading-script {
+  font-family: 'Great Vibes', 'Cormorant Garamond', cursive, serif; /* Fallback to a script/italic look */
+  font-size: clamp(3.5rem, 7vw, 5rem);
+  font-style: italic;
+  text-transform: capitalize;
+  display: block;
+  margin-top: -0.5rem;
+  color: var(--color-dark-green);
+  font-weight: 400;
+}
+.hero-slide__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+  gap: 15px;
+}
+.hero-slide__divider::before,
+.hero-slide__divider::after {
+  content: "";
+  height: 1px;
+  background-color: var(--color-dark-green);
+  flex: 0.2;
+}
+.hero-slide__divider-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-dark-green);
 }
 .hero-slide__desc {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  font-weight: 600;
 }
 .hero-slide__btn {
-  background-color: white;
-  color: var(--color-dark-green);
+  background-color: var(--color-dark-green);
+  color: white;
+  padding: 1rem 3rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
 }
 .hero-slide__btn:hover {
   background-color: var(--color-muted-gold);
-  color: white;
 }
-/* Dots navigation */
-.hero-slider-nav {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 5;
-}
-.hero-slider-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255,255,255,0.5);
-  cursor: pointer;
-  border: 2px solid transparent;
-}
-.hero-slider-dot:hover {
-  background-color: white;
+
+@media (max-width: 768px) {
+  .hero-slide {
+    height: 70vh;
+  }
+  .hero-slide__overlay {
+    background: rgba(248, 244, 238, 0.7); /* solid semi-transparent on mobile */
+  }
+  .hero-slide__content-wrapper {
+    justify-content: center;
+    padding: 0 1rem;
+  }
+  .hero-slide__content {
+    margin-top: 0;
+  }
 }
 </style>
+
+<!-- Adding a script font to closely match the "Tradition" cursive text if it isn't loaded -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <div style="position: relative;">
   <section class="hero-slider" id="heroSlider-{{ section.id }}">
@@ -110,19 +153,33 @@
         
         <div class="hero-slide__overlay"></div>
         
-        <div class="hero-slide__content">
-          {% if block.settings.subheading != blank %}
-            <h2 class="hero-slide__subheading">{{ block.settings.subheading }}</h2>
-          {% endif %}
-          {% if block.settings.heading != blank %}
-            <h1 class="hero-slide__heading">{{ block.settings.heading }}</h1>
-          {% endif %}
-          {% if block.settings.description != blank %}
-            <p class="hero-slide__desc">{{ block.settings.description }}</p>
-          {% endif %}
-          {% if block.settings.button_label != blank %}
-            <a href="{{ block.settings.button_link | default: '#' }}" class="btn hero-slide__btn">{{ block.settings.button_label }}</a>
-          {% endif %}
+        <div class="hero-slide__content-wrapper">
+          <div class="hero-slide__content">
+            {% if block.settings.subheading != blank %}
+              <div class="hero-slide__subheading">{{ block.settings.subheading }}</div>
+            {% endif %}
+            
+            {% if block.settings.heading != blank %}
+              <h1 class="hero-slide__heading">
+                {{ block.settings.heading }}
+                {% if block.settings.heading_script != blank %}
+                  <span class="hero-slide__heading-script">{{ block.settings.heading_script }}</span>
+                {% endif %}
+              </h1>
+            {% endif %}
+
+            <div class="hero-slide__divider">
+              <svg class="hero-slide__divider-icon" viewBox="0 0 24 24"><path d="M12 2L15 8H9L12 2Z"/><path d="M12 22L9 16H15L12 22Z"/><path d="M2 12L8 9V15L2 12Z"/><path d="M22 12L16 15V9L22 12Z"/></svg>
+            </div>
+            
+            {% if block.settings.description != blank %}
+              <p class="hero-slide__desc">{{ block.settings.description }}</p>
+            {% endif %}
+            
+            {% if block.settings.button_label != blank %}
+              <a href="{{ block.settings.button_link | default: '#' }}" class="btn hero-slide__btn">{{ block.settings.button_label }}</a>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% endfor %}
@@ -148,25 +205,31 @@
           "type": "text",
           "id": "subheading",
           "label": "Subheading",
-          "default": "Latest Collection"
+          "default": "Rooted in culture, woven for today"
         },
         {
           "type": "text",
           "id": "heading",
           "label": "Heading",
-          "default": "ELEVATE YOUR STYLE"
+          "default": "THREAD OF"
+        },
+        {
+          "type": "text",
+          "id": "heading_script",
+          "label": "Heading Script Line",
+          "default": "Tradition"
         },
         {
           "type": "textarea",
           "id": "description",
           "label": "Description",
-          "default": "Discover pieces crafted with precision and passion."
+          "default": "KURTIS & SAREES COLLECTION"
         },
         {
           "type": "text",
           "id": "button_label",
           "label": "Button Label",
-          "default": "Shop Now"
+          "default": "SHOP NOW"
         },
         {
           "type": "url",
@@ -180,8 +243,13 @@
     {
       "name": "Hero Slider",
       "blocks": [
-        { "type": "slide" },
-        { "type": "slide", "settings": { "heading": "TIMELESS ELEGANCE" } }
+        { 
+          "type": "slide", 
+          "settings": { 
+            "heading": "THREAD OF",
+            "heading_script": "Tradition"
+          } 
+        }
       ]
     }
   ]
