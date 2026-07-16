@@ -30,6 +30,29 @@
   text-transform: uppercase;
   color: var(--color-primary-text);
 }
+
+@media (max-width: 768px) {
+  .usp-badges__container {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 3rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .usp-badges__container::-webkit-scrollbar {
+    display: none;
+  }
+  .usp-badge {
+    flex: 0 0 auto;
+    justify-content: center;
+  }
+  .usp-badge__text {
+    display: none;
+  }
+}
 </style>
 
 <section class="usp-badges">
