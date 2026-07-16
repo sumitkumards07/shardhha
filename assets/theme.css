@@ -1,19 +1,4 @@
-:root {
-  --color-warm-ivory: #F8F4EE;
-  --color-soft-beige: #F2EDE5;
-  --color-dark-green: #184D3B;
-  --color-deep-forest: #10392C;
-  --color-muted-gold: #B89252;
-  --color-border: #E8E1D8;
-  --color-primary-text: #262626;
-  --color-secondary-text: #6F6B66;
-
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
-
-  --max-width: 1400px;
-  --section-spacing: 120px;
-}
+/* CSS variables are now injected via layout/theme.liquid based on settings_schema.json */
 
 * {
   margin: 0;

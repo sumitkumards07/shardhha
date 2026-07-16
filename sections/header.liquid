@@ -1,33 +1,111 @@
+<style>
+.header {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-warm-ivory);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__logo {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-dark-green);
+  text-decoration: none;
+  font-weight: 600;
+}
+.header__nav {
+  display: flex;
+  gap: 2rem;
+}
+.header__nav-link {
+  color: var(--color-primary-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.header__nav-link:hover {
+  color: var(--color-dark-green);
+}
+.header__icons {
+  display: flex;
+  gap: 1.5rem;
+}
+.header__icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-text);
+}
+.header__hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.header__hamburger svg {
+  width: 28px;
+  height: 28px;
+}
+
+@media (max-width: 768px) {
+  .header__nav {
+    display: none; /* In a full theme, this would toggle a mobile drawer via JS */
+  }
+  .header__hamburger {
+    display: block;
+  }
+  .header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+  .header__logo {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .header__icons {
+    justify-content: flex-end;
+  }
+}
+</style>
+
 <header class="header">
-  <div class="container header-container">
-    <nav class="header-nav left-nav">
-      {% for link in section.settings.menu.links %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      {% else %}
-        <a href="#">Home</a>
-        <a href="#">Shop</a>
-        <a href="#">New Arrivals</a>
-        <a href="#">Collections</a>
+  <div class="container header__inner">
+    <button class="header__hamburger" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    
+    <a href="{{ routes.root_url }}" class="header__logo">
+      {{ shop.name }}
+    </a>
+    
+    <nav class="header__nav">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}" class="header__nav-link">{{ link.title }}</a>
       {% endfor %}
+      <!-- Fallback links for demo -->
+      {% if linklists.main-menu.links.size == 0 %}
+        <a href="#" class="header__nav-link">New In</a>
+        <a href="#" class="header__nav-link">Kurtis</a>
+        <a href="#" class="header__nav-link">Sarees</a>
+        <a href="#" class="header__nav-link">Festive</a>
+      {% endif %}
     </nav>
     
-    <div class="header-logo">
-      <a href="{{ routes.root_url }}">{{ shop.name | default: 'THREAD OF TRADITION' }}</a>
+    <div class="header__icons">
+      <a href="{{ routes.search_url }}">
+        <svg class="header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </a>
+      <a href="{{ routes.cart_url }}">
+        <svg class="header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+      </a>
     </div>
-
-    <nav class="header-nav right-nav">
-      {% for link in section.settings.secondary_menu.links %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      {% else %}
-        <a href="#">About</a>
-        <a href="#">Journal</a>
-        <a href="#">Contact</a>
-      {% endfor %}
-      <div class="header-icons">
-        <a href="{{ routes.search_url }}">Search</a>
-        <a href="{{ routes.cart_url }}">Cart</a>
-      </div>
-    </nav>
   </div>
 </header>
 

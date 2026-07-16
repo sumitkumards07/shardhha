@@ -18,6 +18,20 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
+@media (max-width: 768px) {
+  .featured-collection__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+  .product-card__title {
+    font-size: 0.85rem;
+  }
+  .product-card__price {
+    font-size: 0.85rem;
+  }
+}
+
 .featured-collection__view-all {
   text-align: center;
   margin-top: 3rem;
