@@ -36,69 +36,6 @@
   text-align: center;
   margin-top: 3rem;
 }
-
-/* Product Card Styles */
-.product-card {
-  text-align: center;
-}
-.product-card__link {
-  display: block;
-}
-.product-card__image-wrapper {
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 1rem;
-  aspect-ratio: 3/4;
-}
-.product-card__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s ease;
-}
-.product-card:hover .product-card__image {
-  transform: scale(1.05);
-}
-.product-card__actions {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-}
-.product-card:hover .product-card__actions {
-  opacity: 1;
-  transform: translateY(0);
-}
-.product-card__quick-add {
-  width: 100%;
-  background-color: var(--color-warm-ivory);
-  color: var(--color-primary-text);
-  border: none;
-}
-.product-card__quick-add:hover {
-  background-color: var(--color-primary-text);
-  color: var(--color-warm-ivory);
-}
-.product-card__title {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 400;
-  margin-bottom: 0.5rem;
-  color: var(--color-primary-text);
-}
-.product-card__price {
-  font-size: 0.95rem;
-  color: var(--color-secondary-text);
-}
-.price-compare {
-  text-decoration: line-through;
-  margin-left: 0.5rem;
-  opacity: 0.6;
-}
 </style>
 
 <section class="featured-collection">
@@ -122,19 +59,21 @@
         {% assign demo_images = "https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=600&auto=format&fit=crop, https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=600&auto=format&fit=crop, https://images.unsplash.com/photo-1583391733975-d25e07fac66e?q=80&w=600&auto=format&fit=crop, https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=600&auto=format&fit=crop" | split: ", " %}
         
         {% for i in (0..3) %}
-          <div class="product-card">
-            <a href="#" class="product-card__link">
-              <div class="product-card__image-wrapper">
-                <img src="{{ demo_images[i] }}" class="product-card__image" alt="{{ demo_titles[i] }}">
-                <div class="product-card__actions">
-                  <button type="button" class="btn btn-secondary product-card__quick-add">Quick Add</button>
-                </div>
-              </div>
-              <div class="product-card__info">
-                <h3 class="product-card__title">{{ demo_titles[i] }}</h3>
-                <div class="product-card__price"><span class="price-regular">{{ demo_prices[i] }}</span></div>
+          <div class="premium-product-card">
+            <a href="#" class="premium-product-card__image-link">
+              <div class="premium-product-card__image-wrapper">
+                <img src="{{ demo_images[i] }}" class="premium-product-card__image" alt="{{ demo_titles[i] }}">
               </div>
             </a>
+            <div class="premium-product-card__info">
+              <a href="#" style="text-decoration: none;">
+                <h3 class="premium-product-card__title">{{ demo_titles[i] }}</h3>
+              </a>
+              <div class="premium-product-card__price"><span>{{ demo_prices[i] }}</span></div>
+              <div class="premium-product-card__actions">
+                <button type="button" class="premium-product-card__buy-btn">Buy Now</button>
+              </div>
+            </div>
           </div>
         {% endfor %}
       {% endif %}

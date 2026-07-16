@@ -1,27 +1,139 @@
-<div class="product-card">
-  <a href="{{ product.url | within: collection }}" class="product-card__link">
-    <div class="product-card__image-wrapper">
+<style>
+.premium-product-card {
+  background-color: var(--color-warm-ivory);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.premium-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.premium-product-card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.premium-product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+.premium-product-card:hover .premium-product-card__image {
+  transform: scale(1.05);
+}
+.premium-product-card__badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--color-dark-green);
+  color: #FAF9F6;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+}
+.premium-product-card__info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.premium-product-card__title {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-primary-text);
+  margin: 0 0 0.5rem 0;
+  text-decoration: none;
+}
+.premium-product-card__price {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--color-secondary-text);
+  margin-bottom: 1.5rem;
+}
+.premium-product-card__price-compare {
+  text-decoration: line-through;
+  opacity: 0.6;
+  margin-left: 0.5rem;
+  font-size: 0.95rem;
+}
+.premium-product-card__actions {
+  margin-top: auto;
+}
+.premium-product-card__buy-btn {
+  width: 100%;
+  background-color: var(--color-dark-green);
+  color: #FAF9F6;
+  border: none;
+  padding: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+}
+.premium-product-card__buy-btn:hover {
+  background-color: var(--color-muted-gold);
+}
+.premium-product-card__buy-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+</style>
+
+<div class="premium-product-card">
+  <a href="{{ product.url | within: collection }}" class="premium-product-card__image-link">
+    <div class="premium-product-card__image-wrapper">
       {% if product.featured_image != blank %}
-        {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-card__image', alt: product.title }}
+        {{ product.featured_image | image_url: width: 600 | image_tag: class: 'premium-product-card__image', alt: product.title }}
       {% else %}
-        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg product-card__image' }}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg premium-product-card__image' }}
       {% endif %}
       
-      <div class="product-card__actions">
-        <button type="button" class="btn btn-secondary product-card__quick-add">Quick Add</button>
-      </div>
-    </div>
-    
-    <div class="product-card__info">
-      <h3 class="product-card__title">{{ product.title }}</h3>
-      <div class="product-card__price">
-        {% if product.compare_at_price > product.price %}
-          <span class="price-regular">{{ product.price | money }}</span>
-          <span class="price-compare">{{ product.compare_at_price | money }}</span>
-        {% else %}
-          <span class="price-regular">{{ product.price | money }}</span>
-        {% endif %}
-      </div>
+      {% if product.compare_at_price > product.price %}
+        <div class="premium-product-card__badge">Sale</div>
+      {% endif %}
     </div>
   </a>
+  
+  <div class="premium-product-card__info">
+    <a href="{{ product.url | within: collection }}" style="text-decoration: none;">
+      <h3 class="premium-product-card__title">{{ product.title }}</h3>
+    </a>
+    
+    <div class="premium-product-card__price">
+      {% if product.compare_at_price > product.price %}
+        <span>{{ product.price | money }}</span>
+        <span class="premium-product-card__price-compare">{{ product.compare_at_price | money }}</span>
+      {% else %}
+        <span>{{ product.price | money }}</span>
+      {% endif %}
+    </div>
+
+    <div class="premium-product-card__actions">
+      {% form 'product', product, class: 'premium-product-card__form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <button type="submit" class="premium-product-card__buy-btn" {% unless product.available %}disabled{% endunless %}>
+          {% if product.available %}
+            Buy Now
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+      {% endform %}
+    </div>
+  </div>
 </div>
