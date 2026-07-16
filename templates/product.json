@@ -2,7 +2,21 @@
   "layout": "theme",
   "sections": {
     "main": {
-      "type": "main-product"
+      "type": "main-product",
+      "blocks": {
+        "title": { "type": "title" },
+        "price": { "type": "price" },
+        "description": { "type": "description" },
+        "form": { "type": "form" },
+        "accordion": { "type": "accordion" }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "description",
+        "form",
+        "accordion"
+      ]
     },
     "recommendations": {
       "type": "featured-collection",
