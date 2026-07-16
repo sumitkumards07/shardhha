@@ -1,50 +1,61 @@
 <style>
 .category-grid {
-  padding-top: var(--section-spacing);
-  padding-bottom: var(--section-spacing);
+  padding-top: calc(var(--section-spacing) / 1.5);
+  padding-bottom: calc(var(--section-spacing) / 1.5);
+  background-color: var(--color-soft-beige);
 }
 .category-grid__header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 .category-grid__title {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--color-primary-text);
+  margin: 0;
 }
 .category-grid__items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 .category-card {
-  position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  width: 150px;
+}
+.category-card__image-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
   overflow: hidden;
-  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.category-card:hover .category-card__image-wrapper {
+  border-color: var(--color-dark-green);
 }
 .category-card__image {
   width: 100%;
-  aspect-ratio: 3/4;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.8s ease;
+  transition: transform 0.5s ease;
 }
 .category-card:hover .category-card__image {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 .category-card__title {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--color-warm-ivory);
-  padding: 0.5rem 1.5rem;
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  letter-spacing: 0.05em;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--color-primary-text);
-  white-space: nowrap;
+  text-align: center;
 }
 </style>
 
@@ -59,13 +70,15 @@
     <div class="category-grid__items">
       {% for block in section.blocks %}
         <a href="{{ block.settings.collection.url | default: '#' }}" class="category-card">
-          {% if block.settings.image != blank %}
-            {{ block.settings.image | image_url: width: 600 | image_tag: class: 'category-card__image', alt: block.settings.title }}
-          {% elsif block.settings.collection.image != blank %}
-             {{ block.settings.collection.image | image_url: width: 600 | image_tag: class: 'category-card__image', alt: block.settings.title }}
-          {% else %}
-            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg category-card__image' }}
-          {% endif %}
+          <div class="category-card__image-wrapper">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 300 | image_tag: class: 'category-card__image', alt: block.settings.title }}
+            {% elsif block.settings.collection.image != blank %}
+               {{ block.settings.collection.image | image_url: width: 300 | image_tag: class: 'category-card__image', alt: block.settings.title }}
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg category-card__image' }}
+            {% endif %}
+          </div>
           <div class="category-card__title">{{ block.settings.title | default: block.settings.collection.title | default: 'Category' }}</div>
         </a>
       {% endfor %}
@@ -75,7 +88,7 @@
 
 {% schema %}
 {
-  "name": "Category Grid",
+  "name": "Category Grid (Circular)",
   "settings": [
     {
       "type": "text",
@@ -88,7 +101,7 @@
     {
       "type": "category",
       "name": "Category",
-      "limit": 4,
+      "limit": 6,
       "settings": [
         {
           "type": "collection",
@@ -110,8 +123,9 @@
   ],
   "presets": [
     {
-      "name": "Category Grid",
+      "name": "Category Grid (Circular)",
       "blocks": [
+        { "type": "category" },
         { "type": "category" },
         { "type": "category" },
         { "type": "category" },

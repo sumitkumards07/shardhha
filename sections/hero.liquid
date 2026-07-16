@@ -1,144 +1,188 @@
 <style>
-.hero {
-  height: 100vh;
+.hero-slider {
   display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.hero-slider::-webkit-scrollbar {
+  display: none;
+}
+.hero-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  height: 80vh;
+  position: relative;
   background-color: var(--color-warm-ivory);
 }
-.hero-content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding-left: calc((100vw - var(--max-width)) / 2 + 2rem);
-  padding-right: 4rem;
-  z-index: 10;
-}
-.hero-text-wrapper {
-  max-width: 600px;
-}
-.hero-heading {
-  font-family: var(--font-heading);
-  font-size: clamp(3.5rem, 6vw, 5.5rem);
-  line-height: 1.1;
-  margin-bottom: 2rem;
-  color: var(--color-primary-text);
-  letter-spacing: -0.01em;
-}
-.hero-subheading {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--color-dark-green);
-  margin-bottom: 1rem;
-}
-.hero-desc {
-  font-size: 1.1rem;
-  color: var(--color-secondary-text);
-  margin-bottom: 3rem;
-  max-width: 450px;
-  line-height: 1.8;
-}
-.hero-actions {
-  display: flex;
-  gap: 1.5rem;
-}
-.hero-image-wrapper {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-.hero-image-wrapper img {
+.hero-slide__image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  z-index: 1;
+}
+.hero-slide__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3); /* Slight darkening for text readability */
+  z-index: 2;
+}
+.hero-slide__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 3;
+  width: 90%;
+  max-width: 800px;
+  color: white; /* Forcing white text over images */
+}
+.hero-slide__subheading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+.hero-slide__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.hero-slide__desc {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+.hero-slide__btn {
+  background-color: white;
+  color: var(--color-dark-green);
+}
+.hero-slide__btn:hover {
+  background-color: var(--color-muted-gold);
+  color: white;
+}
+/* Dots navigation */
+.hero-slider-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+}
+.hero-slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+.hero-slider-dot:hover {
+  background-color: white;
 }
 </style>
 
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-text-wrapper">
-      {% if section.settings.subheading != blank %}
-        <h2 class="hero-subheading">{{ section.settings.subheading }}</h2>
-      {% endif %}
-      {% if section.settings.heading != blank %}
-        <h1 class="hero-heading">{{ section.settings.heading }}</h1>
-      {% endif %}
-      {% if section.settings.description != blank %}
-        <p class="hero-desc">{{ section.settings.description }}</p>
-      {% endif %}
-      <div class="hero-actions">
-        {% if section.settings.button_1_label != blank %}
-          <a href="{{ section.settings.button_1_link | default: '#' }}" class="btn btn-primary">{{ section.settings.button_1_label }}</a>
+<div style="position: relative;">
+  <section class="hero-slider" id="heroSlider-{{ section.id }}">
+    {% for block in section.blocks %}
+      <div class="hero-slide" id="slide-{{ section.id }}-{{ forloop.index }}">
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'hero-slide__image', alt: block.settings.heading }}
+        {% else %}
+          {% capture placeholder_index %}{% cycle 1, 2 %}{% endcapture %}
+          {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg hero-slide__image' }}
         {% endif %}
-        {% if section.settings.button_2_label != blank %}
-          <a href="{{ section.settings.button_2_link | default: '#' }}" class="btn btn-secondary">{{ section.settings.button_2_label }}</a>
-        {% endif %}
+        
+        <div class="hero-slide__overlay"></div>
+        
+        <div class="hero-slide__content">
+          {% if block.settings.subheading != blank %}
+            <h2 class="hero-slide__subheading">{{ block.settings.subheading }}</h2>
+          {% endif %}
+          {% if block.settings.heading != blank %}
+            <h1 class="hero-slide__heading">{{ block.settings.heading }}</h1>
+          {% endif %}
+          {% if block.settings.description != blank %}
+            <p class="hero-slide__desc">{{ block.settings.description }}</p>
+          {% endif %}
+          {% if block.settings.button_label != blank %}
+            <a href="{{ block.settings.button_link | default: '#' }}" class="btn hero-slide__btn">{{ block.settings.button_label }}</a>
+          {% endif %}
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="hero-image-wrapper">
-    {% if section.settings.image != blank %}
-      {{ section.settings.image | image_url: width: 2000 | image_tag: alt: section.settings.image.alt }}
-    {% else %}
-      <img src="{{ 'hero.png' | asset_url }}" alt="Hero Image Default">
-    {% endif %}
-  </div>
-</section>
+    {% endfor %}
+  </section>
+</div>
 
 {% schema %}
 {
-  "name": "Hero Section",
-  "settings": [
+  "name": "Hero Slider",
+  "settings": [],
+  "blocks": [
     {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "THREAD OF TRADITION"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Rooted in Culture, Woven for Today"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Discover handcrafted kurtis and sarees designed for women who appreciate timeless elegance."
-    },
-    {
-      "type": "text",
-      "id": "button_1_label",
-      "label": "Button 1 Label",
-      "default": "Shop Collection"
-    },
-    {
-      "type": "url",
-      "id": "button_1_link",
-      "label": "Button 1 Link"
-    },
-    {
-      "type": "text",
-      "id": "button_2_label",
-      "label": "Button 2 Label",
-      "default": "Explore Lookbook"
-    },
-    {
-      "type": "url",
-      "id": "button_2_link",
-      "label": "Button 2 Link"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Background Image"
+      "type": "slide",
+      "name": "Slide",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Latest Collection"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "ELEVATE YOUR STYLE"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Discover pieces crafted with precision and passion."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Hero Section"
+      "name": "Hero Slider",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide", "settings": { "heading": "TIMELESS ELEGANCE" } }
+      ]
     }
   ]
 }

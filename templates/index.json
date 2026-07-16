@@ -13,6 +13,9 @@
         "title": "Shop by Category"
       }
     },
+    "usp_badges": {
+      "type": "usp-badges"
+    },
     "featured_collection_1": {
       "type": "featured-collection",
       "settings": {
@@ -33,6 +36,7 @@
     "marquee",
     "hero",
     "categories",
+    "usp_badges",
     "featured_collection_1",
     "image_with_text",
     "featured_collection_2"

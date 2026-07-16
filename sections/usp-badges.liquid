@@ -1,0 +1,99 @@
+<style>
+.usp-badges {
+  background-color: var(--color-warm-ivory);
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.usp-badges__container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.usp-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.usp-badge__icon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-dark-green);
+}
+.usp-badge__text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-primary-text);
+}
+</style>
+
+<section class="usp-badges">
+  <div class="container usp-badges__container">
+    {% for block in section.blocks %}
+      <div class="usp-badge">
+        <div class="usp-badge__icon">
+          {% if block.settings.icon == 'shipping' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+          {% elsif block.settings.icon == 'return' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"/></svg>
+          {% elsif block.settings.icon == 'quality' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          {% elsif block.settings.icon == 'support' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          {% endif %}
+        </div>
+        <div class="usp-badge__text">{{ block.settings.text }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Badges",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shipping", "label": "Shipping Box" },
+            { "value": "return", "label": "Returns Receipt" },
+            { "value": "quality", "label": "Quality Rosette" },
+            { "value": "support", "label": "Support Lifebuoy" }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Badges",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "quality", "text": "Premium Quality" } },
+        { "type": "badge", "settings": { "icon": "shipping", "text": "Free & Fast Delivery" } },
+        { "type": "badge", "settings": { "icon": "return", "text": "Easy Returns" } },
+        { "type": "badge", "settings": { "icon": "support", "text": "24/7 Support" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
