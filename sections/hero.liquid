@@ -109,14 +109,20 @@
   font-weight: 600;
 }
 .hero-slide__btn {
-  background-color: var(--color-dark-green);
-  color: white;
+  background-color: #ffffff;
+  color: var(--color-dark-green);
   padding: 1rem 3rem;
   font-size: 0.9rem;
   letter-spacing: 0.1em;
+  border-radius: 50px;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 .hero-slide__btn:hover {
-  background-color: var(--color-muted-gold);
+  background-color: var(--color-soft-beige);
+  color: var(--color-dark-green);
 }
 
 @media (max-width: 768px) {
@@ -213,13 +219,13 @@
           "type": "text",
           "id": "heading",
           "label": "Heading",
-          "default": "THREAD OF"
+          "default": "SHARDDHA"
         },
         {
           "type": "text",
           "id": "heading_script",
           "label": "Heading Script Line",
-          "default": "Tradition"
+          "default": "Weaves"
         },
         {
           "type": "textarea",
@@ -248,8 +254,8 @@
         { 
           "type": "slide", 
           "settings": { 
-            "heading": "THREAD OF",
-            "heading_script": "Tradition"
+            "heading": "SHARDDHA",
+            "heading_script": "Weaves"
           } 
         }
       ]
