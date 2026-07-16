@@ -1,0 +1,233 @@
+<style>
+.contact-section {
+  padding: var(--section-spacing) 0;
+  background-color: var(--color-warm-ivory);
+}
+.contact-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+.contact-info__title, .contact-form__title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-dark-green);
+  margin-bottom: 1.5rem;
+}
+.contact-info__text {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--color-primary-text);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.contact-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.contact-detail-item {
+  margin-bottom: 1.5rem;
+}
+.contact-detail-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-dark-green);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.contact-detail-value {
+  font-family: var(--font-body);
+  color: var(--color-secondary-text);
+  font-size: 1rem;
+  white-space: pre-line;
+}
+.contact-form__group {
+  margin-bottom: 1.5rem;
+}
+.contact-form__input, .contact-form__textarea {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--color-border);
+  background-color: #FAF9F6;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-primary-text);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.contact-form__input:focus, .contact-form__textarea:focus {
+  border-color: var(--color-dark-green);
+}
+.contact-form__textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+.contact-form__btn {
+  background-color: var(--color-dark-green);
+  color: #FAF9F6;
+  border: none;
+  padding: 1rem 3rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+.contact-form__btn:hover {
+  background-color: var(--color-muted-gold);
+}
+.contact-form__message {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  font-size: 0.95rem;
+}
+.contact-form__success {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #C8E6C9;
+}
+.contact-form__error {
+  background-color: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #FFCDD2;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 1.5rem;
+  }
+  .contact-info__title, .contact-form__title {
+    font-size: 2rem;
+  }
+}
+</style>
+
+<section class="contact-section">
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2 class="contact-info__title">{{ section.settings.title }}</h2>
+      <p class="contact-info__text">{{ section.settings.description }}</p>
+      
+      <ul class="contact-details">
+        {% if section.settings.email != blank %}
+        <li class="contact-detail-item">
+          <span class="contact-detail-label">Email</span>
+          <span class="contact-detail-value">{{ section.settings.email }}</span>
+        </li>
+        {% endif %}
+        {% if section.settings.phone != blank %}
+        <li class="contact-detail-item">
+          <span class="contact-detail-label">Phone</span>
+          <span class="contact-detail-value">{{ section.settings.phone }}</span>
+        </li>
+        {% endif %}
+        {% if section.settings.address != blank %}
+        <li class="contact-detail-item">
+          <span class="contact-detail-label">Studio Address</span>
+          <span class="contact-detail-value">{{ section.settings.address }}</span>
+        </li>
+        {% endif %}
+        {% if section.settings.hours != blank %}
+        <li class="contact-detail-item">
+          <span class="contact-detail-label">Working Hours</span>
+          <span class="contact-detail-value">{{ section.settings.hours }}</span>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="contact-form">
+      <h2 class="contact-form__title">Send a Message</h2>
+      
+      {% form 'contact', id: 'ContactForm' %}
+        {% if form.posted_successfully? %}
+          <div class="contact-form__message contact-form__success">
+            Thank you for reaching out! We'll get back to you as soon as possible.
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="contact-form__message contact-form__error">
+            Oops! There was a problem submitting your message. Please check the fields below.
+          </div>
+        {% endif %}
+
+        <div class="contact-form__group">
+          <input type="text" name="contact[name]" id="ContactForm-name" class="contact-form__input" placeholder="Name" required>
+        </div>
+        <div class="contact-form__group">
+          <input type="email" name="contact[email]" id="ContactForm-email" class="contact-form__input" placeholder="Email Address" spellcheck="false" autocapitalize="off" required>
+        </div>
+        <div class="contact-form__group">
+          <input type="tel" name="contact[phone]" id="ContactForm-phone" class="contact-form__input" placeholder="Phone Number">
+        </div>
+        <div class="contact-form__group">
+          <textarea name="contact[body]" id="ContactForm-body" class="contact-form__textarea" placeholder="Your Message" required></textarea>
+        </div>
+        
+        <button type="submit" class="contact-form__btn">Submit</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Have a question about our collections, your order, or custom requirements? We're here to help."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "hello@sharddhaweaves.com"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+91 98765 43210"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Studio Address",
+      "default": "123 Heritage Loom Street\nVaranasi, UP 221001\nIndia"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Working Hours",
+      "default": "Mon - Sat, 10:00 AM - 7:00 PM (IST)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form"
+    }
+  ]
+}
+{% endschema %}
