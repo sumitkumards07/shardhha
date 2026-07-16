@@ -141,13 +141,16 @@
       }
     },
     "faq": {
-      "type": "faq"
+      "type": "faq",
+      "settings": {}
     },
     "reviews": {
-      "type": "customer-reviews"
+      "type": "customer-reviews",
+      "settings": {}
     },
     "newsletter": {
-      "type": "newsletter"
+      "type": "newsletter",
+      "settings": {}
     }
   },
   "order": [
