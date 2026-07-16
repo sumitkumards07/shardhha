@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shraddha Weave | Ruhani Hand-Embroidered Kurti</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,200..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#1b1c1c",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#fcf9f8",
+            "surface-container-highest": "#e4e2e1",
+            "surface-container": "#f0eded",
+            "error": "#ba1a1a",
+            "surface": "#fcf9f8",
+            "tertiary-fixed": "#f6dfc8",
+            "inverse-surface": "#303030",
+            "on-primary-fixed": "#0b2013",
+            "inverse-primary": "#b4cdb8",
+            "tertiary-container": "#36291a",
+            "outline": "#737973",
+            "on-primary-fixed-variant": "#364c3c",
+            "secondary-fixed": "#e5e2d9",
+            "on-tertiary-fixed": "#25190b",
+            "surface-tint": "#4d6453",
+            "primary-fixed": "#d0e9d4",
+            "on-tertiary-container": "#a38f7b",
+            "primary-fixed-dim": "#b4cdb8",
+            "outline-variant": "#c3c8c1",
+            "surface-container-high": "#eae7e7",
+            "primary": "#061b0e", // Deep Forest Green
+            "inverse-on-surface": "#f3f0f0",
+            "on-secondary-container": "#64635b",
+            "on-background": "#1b1c1c",
+            "tertiary": "#201507",
+            "on-secondary-fixed": "#1c1c16",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#d9c3ad",
+            "on-secondary-fixed-variant": "#484740",
+            "on-error": "#ffffff",
+            "primary-container": "#1b3022",
+            "on-primary-container": "#819986",
+            "secondary-fixed-dim": "#c9c6bd",
+            "secondary": "#5f5f57",
+            "on-surface-variant": "#434843",
+            "on-primary": "#ffffff", // Antique Cream text
+            "surface-dim": "#dcd9d9",
+            "surface-container-low": "#f6f3f2",
+            "background": "#fcf9f8", // Antique Cream Background
+            "surface-variant": "#e4e2e1",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#534433",
+            "error-container": "#ffdad6",
+            "secondary-container": "#e2e0d6",
+            "on-error-container": "#93000a",
+            "antique-cream": "#fcf9f8",
+            "deep-forest": "#061b0e",
+            "soft-gold": "#c5a059",
+            "subtle-grey": "#737973"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "container-max": "1280px",
+            "section-gap": "120px",
+            "gutter": "24px",
+            "margin-mobile": "20px",
+            "margin-desktop": "64px",
+            "unit": "4px"
+          },
+          "fontFamily": {
+            "body-md": ["Manrope"],
+            "body-lg": ["Manrope"],
+            "headline-md": ["Literata"],
+            "headline-lg": ["Literata"],
+            "headline-xl": ["Literata"],
+            "display-lg": ["Literata"],
+            "label-lg": ["Manrope"],
+            "label-md": ["Manrope"],
+            "label-sm": ["Manrope"],
+            "display": ["Literata"]
+          },
+          "fontSize": {
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+            "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+            "headline-xl": ["48px", {"lineHeight": "1.1", "fontWeight": "500"}],
+            "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+            "label-lg": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+            "label-md": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "label-sm": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #fcf9f8;
+      color: #061b0e;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .sticky-sidebar {
+      top: 120px;
+      height: fit-content;
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 500px;
+    }
+    .accordion-item.active .chevron-icon {
+      transform: rotate(180deg);
+    }
+    /* Smooth transitions for interactive elements */
+    .btn-transition {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- TopAppBar -->
+<header class="bg-antique-cream dark:bg-deep-forest border-b border-outline-variant dark:border-primary-fixed-dim docked full-width top-0 sticky z-50 flat no shadows">
+<div class="flex flex-col items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center justify-between w-full">
+<div class="flex-1 hidden md:flex gap-8">
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-deep-forest dark:text-antique-cream hover:text-soft-gold transition-colors duration-300" href="#">Collections</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-deep-forest dark:text-antique-cream hover:text-soft-gold transition-colors duration-300" href="#">New Arrivals</a>
+</div>
+<div class="flex-none">
+<h1 class="font-headline-xl text-headline-xl text-deep-forest dark:text-antique-cream italic">Shraddha Weave</h1>
+</div>
+<div class="flex-1 flex justify-end items-center gap-6">
+<button class="material-symbols-outlined text-deep-forest hover:text-soft-gold btn-transition" data-icon="search">search</button>
+<button class="material-symbols-outlined text-deep-forest hover:text-soft-gold btn-transition" data-icon="person">person</button>
+<button class="relative material-symbols-outlined text-deep-forest hover:text-soft-gold btn-transition" data-icon="shopping_bag">
+            shopping_bag
+            <span class="absolute -top-1 -right-1 bg-soft-gold text-[8px] text-white rounded-full w-3 h-3 flex items-center justify-center">1</span>
+</button>
+</div>
+</div>
+<nav class="hidden md:flex gap-12 mt-6">
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-deep-forest dark:text-antique-cream border-b border-deep-forest pb-1" href="#">Best Sellers</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-subtle-grey dark:text-outline-variant hover:text-soft-gold transition-colors duration-300" href="#">Essential Solids</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-subtle-grey dark:text-outline-variant hover:text-soft-gold transition-colors duration-300" href="#">About Us</a>
+</nav>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Product Image Grid (Left/Top) -->
+<div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Close-up of forest green kurti embroidery" class="w-full h-full object-cover btn-transition hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLuPr30rJ90j5509eHtCtfRt9tqN4nLLCm2fx5aKQwCojvyppNsI-Mm4I6cyVCc7lOE_zob-yj9vYl-grpvIbL4XcSHhqwXEIppWxZtslhi6b9KyZA3UK4kH4TqgoZLp2tcmk48OeO2QpeJqbTdr2LGSrFFa03O0Nabn1OgM4JE9L67hLkLGlrc1U1wv-yLObP3BfO4Q7a7oRcPqrvhdKf5VmpnhhcCjIBs7slj4QfQJLXXUU95TdXUN"/>
+</div>
+<div class="aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Model wearing Ruhani kurti in historical setting" class="w-full h-full object-cover btn-transition hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLsnUJfFKmaXaeaxZE06Y5jCk7zcRgxg3m0J7kER5lN3MlmGnAGADADZp9ofuwHp5Rm8rZx92z9xdAW9CFdCuNSn1zm594eu_GCzlpRWJlvQbaLR0Z-ACcx1gPC6oaE7DpRpsCepg3bY2TxZqgea4BH_cbQ1hGK6ulfSCNcladTMX-CdImejoXU82reSuSoQoNae9ERcGjx4kNO0KlcWBc0etSavrRUELeLcDe5JhYKDGQ2U90S_ixqkZw"/>
+</div>
+<div class="aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Full length view of the hand-embroidered garment" class="w-full h-full object-cover btn-transition hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLt72q5FVEdO2UA2OfB2INMvOc_Mofa84d_onDLFiEvcwObPt2QpdXj-gXJrMyr5exM_O-sh4WW2pN9PPAdxau6beWQihYmJ5xJNxzcXmCEgnqDQBFXiduAGK76h7W3LtlpEo4AVQ-ov0eo2YdA7ggibAjzaTzm96aoMh6KI-JLgpOvyjniM5X3Lz47PMR5NX9LTrCrnkHyPLpWztxEVTA-_DUjkuUdVD-a9WyJFUAzN5uvVB4hPkKiQ"/>
+</div>
+<div class="aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Lifestyle shot of textile details and drapes" class="w-full h-full object-cover btn-transition hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLv860lc1oHCu406GO5K4F3z32j1DubV3SDV70ymKumWjFZjUWf2Y3VJu98YWbO_PpWuvqawx5LqDXVWKC1pIxVuz2L0Z8Yo4ZeXfy5CdBABvqsBmI_jhzzKfhWW1zuGosbCOzrJZHlxshmO1YI1bQ9pq8jvOmoptzuW1Vtz4Mm4yOLNOssreURfSwdChL9AHdL1zQYPSNTAvKlqoL_ECNfIcyRx1_jonRnGNJRTjNL7_OEITWO8S6e9eA"/>
+</div>
+</div>
+<!-- Product Details Sidebar (Right/Bottom) -->
+<div class="lg:col-span-5 relative">
+<div class="sticky-sidebar lg:pl-12">
+<!-- Breadcrumbs -->
+<nav class="mb-8 flex items-center gap-2 text-subtle-grey font-label-sm uppercase">
+<a class="hover:text-deep-forest" href="#">Home</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<a class="hover:text-deep-forest" href="#">Collections</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-deep-forest">Kurti</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg mb-2">Ruhani Hand-Embroidered Kurti</h2>
+<div class="flex items-center gap-4 mb-6">
+<span class="font-headline-md text-headline-md">₹899.00</span>
+<span class="bg-surface-container px-3 py-1 text-label-sm font-label-sm uppercase tracking-wider">In Stock</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed">
+            A testament to slow fashion, this forest green kurti features delicate cream hand-embroidery on premium organic cotton. Inspired by heritage motifs, each piece is uniquely crafted by our master weavers.
+          </p>
+<!-- Size Selector -->
+<div class="mb-8">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-lg text-label-lg uppercase tracking-widest">Select Size</span>
+<button class="text-subtle-grey underline font-label-sm uppercase hover:text-deep-forest">Size Guide</button>
+</div>
+<div class="flex gap-3">
+<button class="w-12 h-12 flex items-center justify-center border border-outline-variant hover:border-deep-forest hover:bg-deep-forest hover:text-antique-cream btn-transition text-label-lg">S</button>
+<button class="w-12 h-12 flex items-center justify-center border border-deep-forest bg-deep-forest text-antique-cream btn-transition text-label-lg">M</button>
+<button class="w-12 h-12 flex items-center justify-center border border-outline-variant hover:border-deep-forest hover:bg-deep-forest hover:text-antique-cream btn-transition text-label-lg">L</button>
+<button class="w-12 h-12 flex items-center justify-center border border-outline-variant hover:border-deep-forest hover:bg-deep-forest hover:text-antique-cream btn-transition text-label-lg">XL</button>
+</div>
+</div>
+<!-- Quantity & Action -->
+<div class="flex flex-col gap-4 mb-12">
+<div class="flex items-center gap-6">
+<span class="font-label-lg text-label-lg uppercase tracking-widest">Quantity</span>
+<div class="flex items-center border border-outline-variant px-2 py-1">
+<button class="p-2 hover:text-soft-gold" onclick="decrement()">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none focus:ring-0 font-body-md" id="quantity" min="1" readonly="" type="number" value="1"/>
+<button class="p-2 hover:text-soft-gold" onclick="increment()">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-deep-forest text-antique-cream py-5 font-label-lg text-label-lg uppercase tracking-[0.2em] hover:bg-opacity-90 btn-transition flex items-center justify-center gap-3 mt-4">
+<span class="material-symbols-outlined">shopping_bag</span>
+              Add to Cart
+            </button>
+<button class="w-full border border-deep-forest py-5 font-label-lg text-label-lg uppercase tracking-[0.2em] hover:bg-surface-container btn-transition">
+              Save to Wishlist
+            </button>
+</div>
+<!-- Accordions -->
+<div class="space-y-4 border-t border-outline-variant pt-8">
+<div class="accordion-item border-b border-outline-variant pb-4" onclick="toggleAccordion(this)">
+<div class="flex justify-between items-center cursor-pointer group py-2">
+<span class="font-label-lg text-label-lg uppercase tracking-widest group-hover:text-soft-gold transition-colors">Details</span>
+<span class="material-symbols-outlined chevron-icon btn-transition">expand_more</span>
+</div>
+<div class="accordion-content pt-4 text-on-surface-variant font-body-md">
+<ul class="space-y-2 list-none">
+<li>— 100% Organic Hand-woven Cotton</li>
+<li>— Authentic Hand-embroidery from Kutch region</li>
+<li>— Relaxed fit silhouette</li>
+<li>— Color: Deep Forest Green with Antique Cream threads</li>
+<li>— Model is 5'8" wearing size M</li>
+</ul>
+</div>
+</div>
+<div class="accordion-item border-b border-outline-variant pb-4" onclick="toggleAccordion(this)">
+<div class="flex justify-between items-center cursor-pointer group py-2">
+<span class="font-label-lg text-label-lg uppercase tracking-widest group-hover:text-soft-gold transition-colors">Shipping</span>
+<span class="material-symbols-outlined chevron-icon btn-transition">expand_more</span>
+</div>
+<div class="accordion-content pt-4 text-on-surface-variant font-body-md">
+<p>Complimentary standard shipping on all orders above ₹1500. Orders are typically processed within 48 hours. Expect delivery within 5-7 business days across India.</p>
+</div>
+</div>
+<div class="accordion-item border-b border-outline-variant pb-4" onclick="toggleAccordion(this)">
+<div class="flex justify-between items-center cursor-pointer group py-2">
+<span class="font-label-lg text-label-lg uppercase tracking-widest group-hover:text-soft-gold transition-colors">Returns</span>
+<span class="material-symbols-outlined chevron-icon btn-transition">expand_more</span>
+</div>
+<div class="accordion-content pt-4 text-on-surface-variant font-body-md">
+<p>We offer a 14-day return policy for unused garments in original packaging. Returns are free for manufacturing defects or sizing issues.</p>
+</div>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="flex justify-between items-center mt-12 py-6 bg-surface-container px-6">
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-deep-forest">eco</span>
+<span class="text-[10px] font-label-sm uppercase tracking-tighter">Sustainable</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-deep-forest">precision_manufacturing</span>
+<span class="text-[10px] font-label-sm uppercase tracking-tighter">Hand-crafted</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-deep-forest">verified_user</span>
+<span class="text-[10px] font-label-sm uppercase tracking-tighter">Secure Pay</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Editorial Section: Styling Tips -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+<div class="order-2 md:order-1">
+<h3 class="font-display text-display-lg mb-8">Modern Craft Philosophy</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 leading-relaxed">
+          The Ruhani Kurti represents a bridge between traditional textile artistry and contemporary minimalist design. Our forest green palette is inspired by the dense canopies of the Western Ghats, reflecting a commitment to natural beauty and intentional living.
+        </p>
+<button class="px-10 py-4 border border-deep-forest font-label-lg text-label-lg uppercase tracking-widest hover:bg-deep-forest hover:text-antique-cream btn-transition">
+          Discover The Process
+        </button>
+</div>
+<div class="order-1 md:order-2 aspect-square overflow-hidden bg-surface-container">
+<div class="w-full h-full bg-cover bg-center" data-alt="An artistic high-fidelity macro photograph of forest green organic cotton fabric showing the fine grain and delicate cream thread hand-embroidery. The lighting is soft and directional, highlighting the rich texture and craftsmanship. The composition is minimalist and editorial, capturing the essence of slow fashion." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA32Uzb46wJaHjVkwj7lYl-whxvnQVENC8geyE5dJMSj3Yj4j2JpKHfWDZm4NmMQOI6SQhm9gc0gzaP4PkvDLXxPwbThX8F2vJKesdt7RpSUoi-JYO0sP_4p1G-CkM6JLs7N9nr52MZ6R0UbNYA9rLseBO2Jl4BEC-w8H3CYsMEoZHi5rf4ZyjksAYmUi9loHCm7PSr5fJnPcLCm5gJGxaY9ZcR9PeRw9UtJQW9g0x648vaDq5gS8Bw3OAb8W4e4l06V6bFg4kUTg')"></div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-antique-cream border-t border-outline-variant bg-antique-cream full-width mt-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-20 max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<h2 class="font-headline-md text-headline-md text-deep-forest dark:text-antique-cream mb-6">SHRADHHA WEAVE</h2>
+<p class="text-body-sm font-body-sm text-subtle-grey max-w-xs">
+          Nurturing heritage textile crafts through modern minimalist silhouettes for the conscious contemporary woman.
+        </p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md uppercase mb-6 tracking-widest">Shop</h4>
+<ul class="space-y-4 font-body-sm text-body-sm">
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Collections</a></li>
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">New Arrivals</a></li>
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Best Sellers</a></li>
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Sizing Guide</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md uppercase mb-6 tracking-widest">Support</h4>
+<ul class="space-y-4 font-body-sm text-body-sm">
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Shipping &amp; Returns</a></li>
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Fabric Care</a></li>
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md uppercase mb-6 tracking-widest">Newsletter</h4>
+<p class="text-body-sm font-body-sm text-subtle-grey mb-4">Join our community for early access and slow fashion stories.</p>
+<div class="flex border-b border-deep-forest pb-2">
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-sm placeholder:text-outline-variant" placeholder="Email Address" type="email"/>
+<button class="material-symbols-outlined text-deep-forest">arrow_forward</button>
+</div>
+</div>
+</div>
+<div class="px-margin-desktop py-10 border-t border-surface-container max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-md text-label-md uppercase text-subtle-grey">© 2024 SHRADDHA WEAVE. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-8">
+<a class="text-deep-forest hover:text-soft-gold btn-transition" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-deep-forest hover:text-soft-gold btn-transition" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-deep-forest hover:text-soft-gold btn-transition" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+</footer>
+<script>
+    function increment() {
+      const input = document.getElementById('quantity');
+      input.value = parseInt(input.value) + 1;
+    }
+
+    function decrement() {
+      const input = document.getElementById('quantity');
+      if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+      }
+    }
+
+    function toggleAccordion(element) {
+      const items = document.querySelectorAll('.accordion-item');
+      items.forEach(item => {
+        if (item === element) {
+          item.classList.toggle('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    // Micro-interaction for buttons
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('mousedown', () => {
+        btn.classList.add('scale-95');
+      });
+      btn.addEventListener('mouseup', () => {
+        btn.classList.remove('scale-95');
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.classList.remove('scale-95');
+      });
+    });
+  </script>
+</body></html>
