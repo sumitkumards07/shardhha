@@ -1,7 +1,7 @@
 <style>
 .footer {
-  background-color: var(--color-dark-green);
-  color: var(--color-warm-ivory);
+  background-color: var(--color-warm-ivory);
+  color: var(--color-primary-text);
   padding: 5rem 0 2rem;
   font-family: var(--font-body);
 }
@@ -15,7 +15,7 @@
   font-family: var(--font-heading);
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: var(--color-warm-ivory);
+  color: var(--color-dark-green);
 }
 .footer__logo {
   font-family: var(--font-heading);
@@ -23,7 +23,7 @@
   margin-bottom: 1rem;
   display: block;
   text-decoration: none;
-  color: var(--color-warm-ivory);
+  color: var(--color-dark-green);
 }
 .footer__menu {
   list-style: none;
@@ -34,20 +34,20 @@
   margin-bottom: 0.8rem;
 }
 .footer__menu-link {
-  color: rgba(248, 244, 238, 0.8);
+  color: var(--color-primary-text);
   text-decoration: none;
   font-size: 0.95rem;
   transition: color 0.3s ease;
 }
 .footer__menu-link:hover {
-  color: var(--color-warm-ivory);
+  color: var(--color-dark-green);
 }
 .footer__bottom {
   text-align: center;
   padding-top: 2rem;
-  border-top: 1px solid rgba(248, 244, 238, 0.2);
+  border-top: 1px solid var(--color-border);
   font-size: 0.85rem;
-  color: rgba(248, 244, 238, 0.6);
+  color: var(--color-secondary-text);
 }
 @media (max-width: 768px) {
   .footer__inner {
@@ -65,7 +65,7 @@
         <a href="{{ routes.root_url }}" class="footer__logo">
           {{ shop.name | default: 'SHARDDHA WEAVES' }}
         </a>
-        <p style="color: rgba(248, 244, 238, 0.8); line-height: 1.6; font-size: 0.95rem;">
+        <p style="color: var(--color-primary-text); line-height: 1.6; font-size: 0.95rem;">
           Rooted in culture, woven for today. Premium ethnic fashion celebrating craftsmanship and timeless elegance.
         </p>
       </div>
