@@ -195,9 +195,9 @@ button {
 }
 .premium-product-card__buy-btn {
   width: 100%;
-  background-color: var(--color-dark-green);
-  color: #FAF9F6;
-  border: none;
+  background-color: #F5F0E8;
+  color: var(--color-dark-green);
+  border: 1px solid var(--color-dark-green);
   padding: 0.75rem;
   font-family: var(--font-body);
   font-size: 0.8rem;
@@ -209,10 +209,13 @@ button {
   border-radius: 0;
 }
 .premium-product-card__buy-btn:hover {
-  background-color: var(--color-muted-gold);
+  background-color: var(--color-dark-green);
+  color: #F5F0E8;
 }
 .premium-product-card__buy-btn:disabled {
   background-color: #ccc;
+  color: #666;
+  border-color: #ccc;
   cursor: not-allowed;
 }
 
