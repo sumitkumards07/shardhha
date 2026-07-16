@@ -1,124 +1,129 @@
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "antique-cream": "#F5F0E8",
+                    "deep-forest": "#0F2D24",
+                    "soft-gold": "#a38f7b",
+                    "subtle-grey": "#737973",
+                    "surface-container-low": "#f6f3f2",
+                    "outline-variant": "#c3c8c1"
+                },
+                "fontFamily": {
+                    "headline-md": ["var(--font-heading)"],
+                    "label-sm": ["var(--font-body)"],
+                    "body-md": ["var(--font-body)"],
+                    "display": ["var(--font-heading)"],
+                    "headline-lg-mobile": ["var(--font-heading)"],
+                    "body-lg": ["var(--font-body)"],
+                    "headline-lg": ["var(--font-heading)"]
+                }
+            }
+        }
+    }
+</script>
 <style>
-.collection-page {
-  padding: var(--section-spacing) 0;
-  background-color: var(--color-warm-ivory);
-}
-.collection-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-.collection-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--color-dark-green);
-  margin-bottom: 1rem;
-}
-.collection-description {
-  max-width: 600px;
-  margin: 0 auto;
-  color: var(--color-secondary-text);
-  font-family: var(--font-body);
-}
-.collection-grid-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-.collection-sidebar {
-  flex: 0 0 250px;
-}
-.collection-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-}
-.filter-group {
-  margin-bottom: 1.5rem;
-}
-.filter-title {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  font-family: var(--font-body);
-  color: var(--color-primary-text);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.9rem;
-}
-.filter-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.filter-item {
-  margin-bottom: 0.5rem;
-}
-.filter-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--color-secondary-text);
-  cursor: pointer;
-}
-@media (max-width: 768px) {
-  .collection-grid-container {
-    flex-direction: column;
-  }
-  .collection-sidebar {
-    flex: 1 1 100%;
-    margin-bottom: 2rem;
-  }
-}
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-antique-cream { background-color: transparent !important; }
+    .product-image-container { aspect-ratio: 3/4; overflow: hidden; }
 </style>
 
-<div class="collection-page">
-  <div class="container">
-    <header class="collection-header">
-      <h1 class="collection-title">{{ collection.title }}</h1>
+<div class="bg-antique-cream text-deep-forest font-body-md pb-32">
+  <div class="max-w-[1280px] mx-auto px-5 md:px-16">
+    
+    <!-- Hero Section -->
+    <section class="mt-12 md:mt-24 mb-16 text-center md:text-left">
+      <h1 class="text-[32px] md:text-[56px] text-deep-forest mb-4 leading-tight" style="font-family: var(--font-heading);">
+        {{ collection.title }}
+      </h1>
       {% if collection.description != blank %}
-        <div class="collection-description">{{ collection.description }}</div>
+        <div class="text-[16px] text-subtle-grey max-w-xl leading-relaxed" style="font-family: var(--font-body);">
+          {{ collection.description }}
+        </div>
+      {% else %}
+        <p class="text-[16px] text-subtle-grey max-w-xl leading-relaxed" style="font-family: var(--font-body);">
+          A curation of intentional pieces crafted for the modern individual. Discover our latest exploration of traditional weaving techniques reimagined through a minimalist lens.
+        </p>
       {% endif %}
-    </header>
+    </section>
 
-    <div class="collection-grid-container">
-      {% if section.settings.show_sidebar %}
-        <aside class="collection-sidebar">
-          <!-- Placeholder for Filters (In a real theme, use Shopify faceted filtering) -->
-          <div class="filter-group">
-            <div class="filter-title">Price</div>
-            <ul class="filter-list">
-              <li class="filter-item"><label class="filter-label"><input type="checkbox"> Under $50</label></li>
-              <li class="filter-item"><label class="filter-label"><input type="checkbox"> $50 - $100</label></li>
-              <li class="filter-item"><label class="filter-label"><input type="checkbox"> Over $100</label></li>
-            </ul>
+    <!-- Filter Bar -->
+    <section class="sticky top-0 z-40 bg-[#F5F0E8] py-6 border-y border-outline-variant/30 mb-12">
+      <div class="flex items-center justify-between overflow-x-auto hide-scrollbar gap-8">
+        <div class="flex items-center gap-8">
+          <div class="relative group cursor-pointer">
+            <button class="flex items-center gap-2 text-[12px] uppercase tracking-widest text-deep-forest hover:text-soft-gold transition-colors font-semibold" style="font-family: var(--font-body);">
+              Category <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
           </div>
-          <div class="filter-group">
-            <div class="filter-title">Availability</div>
-            <ul class="filter-list">
-              <li class="filter-item"><label class="filter-label"><input type="checkbox"> In Stock</label></li>
-              <li class="filter-item"><label class="filter-label"><input type="checkbox"> Out of Stock</label></li>
-            </ul>
+          <div class="relative group cursor-pointer">
+            <button class="flex items-center gap-2 text-[12px] uppercase tracking-widest text-deep-forest hover:text-soft-gold transition-colors font-semibold" style="font-family: var(--font-body);">
+              Price <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
           </div>
-        </aside>
-      {% endif %}
-
-      <div class="collection-grid">
-        {% paginate collection.products by section.settings.products_per_page %}
-          {% for product in collection.products %}
-            {% render 'product-card', product: product, collection: collection %}
-          {% else %}
-            <p>No products found in this collection.</p>
-          {% endfor %}
-
-          {% if paginate.pages > 1 %}
-            <div class="pagination" style="grid-column: 1 / -1; text-align: center; margin-top: 2rem;">
-              {{ paginate | default_pagination }}
-            </div>
-          {% endif %}
-        {% endpaginate %}
+          <div class="relative group cursor-pointer">
+            <button class="flex items-center gap-2 text-[12px] uppercase tracking-widest text-deep-forest hover:text-soft-gold transition-colors font-semibold" style="font-family: var(--font-body);">
+              Color <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex-shrink-0">
+          <span class="text-[12px] uppercase tracking-widest text-subtle-grey font-semibold" style="font-family: var(--font-body);">
+            {{ collection.all_products_count }} Styles
+          </span>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Product Grid -->
+    {% paginate collection.products by section.settings.products_per_page %}
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12 mb-24">
+        {% for product in collection.products %}
+          <a href="{{ product.url }}" class="group cursor-pointer block">
+            <div class="product-image-container mb-6 bg-surface-container-low border border-outline-variant/30 relative">
+              {% if product.featured_image %}
+                {{ product.featured_image | image_url: width: 800 | image_tag: class: 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105', alt: product.title }}
+              {% else %}
+                <div class="w-full h-full flex items-center justify-center bg-gray-100 text-subtle-grey">No Image</div>
+              {% endif %}
+              
+              <!-- Quick Shop Hover Overlay (Optional enhancement) -->
+              <div class="absolute inset-0 bg-deep-forest/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div class="space-y-2">
+              <h3 class="text-[16px] text-deep-forest group-hover:text-soft-gold transition-colors" style="font-family: var(--font-body);">{{ product.title }}</h3>
+              <p class="text-[12px] text-subtle-grey uppercase tracking-widest font-semibold" style="font-family: var(--font-body);">{{ product.type | default: 'Collection' }}</p>
+              <p class="text-[16px] font-semibold text-deep-forest pt-1" style="font-family: var(--font-body);">{{ product.price | money }}</p>
+            </div>
+          </a>
+        {% else %}
+          <!-- Demo Products if collection is empty -->
+          {% for i in (1..6) %}
+            <div class="group cursor-pointer block">
+              <div class="product-image-container mb-6 bg-surface-container-low border border-outline-variant/30">
+                <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Demo Product">
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-[16px] text-deep-forest group-hover:text-soft-gold transition-colors" style="font-family: var(--font-body);">Handcrafted Kurti Set</h3>
+                <p class="text-[12px] text-subtle-grey uppercase tracking-widest font-semibold" style="font-family: var(--font-body);">New Arrival</p>
+                <p class="text-[16px] font-semibold text-deep-forest pt-1" style="font-family: var(--font-body);">₹4,250</p>
+              </div>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </section>
+
+      {% if paginate.pages > 1 %}
+        <div class="flex justify-center mt-12 gap-4" style="font-family: var(--font-body);">
+          {{ paginate | default_pagination: next: 'Next', previous: 'Previous' }}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+
   </div>
 </div>
 
@@ -129,17 +134,11 @@
     {
       "type": "range",
       "id": "products_per_page",
-      "min": 8,
+      "min": 6,
       "max": 24,
-      "step": 4,
-      "default": 12,
-      "label": "Products per page"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_sidebar",
-      "default": true,
-      "label": "Show filter sidebar"
+      "step": 3,
+      "label": "Products per page",
+      "default": 12
     }
   ]
 }

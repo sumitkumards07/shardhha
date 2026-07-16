@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shraddha Weave | New Arrivals</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#0b2013",
+                    "primary-fixed": "#d0e9d4",
+                    "on-secondary-container": "#64635b",
+                    "on-background": "#1b1c1c",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f0eded",
+                    "secondary-fixed-dim": "#c9c6bd",
+                    "tertiary": "#201507",
+                    "on-tertiary-fixed": "#25190b",
+                    "primary-fixed-dim": "#b4cdb8",
+                    "outline": "#737973",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#eae7e7",
+                    "secondary-container": "#e2e0d6",
+                    "secondary": "#5f5f57",
+                    "primary-container": "#1b3022",
+                    "on-secondary-fixed-variant": "#484740",
+                    "on-surface-variant": "#434843",
+                    "on-tertiary-fixed-variant": "#534433",
+                    "on-surface": "#1b1c1c",
+                    "outline-variant": "#c3c8c1",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "surface": "#fcf9f8",
+                    "surface-bright": "#fcf9f8",
+                    "on-primary-container": "#819986",
+                    "inverse-primary": "#b4cdb8",
+                    "primary": "#061b0e",
+                    "inverse-on-surface": "#f3f0f0",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#364c3c",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#d9c3ad",
+                    "on-tertiary-container": "#a38f7b",
+                    "tertiary-fixed": "#f6dfc8",
+                    "secondary-fixed": "#e5e2d9",
+                    "surface-container-highest": "#e4e2e1",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#36291a",
+                    "on-secondary-fixed": "#1c1c16",
+                    "surface-tint": "#4d6453",
+                    "surface-dim": "#dcd9d9",
+                    "surface-variant": "#e4e2e1",
+                    "background": "#fcf9f8",
+                    // Brand Aliases
+                    "antique-cream": "#fcf9f8",
+                    "deep-forest": "#061b0e",
+                    "soft-gold": "#a38f7b",
+                    "subtle-grey": "#737973"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "section-gap": "120px",
+                    "unit": "4px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "headline-md": ["Literata"],
+                    "display": ["Literata"],
+                    "headline-lg-mobile": ["Literata"],
+                    "headline-lg": ["Literata"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "display": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf9f8; /* Antique Cream */
+            color: #061b0e; /* Deep Forest */
+            -webkit-font-smoothing: antialiased;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .product-image-container {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+        .product-image {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        .filter-dropdown:focus-within .filter-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Shell -->
+<header class="docked full-width top-0 sticky z-50 bg-antique-cream dark:bg-deep-forest border-b border-outline-variant dark:border-primary-fixed-dim flat no shadows">
+<div class="flex flex-col items-center w-full px-margin-mobile md:px-margin-desktop py-unit max-w-container-max mx-auto">
+<div class="w-full flex items-center justify-between py-4">
+<div class="md:hidden">
+<span class="material-symbols-outlined text-deep-forest dark:text-antique-cream">menu</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-deep-forest dark:text-antique-cream italic tracking-tighter">Shraddha Weave</h1>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-deep-forest dark:text-antique-cream cursor-pointer hover:text-soft-gold transition-colors duration-300">search</span>
+<span class="material-symbols-outlined text-deep-forest dark:text-antique-cream cursor-pointer hover:text-soft-gold transition-colors duration-300">person</span>
+<span class="material-symbols-outlined text-deep-forest dark:text-antique-cream cursor-pointer hover:text-soft-gold transition-colors duration-300">shopping_bag</span>
+</div>
+</div>
+<nav class="hidden md:flex items-center justify-center gap-12 py-4">
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-subtle-grey dark:text-outline-variant hover:text-soft-gold transition-colors duration-300" href="#">Collections</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-deep-forest dark:text-antique-cream border-b border-deep-forest pb-1" href="#">New Arrivals</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-subtle-grey dark:text-outline-variant hover:text-soft-gold transition-colors duration-300" href="#">Best Sellers</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-subtle-grey dark:text-outline-variant hover:text-soft-gold transition-colors duration-300" href="#">Essential Solids</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-subtle-grey dark:text-outline-variant hover:text-soft-gold transition-colors duration-300" href="#">About Us</a>
+</nav>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Hero Section -->
+<section class="mt-12 md:mt-24 mb-16 text-center md:text-left">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-forest mb-4">New Arrivals</h2>
+<p class="font-body-md text-body-md text-subtle-grey max-w-xl">
+                A curation of intentional pieces crafted for the modern individual. Discover our latest exploration of traditional weaving techniques reimagined through a minimalist lens.
+            </p>
+</section>
+<!-- Filter Bar -->
+<section class="sticky top-[100px] z-40 bg-antique-cream py-6 border-y border-outline-variant mb-12">
+<div class="flex items-center justify-between overflow-x-auto hide-scrollbar gap-8">
+<div class="flex items-center gap-8">
+<div class="relative filter-dropdown group">
+<button class="flex items-center gap-2 font-label-sm text-label-sm uppercase tracking-widest text-deep-forest hover:text-soft-gold transition-colors">
+                            Category <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+<div class="relative filter-dropdown group">
+<button class="flex items-center gap-2 font-label-sm text-label-sm uppercase tracking-widest text-deep-forest hover:text-soft-gold transition-colors">
+                            Price <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+<div class="relative filter-dropdown group">
+<button class="flex items-center gap-2 font-label-sm text-label-sm uppercase tracking-widest text-deep-forest hover:text-soft-gold transition-colors">
+                            Color <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex-shrink-0">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-subtle-grey">Showing 24 Styles</span>
+</div>
+</div>
+</section>
+<!-- Product Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-y-16 gap-x-gutter mb-section-gap">
+<!-- Card 1 -->
+<div class="product-card group cursor-pointer">
+<div class="product-image-container mb-6 bg-surface-container">
+<img alt="Deep Forest Green Kurti" class="product-image w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLuPr30rJ90j5509eHtCtfRt9tqN4nLLCm2fx5aKQwCojvyppNsI-Mm4I6cyVCc7lOE_zob-yj9vYl-grpvIbL4XcSHhqwXEIppWxZtslhi6b9KyZA3UK4kH4TqgoZLp2tcmk48OeO2QpeJqbTdr2LGSrFFa03O0Nabn1OgM4JE9L67hLkLGlrc1U1wv-yLObP3BfO4Q7a7oRcPqrvhdKf5VmpnhhcCjIBs7slj4QfQJLXXUU95TdXUN"/>
+</div>
+<div class="space-y-1">
+<h3 class="font-body-md text-body-md text-deep-forest group-hover:text-soft-gold transition-colors">Hand-Embroidered Forest Kurti</h3>
+<p class="font-label-sm text-label-sm text-subtle-grey uppercase">New Collection</p>
+<p class="font-body-md text-body-md font-semibold pt-2">₹4,250</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="product-card group cursor-pointer">
+<div class="product-image-container mb-6 bg-surface-container">
+<img alt="Gold Embroidery Garment" class="product-image w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLsnUJfFKmaXaeaxZE06Y5jCk7zcRgxg3m0J7kER5lN3MlmGnAGADADZp9ofuwHp5Rm8rZx92z9xdAW9CFdCuNSn1zm594eu_GCzlpRWJlvQbaLR0Z-ACcx1gPC6oaE7DpRpsCepg3bY2TxZqgea4BH_cbQ1hGK6ulfSCNcladTMX-CdImejoXU82reSuSoQoNae9ERcGjx4kNO0KlcWBc0etSavrRUELeLcDe5JhYKDGQ2U90S_ixqkZw"/>
+</div>
+<div class="space-y-1">
+<h3 class="font-body-md text-body-md text-deep-forest group-hover:text-soft-gold transition-colors">Artisanal Gold Stitch Weave</h3>
+<p class="font-label-sm text-label-sm text-subtle-grey uppercase">Limited Edition</p>
+<p class="font-body-md text-body-md font-semibold pt-2">₹6,800</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="product-card group cursor-pointer">
+<div class="product-image-container mb-6 bg-surface-container">
+<img alt="Sage Green Cotton Kurti" class="product-image w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLt72q5FVEdO2UA2OfB2INMvOc_Mofa84d_onDLFiEvcwObPt2QpdXj-gXJrMyr5exM_O-sh4WW2pN9PPAdxau6beWQihYmJ5xJNxzcXmCEgnqDQBFXiduAGK76h7W3LtlpEo4AVQ-ov0eo2YdA7ggibAjzaTzm96aoMh6KI-JLgpOvyjniM5X3Lz47PMR5NX9LTrCrnkHyPLpWztxEVTA-_DUjkuUdVD-a9WyJFUAzN5uvVB4hPkKiQ"/>
+</div>
+<div class="space-y-1">
+<h3 class="font-body-md text-body-md text-deep-forest group-hover:text-soft-gold transition-colors">Sage &amp; Ivory Cotton Tunic</h3>
+<p class="font-label-sm text-label-sm text-subtle-grey uppercase">Essentials</p>
+<p class="font-body-md text-body-md font-semibold pt-2">₹3,450</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="product-card group cursor-pointer">
+<div class="product-image-container mb-6 bg-surface-container">
+<img alt="Cream Linen Kurti" class="product-image w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLv860lc1oHCu406GO5K4F3z32j1DubV3SDV70ymKumWjFZjUWf2Y3VJu98YWbO_PpWuvqawx5LqDXVWKC1pIxVuz2L0Z8Yo4ZeXfy5CdBABvqsBmI_jhzzKfhWW1zuGosbCOzrJZHlxshmO1YI1bQ9pq8jvOmoptzuW1Vtz4Mm4yOLNOssreURfSwdChL9AHdL1zQYPSNTAvKlqoL_ECNfIcyRx1_jonRnGNJRTjNL7_OEITWO8S6e9eA"/>
+</div>
+<div class="space-y-1">
+<h3 class="font-body-md text-body-md text-deep-forest group-hover:text-soft-gold transition-colors">Organic Linen Block Print</h3>
+<p class="font-label-sm text-label-sm text-subtle-grey uppercase">Sustainability Series</p>
+<p class="font-body-md text-body-md font-semibold pt-2">₹5,100</p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="product-card group cursor-pointer">
+<div class="product-image-container mb-6 bg-surface-container">
+<img alt="Premium Textile Detail" class="product-image w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLtn-uDUHxMTMc3BXIZS_ndI4_tlo-a9VxvWJhjUxMpVJpzR2rGGH1sR0GxgiB0VcfesYh0W2L7fziFfqYHrvh3LoHt5P8vWWy7uQBTH7ndbNYRiNUyobjlmWyhzo4KXaNrLh7fxoocB8yEs9PmNySlh_7mzNVoXlja-6LpDXru8roMmvCyNOFe7Nks3Ibu_M1bLIEchEi7pUrmcZTb9MjDzLaJ2MtMiUG3EV1_5IRBGLzszhNqzOPSiGA"/>
+</div>
+<div class="space-y-1">
+<h3 class="font-body-md text-body-md text-deep-forest group-hover:text-soft-gold transition-colors">Heritage Weave Textured Set</h3>
+<p class="font-label-sm text-label-sm text-subtle-grey uppercase">Editorial Choice</p>
+<p class="font-body-md text-body-md font-semibold pt-2">₹7,200</p>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="product-card group cursor-pointer">
+<div class="product-image-container mb-6 bg-surface-container">
+<img alt="Emerald Floral Kurti" class="product-image w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLvg8Qa9ZtZ12SdDRNBufCYMYLG9dfYXkWKMCIk14BlCF9y7iKhZRFWKc4-i_M41Q72zLpCTxjsuBmFmAaiitDc_bRUwM6jqTkZXjWFWzVMiVzSwCRDojo_yPsDpFSzS8gEcQIZUuboHxVzhNNSFhMekYxTQStuArqtcfsEJmHQP9hEDycNOTAmvRKaILBwFFfF1OTAa6e5XIQC2wwj6ubRFBq94olZl2DLTpcJ-wq4ufbb9LDv_adolWQ"/>
+</div>
+<div class="space-y-1">
+<h3 class="font-body-md text-body-md text-deep-forest group-hover:text-soft-gold transition-colors">Emerald Floral Heritage Kurti</h3>
+<p class="font-label-sm text-label-sm text-subtle-grey uppercase">Bestseller</p>
+<p class="font-body-md text-body-md font-semibold pt-2">₹5,900</p>
+</div>
+</div>
+</section>
+<!-- Pagination -->
+<section class="flex justify-center items-center gap-4 mb-section-gap">
+<button class="w-10 h-10 flex items-center justify-center border border-outline-variant text-deep-forest hover:bg-deep-forest hover:text-antique-cream transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-deep-forest px-4">Page 01 / 04</span>
+<button class="w-10 h-10 flex items-center justify-center border border-outline-variant text-deep-forest hover:bg-deep-forest hover:text-antique-cream transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="full-width mt-20 bg-antique-cream dark:bg-deep-forest border-t border-outline-variant bg-antique-cream flat no shadows">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<h4 class="font-headline-md text-headline-md text-deep-forest dark:text-antique-cream mb-6">Shraddha Weave</h4>
+<p class="font-body-sm text-body-sm text-subtle-grey mb-8">Crafting heritage stories through minimalist contemporary textiles.</p>
+</div>
+<div class="space-y-4">
+<h5 class="font-label-md text-label-md uppercase text-deep-forest dark:text-antique-cream">Shop</h5>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Collections</a></li>
+<li><a class="font-body-sm text-body-sm text-subtle-grey hover:text-soft-gold underline transition-all" href="#">New Arrivals</a></li>
+<li><a class="font-body-sm text-body-sm text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Fabric Care</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-label-md text-label-md uppercase text-deep-forest dark:text-antique-cream">Customer Care</h5>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-body-sm text-body-sm text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Sizing Guide</a></li>
+<li><a class="font-body-sm text-body-sm text-subtle-grey hover:text-soft-gold underline transition-all" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-label-md text-label-md uppercase text-deep-forest dark:text-antique-cream">Newsletter</h5>
+<p class="font-body-sm text-body-sm text-subtle-grey mb-4">Join our list for collection previews.</p>
+<form class="flex border-b border-deep-forest pb-2">
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-sm text-body-sm placeholder:text-subtle-grey" placeholder="Your Email" type="email"/>
+<button class="material-symbols-outlined text-deep-forest" type="submit">arrow_forward</button>
+</form>
+</div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop py-8 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-label-sm text-label-sm uppercase text-subtle-grey">© 2024 SHRADDHA WEAVE. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm uppercase text-subtle-grey hover:text-deep-forest transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm uppercase text-subtle-grey hover:text-deep-forest transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for smooth layout behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple active state toggle for filters
+        const filters = document.querySelectorAll('.filter-dropdown button');
+        filters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Potential for adding dropdown logic here
+            });
+        });
+    </script>
+</body></html>
