@@ -3,76 +3,132 @@
   padding: var(--section-spacing) 0;
   background-color: var(--color-warm-ivory);
 }
+.faq-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
 .faq-header {
-  text-align: center;
-  margin-bottom: 3rem;
+  position: sticky;
+  top: 100px;
+  align-self: start;
 }
 .faq-title {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   color: var(--color-dark-green);
+  line-height: 1.1;
+  margin: 0;
 }
-.faq-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 1rem;
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
 }
 .faq-item {
   border-bottom: 1px solid var(--color-border);
-  margin-bottom: 1rem;
+}
+.faq-item:first-child {
+  border-top: 1px solid var(--color-border);
 }
 .faq-question {
   width: 100%;
   text-align: left;
   background: none;
   border: none;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   font-family: var(--font-body);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 500;
   color: var(--color-primary-text);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.faq-icon-wrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
 .faq-icon {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 200ms ease, opacity 200ms ease;
+  color: var(--color-dark-green);
+}
+.faq-icon-plus {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+.faq-icon-minus {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0);
+}
+.faq-item.active .faq-icon-plus {
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+}
+.faq-item.active .faq-icon-minus {
+  opacity: 1;
+  transform: rotate(0) scale(1);
 }
 .faq-answer {
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 400ms ease, opacity 400ms ease;
 }
 .faq-answer-inner {
   padding-bottom: 1.5rem;
   color: var(--color-secondary-text);
   line-height: 1.6;
 }
-.faq-item.active .faq-icon {
-  transform: rotate(180deg);
-}
 .faq-item.active .faq-answer {
   max-height: 500px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .faq-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1.5rem;
+  }
+  .faq-header {
+    position: relative;
+    top: 0;
+  }
+  .faq-question {
+    font-size: 1.05rem;
+  }
 }
 </style>
 
 <section class="faq-section">
-  <div class="container">
+  <div class="faq-container">
     {% if section.settings.title != blank %}
       <div class="faq-header">
         <h2 class="faq-title">{{ section.settings.title }}</h2>
       </div>
     {% endif %}
 
-    <div class="faq-container">
+    <div class="faq-accordion">
       {% for block in section.blocks %}
         <div class="faq-item" {{ block.shopify_attributes }}>
           <button class="faq-question" aria-expanded="false">
             {{ block.settings.question }}
-            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            <div class="faq-icon-wrapper">
+              <svg class="faq-icon faq-icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="faq-icon faq-icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+            </div>
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
@@ -93,12 +149,13 @@
         const item = question.parentNode;
         const isActive = item.classList.contains('active');
         
-        // Close all other items (optional)
+        // Close all other items to ensure only one is open
         document.querySelectorAll('.faq-item').forEach(otherItem => {
           otherItem.classList.remove('active');
           otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
         });
 
+        // Open the clicked item if it was not active
         if (!isActive) {
           item.classList.add('active');
           question.setAttribute('aria-expanded', 'true');
@@ -110,7 +167,7 @@
 
 {% schema %}
 {
-  "name": "FAQ",
+  "name": "FAQ Accordion",
   "settings": [
     {
       "type": "text",
@@ -141,9 +198,9 @@
   ],
   "presets": [
     {
-      "name": "FAQ",
+      "name": "FAQ Accordion",
       "blocks": [
-        { "type": "faq_item" },
+        { "type": "faq_item", "settings": { "question": "What is the fabric quality?", "answer": "All our kurtis are woven from 100% premium materials, featuring hand-embroidered details and breathable fabrics." } },
         { "type": "faq_item", "settings": { "question": "Do you offer international shipping?", "answer": "Yes, we ship worldwide. Shipping costs will apply and will be added at checkout." } },
         { "type": "faq_item", "settings": { "question": "What is your return policy?", "answer": "We accept returns within 30 days of purchase for items in original condition with tags attached." } }
       ]
