@@ -50,9 +50,37 @@
   color: var(--color-secondary-text);
 }
 @media (max-width: 768px) {
+  .footer {
+    padding: 3rem 0 1.5rem;
+  }
   .footer__inner {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .footer__logo {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .footer__block p {
+    font-size: 0.85rem !important;
+  }
+  .footer__block-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .footer__menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem 1.5rem;
+  }
+  .footer__menu-item {
+    margin-bottom: 0;
+  }
+  .footer__menu-link {
+    font-size: 0.85rem;
   }
 }
 </style>
