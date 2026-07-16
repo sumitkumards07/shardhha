@@ -1,0 +1,142 @@
+<style>
+.reviews-section {
+  padding: var(--section-spacing) 0;
+  background-color: var(--color-soft-beige);
+}
+.reviews-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.reviews-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-dark-green);
+}
+.reviews-grid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.reviews-grid::-webkit-scrollbar { display: none; }
+.review-card {
+  flex: 0 0 320px;
+  scroll-snap-align: center;
+  background: #ffffff;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-radius: 4px;
+}
+.review-stars {
+  color: #f5b041; /* Gold star color */
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.review-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-primary-text);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+.review-author {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-dark-green);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+@media (max-width: 768px) {
+  .reviews-grid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 1rem;
+  }
+  .review-card {
+    flex: 0 0 85%;
+    padding: 2rem 1.5rem;
+  }
+}
+</style>
+
+<section class="reviews-section">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <div class="reviews-header">
+        <h2 class="reviews-title">{{ section.settings.title }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="reviews-grid">
+      {% for block in section.blocks %}
+        <div class="review-card" {{ block.shopify_attributes }}>
+          <div class="review-stars">
+            {% for i in (1..block.settings.rating) %}
+              ★
+            {% endfor %}
+          </div>
+          <div class="review-text">"{{ block.settings.text }}"</div>
+          <div class="review-author">- {{ block.settings.author }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Star Rating"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text",
+          "default": "The quality of the kurtis is absolutely amazing. Fast shipping and great customer service!"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Priya S."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "text": "Absolutely love the sarees! The fabric is so premium and the design is just beautiful.", "author": "Anjali K." } },
+        { "type": "review" },
+        { "type": "review", "settings": { "text": "I bought a lehenga for a wedding and received so many compliments. Highly recommend Sharddha Weaves!", "author": "Neha R." } },
+        { "type": "review", "settings": { "text": "Beautiful packaging and the clothing is exactly as pictured. Will definitely buy again.", "author": "Sneha P." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

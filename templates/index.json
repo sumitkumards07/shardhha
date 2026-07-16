@@ -139,6 +139,15 @@
         "products_to_show": 4,
         "show_view_all": true
       }
+    },
+    "faq": {
+      "type": "faq"
+    },
+    "reviews": {
+      "type": "customer-reviews"
+    },
+    "newsletter": {
+      "type": "newsletter"
     }
   },
   "order": [
@@ -147,6 +156,9 @@
     "usp_badges",
     "featured_collection_1",
     "image_with_text",
-    "featured_collection_2"
+    "featured_collection_2",
+    "reviews",
+    "faq",
+    "newsletter"
   ]
 }

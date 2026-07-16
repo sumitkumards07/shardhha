@@ -1,0 +1,153 @@
+<style>
+.faq-section {
+  padding: var(--section-spacing) 0;
+  background-color: var(--color-warm-ivory);
+}
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.faq-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-dark-green);
+}
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.faq-item {
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 1rem;
+}
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-answer-inner {
+  padding-bottom: 1.5rem;
+  color: var(--color-secondary-text);
+  line-height: 1.6;
+}
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+.faq-item.active .faq-answer {
+  max-height: 500px;
+}
+</style>
+
+<section class="faq-section">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <div class="faq-header">
+        <h2 class="faq-title">{{ section.settings.title }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="faq-container">
+      {% for block in section.blocks %}
+        <div class="faq-item" {{ block.shopify_attributes }}>
+          <button class="faq-question" aria-expanded="false">
+            {{ block.settings.question }}
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentNode;
+        const isActive = item.classList.contains('active');
+        
+        // Close all other items (optional)
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+          question.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does shipping take?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Standard shipping typically takes 5-7 business days. Express shipping is available at checkout."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "faq_item" },
+        { "type": "faq_item", "settings": { "question": "Do you offer international shipping?", "answer": "Yes, we ship worldwide. Shipping costs will apply and will be added at checkout." } },
+        { "type": "faq_item", "settings": { "question": "What is your return policy?", "answer": "We accept returns within 30 days of purchase for items in original condition with tags attached." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
