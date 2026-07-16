@@ -1,0 +1,50 @@
+<header class="header">
+  <div class="container header-container">
+    <nav class="header-nav left-nav">
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% else %}
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Collections</a>
+      {% endfor %}
+    </nav>
+    
+    <div class="header-logo">
+      <a href="{{ routes.root_url }}">{{ shop.name | default: 'THREAD OF TRADITION' }}</a>
+    </div>
+
+    <nav class="header-nav right-nav">
+      {% for link in section.settings.secondary_menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% else %}
+        <a href="#">About</a>
+        <a href="#">Journal</a>
+        <a href="#">Contact</a>
+      {% endfor %}
+      <div class="header-icons">
+        <a href="{{ routes.search_url }}">Search</a>
+        <a href="{{ routes.cart_url }}">Cart</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Primary Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "Secondary Menu"
+    }
+  ]
+}
+{% endschema %}

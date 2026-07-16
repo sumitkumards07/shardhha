@@ -1,0 +1,164 @@
+<style>
+.featured-collection {
+  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+  background-color: var(--color-warm-ivory);
+}
+.featured-collection__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.featured-collection__title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-primary-text);
+}
+.featured-collection__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.featured-collection__view-all {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* Product Card Styles */
+.product-card {
+  text-align: center;
+}
+.product-card__link {
+  display: block;
+}
+.product-card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  aspect-ratio: 3/4;
+}
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+.product-card:hover .product-card__image {
+  transform: scale(1.05);
+}
+.product-card__actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+.product-card:hover .product-card__actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+.product-card__quick-add {
+  width: 100%;
+  background-color: var(--color-warm-ivory);
+  color: var(--color-primary-text);
+  border: none;
+}
+.product-card__quick-add:hover {
+  background-color: var(--color-primary-text);
+  color: var(--color-warm-ivory);
+}
+.product-card__title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary-text);
+}
+.product-card__price {
+  font-size: 0.95rem;
+  color: var(--color-secondary-text);
+}
+.price-compare {
+  text-decoration: line-through;
+  margin-left: 0.5rem;
+  opacity: 0.6;
+}
+</style>
+
+<section class="featured-collection">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <div class="featured-collection__header">
+        <h2 class="featured-collection__title">{{ section.settings.title }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="featured-collection__grid">
+      {%- assign collection = collections[section.settings.collection] -%}
+      {% if collection != blank and collection.products_count > 0 %}
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product, collection: collection %}
+        {% endfor %}
+      {% else %}
+        {% for i in (1..section.settings.products_to_show) %}
+          <div class="product-card">
+            <div class="product-card__image-wrapper">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg product-card__image' }}
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__title">Example Product</h3>
+              <div class="product-card__price"><span class="price-regular">$99.00</span></div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_view_all and collection.all_products_count > section.settings.products_to_show %}
+      <div class="featured-collection__view-all">
+        <a href="{{ collection.url }}" class="btn btn-secondary">View All</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 4,
+      "label": "Maximum products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View all' button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

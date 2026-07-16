@@ -1,0 +1,45 @@
+<style>
+.footer {
+  padding: 6rem 0 3rem;
+  background-color: var(--color-soft-beige);
+  text-align: center;
+}
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-copy {
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+}
+</style>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">
+      {{ shop.name | default: 'THREAD OF TRADITION' }}
+    </div>
+    <div class="footer-links">
+      <a href="#">Collections</a>
+      <a href="#">Customer Care</a>
+      <a href="#">About</a>
+    </div>
+    <div class="footer-copy">
+      &copy; {{ 'now' | date: "%Y" }} {{ shop.name | default: 'Thread of Tradition' }}. All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

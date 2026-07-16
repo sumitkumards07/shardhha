@@ -1,0 +1,40 @@
+{
+  "layout": "theme",
+  "sections": {
+    "marquee": {
+      "type": "scrolling-marquee"
+    },
+    "hero": {
+      "type": "hero"
+    },
+    "categories": {
+      "type": "category-grid",
+      "settings": {
+        "title": "Shop by Category"
+      }
+    },
+    "featured_collection_1": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Sellers"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text"
+    },
+    "featured_collection_2": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New Arrivals"
+      }
+    }
+  },
+  "order": [
+    "marquee",
+    "hero",
+    "categories",
+    "featured_collection_1",
+    "image_with_text",
+    "featured_collection_2"
+  ]
+}

@@ -1,0 +1,90 @@
+<style>
+.scrolling-marquee {
+  background-color: var(--color-dark-green);
+  color: var(--color-warm-ivory);
+  padding: 0.75rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.scrolling-marquee__content {
+  display: flex;
+  animation: marquee 25s linear infinite;
+}
+.scrolling-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 2rem;
+}
+.scrolling-marquee__item::after {
+  content: "•";
+  margin-left: 4rem;
+  opacity: 0.5;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+
+<div class="scrolling-marquee">
+  <div class="scrolling-marquee__content">
+    {% for block in section.blocks %}
+      <div class="scrolling-marquee__item">{{ block.settings.text }}</div>
+    {% endfor %}
+    <!-- Duplicate for seamless loop -->
+    {% for block in section.blocks %}
+      <div class="scrolling-marquee__item">{{ block.settings.text }}</div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Scrolling Marquee",
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping on all orders"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling Marquee",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Premium Quality"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Cash on Delivery Available"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Easy Returns"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

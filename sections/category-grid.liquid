@@ -1,0 +1,123 @@
+<style>
+.category-grid {
+  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+}
+.category-grid__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.category-grid__title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-primary-text);
+}
+.category-grid__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+.category-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.category-card__image {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+.category-card:hover .category-card__image {
+  transform: scale(1.05);
+}
+.category-card__title {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-warm-ivory);
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-primary-text);
+  white-space: nowrap;
+}
+</style>
+
+<section class="category-grid">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <div class="category-grid__header">
+        <h2 class="category-grid__title">{{ section.settings.title }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="category-grid__items">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.collection.url | default: '#' }}" class="category-card">
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 600 | image_tag: class: 'category-card__image', alt: block.settings.title }}
+          {% elsif block.settings.collection.image != blank %}
+             {{ block.settings.collection.image | image_url: width: 600 | image_tag: class: 'category-card__image', alt: block.settings.title }}
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg category-card__image' }}
+          {% endif %}
+          <div class="category-card__title">{{ block.settings.title | default: block.settings.collection.title | default: 'Category' }}</div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by Category"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Title (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Grid",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
