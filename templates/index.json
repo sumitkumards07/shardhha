@@ -2,19 +2,62 @@
   "layout": "theme",
   "sections": {
     "marquee": {
-      "type": "scrolling-marquee"
+      "type": "scrolling-marquee",
+      "blocks": {
+        "block1": { "type": "announcement", "settings": { "text": "Premium Quality Fabrics" } },
+        "block2": { "type": "announcement", "settings": { "text": "Free Shipping on All Orders" } },
+        "block3": { "type": "announcement", "settings": { "text": "Cash on Delivery Available" } }
+      },
+      "block_order": ["block1", "block2", "block3"]
     },
     "hero": {
-      "type": "hero"
+      "type": "hero",
+      "blocks": {
+        "slide1": {
+          "type": "slide",
+          "settings": {
+            "subheading": "Rooted in culture, woven for today",
+            "heading": "THREAD OF",
+            "heading_script": "Tradition",
+            "description": "KURTIS & SAREES COLLECTION",
+            "button_label": "SHOP NOW"
+          }
+        },
+        "slide2": {
+          "type": "slide",
+          "settings": {
+            "subheading": "Handcrafted with love",
+            "heading": "FESTIVE",
+            "heading_script": "Elegance",
+            "description": "DISCOVER THE NEW ARRIVALS",
+            "button_label": "EXPLORE"
+          }
+        }
+      },
+      "block_order": ["slide1", "slide2"]
     },
     "categories": {
       "type": "category-grid",
       "settings": {
         "title": "Shop by Category"
-      }
+      },
+      "blocks": {
+        "cat1": { "type": "category", "settings": { "title": "Kurtis" } },
+        "cat2": { "type": "category", "settings": { "title": "Sarees" } },
+        "cat3": { "type": "category", "settings": { "title": "Lehengas" } },
+        "cat4": { "type": "category", "settings": { "title": "Festive" } }
+      },
+      "block_order": ["cat1", "cat2", "cat3", "cat4"]
     },
     "usp_badges": {
-      "type": "usp-badges"
+      "type": "usp-badges",
+      "blocks": {
+        "badge1": { "type": "badge", "settings": { "icon": "quality", "text": "Premium Quality" } },
+        "badge2": { "type": "badge", "settings": { "icon": "shipping", "text": "Free & Fast Delivery" } },
+        "badge3": { "type": "badge", "settings": { "icon": "return", "text": "Easy Returns" } },
+        "badge4": { "type": "badge", "settings": { "icon": "support", "text": "24/7 Support" } }
+      },
+      "block_order": ["badge1", "badge2", "badge3", "badge4"]
     },
     "featured_collection_1": {
       "type": "featured-collection",
@@ -23,7 +66,12 @@
       }
     },
     "image_with_text": {
-      "type": "image-with-text"
+      "type": "image-with-text",
+      "settings": {
+        "title": "Crafted With Heritage",
+        "text": "<p>Celebrate India's timeless artistry through handcrafted silhouettes, luxurious fabrics, and thoughtful design made for today's woman.</p>",
+        "button_label": "Read Our Story"
+      }
     },
     "featured_collection_2": {
       "type": "featured-collection",

@@ -147,8 +147,11 @@
         {% if block.settings.image != blank %}
           {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'hero-slide__image', alt: block.settings.heading }}
         {% else %}
-          {% capture placeholder_index %}{% cycle 1, 2 %}{% endcapture %}
-          {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg hero-slide__image' }}
+          {% if forloop.index == 1 %}
+            <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=2000&auto=format&fit=crop" class="hero-slide__image" alt="Hero 1">
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=2000&auto=format&fit=crop" class="hero-slide__image" alt="Hero 2">
+          {% endif %}
         {% endif %}
         
         <div class="hero-slide__overlay"></div>

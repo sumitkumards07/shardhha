@@ -51,7 +51,7 @@
         {% if section.settings.image != blank %}
           {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'image-with-text__image', alt: section.settings.title }}
         {% else %}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg image-with-text__image' }}
+          <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=1000&auto=format&fit=crop" class="image-with-text__image" alt="Crafted With Heritage">
         {% endif %}
       </div>
       <div class="image-with-text__text-item">
