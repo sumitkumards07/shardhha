@@ -642,22 +642,24 @@
                     {% endif %}
 
                     <!-- Quantity -->
-                    <div class="pdp-quantity">
-                      <span class="pdp-quantity__label">Quantity</span>
-                      <div class="pdp-quantity__controls">
-                        <button type="button" class="pdp-quantity__btn" onclick="this.nextElementSibling.stepDown()">−</button>
-                        <input type="number" name="quantity" value="1" min="1" class="pdp-quantity__input">
-                        <button type="button" class="pdp-quantity__btn" onclick="this.previousElementSibling.stepUp()">+</button>
+                    <div class="pdp-option">
+                      <span class="pdp-option__label">Quantity</span>
+                      <div class="pdp-qty">
+                        <button type="button" class="pdp-qty__btn" onclick="this.nextElementSibling.stepDown()">−</button>
+                        <input type="number" name="quantity" value="1" min="1" class="pdp-qty__input">
+                        <button type="button" class="pdp-qty__btn" onclick="this.previousElementSibling.stepUp()">+</button>
                       </div>
                     </div>
+                    
+                    <div id="pdp-error-message" style="color: #c0392b; font-family: var(--font-body); font-size: 0.9rem; margin-bottom: 1rem; display: none;"></div>
 
-                    <!-- Inline Action Buttons (desktop only, hidden on mobile) -->
+                    <!-- Actions -->
                     <div class="pdp-actions">
                       <button type="submit" name="add" class="pdp-btn-primary" {% if current_product and current_product.available == false %}disabled{% endif %}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
                         <span id="pdp-btn-text">{% if current_product and current_product.available == false %}Sold Out{% else %}Add to Cart{% endif %}</span>
                       </button>
-                      <button type="button" class="pdp-btn-secondary" onclick="var f=this.closest('form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.submit();}">
+                      <button type="button" class="pdp-btn-secondary" onclick="var f=this.closest('form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h); if(f.requestSubmit) { f.requestSubmit(); } else { f.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true})); } }">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         Buy Now
                       </button>
@@ -744,7 +746,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     <span id="sticky-btn-cart-text">{% if current_product and current_product.available == false %}Sold Out{% else %}Add to Cart{% endif %}</span>
   </button>
-  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--buy" id="sticky-btn-buy" onclick="var f=document.getElementById('pdp-form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.submit();}" {% if current_product and current_product.available == false %}disabled{% endif %}>
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--buy" id="sticky-btn-buy" onclick="var f=document.getElementById('pdp-form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h); if(f.requestSubmit) { f.requestSubmit(); } else { f.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true})); } }" {% if current_product and current_product.available == false %}disabled{% endif %}>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     Buy Now
   </button>
@@ -858,6 +860,50 @@ document.addEventListener('DOMContentLoaded', function() {
     if (checkedRadio) {
       checkedRadio.dispatchEvent(new Event('change'));
     }
+    
+    // AJAX Form Submission
+    var errorContainer = document.getElementById('pdp-error-message');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if(errorContainer) errorContainer.style.display = 'none';
+      
+      // Check if this is a Buy Now click
+      var isBuyNow = form.querySelector('input[name="return_to"]') !== null;
+      var submitBtn = isBuyNow ? stickyBuyBtn : btn;
+      var originalText = submitBtn ? submitBtn.innerHTML : '';
+      if(submitBtn) submitBtn.innerHTML = 'Processing...';
+      
+      var formData = new FormData(form);
+      
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      })
+      .then(function(response) {
+        return response.json().then(function(json) {
+          if (!response.ok) {
+            throw json;
+          }
+          return json;
+        });
+      })
+      .then(function(cartData) {
+        if (isBuyNow) {
+          window.location.href = '/checkout';
+        } else {
+          window.location.href = '/cart';
+        }
+      })
+      .catch(function(error) {
+        console.error('Add to cart error:', error);
+        if(submitBtn) submitBtn.innerHTML = originalText;
+        if(errorContainer) {
+          errorContainer.innerHTML = error.description || error.message || 'Something went wrong. Please try again.';
+          errorContainer.style.display = 'block';
+        }
+      });
+    });
+    
   } catch(e) {
     console.error('Error parsing product variants', e);
   }
