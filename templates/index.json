@@ -197,20 +197,6 @@
             "answer": "We highly recommend dry cleaning for all silk sarees, heavy fabrics, and embroidered pieces to maintain their intricate detailing and shine. For daily wear cotton kurtis, a gentle hand wash in cold water is ideal."
           }
         },
-        "faq_item_qUjyax": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Do you provide custom stitching for blouses?",
-            "answer": "All our sarees come with an attached unstitched blouse piece. At this time, we do not offer custom tailoring or stitching services, allowing you to design the blouse exactly to your local tailor's fit."
-          }
-        },
-        "faq_item_QXPctj": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What is your return and exchange policy?",
-            "answer": "We accept returns and exchanges within 7 days of delivery. Please ensure the garments are unworn, unwashed, and have all original tags intact. Fall-picot or stitched sarees cannot be returned."
-          }
-        },
         "faq_item_hqnkaX": {
           "type": "faq_item",
           "settings": {
@@ -228,23 +214,12 @@
       },
       "block_order": [
         "faq_item_jWEEV7",
-        "faq_item_qUjyax",
-        "faq_item_QXPctj",
         "faq_item_hqnkaX",
         "faq_item_qfQaCJ"
       ],
       "name": "FAQ Accordion",
       "settings": {
         "title": "Frequently Asked Questions"
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "title": "Get Early Access to New Arrivals",
-        "description": "Be the first to know when new kurtis drop. No spam, ever.",
-        "placeholder": "E-mail",
-        "button_text": "Subscribe"
       }
     }
   },
@@ -256,7 +231,6 @@
     "image_with_text",
     "featured_collection_2",
     "customer_reviews_m6cV6Q",
-    "faq_Bnqa9X",
-    "newsletter"
+    "faq_Bnqa9X"
   ]
 }
