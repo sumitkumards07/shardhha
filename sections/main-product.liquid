@@ -49,11 +49,29 @@
   }
   @media (max-width: 767px) {
     .pdp-gallery {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      gap: 0.75rem;
+      margin: 0 -2rem;
+      padding: 0 2rem;
     }
-    .pdp-gallery__item { border-radius: 14px; }
-    .pdp-gallery__item:first-child { border-radius: 14px; }
+    .pdp-gallery::-webkit-scrollbar {
+      display: none;
+    }
+    .pdp-gallery__item {
+      flex: 0 0 85%;
+      scroll-snap-align: center;
+      aspect-ratio: 4/5;
+      border-radius: 16px;
+    }
+    .pdp-gallery__item:first-child {
+      flex: 0 0 85%;
+      aspect-ratio: 4/5;
+      border-radius: 16px;
+    }
   }
 
   /* ── Product Info Sidebar ── */
