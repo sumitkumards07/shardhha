@@ -801,6 +801,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var stickyCartBtnText = document.getElementById('sticky-btn-cart-text');
     var stickyBuyBtn = document.getElementById('sticky-btn-buy');
     
+    var productOptions = {{ current_product.options | json }} || [];
+    
     radios.forEach(function(radio) {
       radio.addEventListener('change', function() {
         // Find selected options
@@ -809,11 +811,11 @@ document.addEventListener('DOMContentLoaded', function() {
           selectedOptions[r.name.replace('options[', '').replace(']', '')] = r.value;
         });
         
-        // Find matching variant
+        // Find matching variant robustly using exact option order
         var matchedVariant = variants.find(function(v) {
-          return Object.keys(selectedOptions).every(function(key, idx) {
+          return productOptions.every(function(optName, idx) {
             var optKey = 'option' + (idx + 1);
-            return v[optKey] === selectedOptions[key];
+            return v[optKey] === selectedOptions[optName];
           });
         });
         
