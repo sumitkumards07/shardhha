@@ -70,5 +70,28 @@
         "default": "inter_n4"
       }
     ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram Link",
+        "info": "https://instagram.com/yourbrand"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook Link",
+        "info": "https://facebook.com/yourbrand"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter Link",
+        "info": "https://twitter.com/yourbrand"
+      }
+    ]
   }
 ]

@@ -168,11 +168,23 @@
                 <h3 class="footer__block-title">{{ block.settings.heading }}</h3>
               {% endif %}
               
-              {% if block.settings.menu != blank %}
+              {% if block.settings.menu != blank and linklists[block.settings.menu].links.size > 0 %}
                 <ul class="footer__menu">
                   {% for link in linklists[block.settings.menu].links %}
                     <li class="footer__menu-item"><a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a></li>
                   {% endfor %}
+                </ul>
+              {% else %}
+                <ul class="footer__menu">
+                  {% if block.settings.heading == 'Policies' %}
+                    <li class="footer__menu-item"><a href="/policies/privacy-policy" class="footer__menu-link">Privacy Policy</a></li>
+                    <li class="footer__menu-item"><a href="/policies/refund-policy" class="footer__menu-link">Refund & Cancellation Policy</a></li>
+                    <li class="footer__menu-item"><a href="/policies/terms-of-service" class="footer__menu-link">Terms of Service</a></li>
+                  {% else %}
+                    <li class="footer__menu-item"><a href="/pages/story" class="footer__menu-link">Our Story</a></li>
+                    <li class="footer__menu-item"><a href="/collections/all" class="footer__menu-link">Shop All</a></li>
+                    <li class="footer__menu-item"><a href="/pages/contact" class="footer__menu-link">Contact Us</a></li>
+                  {% endif %}
                 </ul>
               {% endif %}
             </div>
