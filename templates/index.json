@@ -186,41 +186,6 @@
       "settings": {
         "title": "What Our Customers Say"
       }
-    },
-    "faq_Bnqa9X": {
-      "type": "faq",
-      "blocks": {
-        "faq_item_jWEEV7": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How should I care for my silk sarees and embroidered kurtis?",
-            "answer": "We highly recommend dry cleaning for all silk sarees, heavy fabrics, and embroidered pieces to maintain their intricate detailing and shine. For daily wear cotton kurtis, a gentle hand wash in cold water is ideal."
-          }
-        },
-        "faq_item_hqnkaX": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How long will it take to receive my order?",
-            "answer": "Standard domestic orders are processed within 2-3 business days and typically arrive in 5-7 business days. International shipping timelines vary between 10-14 business days depending on customs."
-          }
-        },
-        "faq_item_qfQaCJ": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Can I track my order once it has shipped?",
-            "answer": "Absolutely! As soon as your order is dispatched, you will receive a shipping confirmation email containing a tracking link so you can monitor your package right to your doorstep."
-          }
-        }
-      },
-      "block_order": [
-        "faq_item_jWEEV7",
-        "faq_item_hqnkaX",
-        "faq_item_qfQaCJ"
-      ],
-      "name": "FAQ Accordion",
-      "settings": {
-        "title": "Frequently Asked Questions"
-      }
     }
   },
   "order": [
@@ -230,7 +195,6 @@
     "featured_collection_1",
     "image_with_text",
     "featured_collection_2",
-    "customer_reviews_m6cV6Q",
-    "faq_Bnqa9X"
+    "customer_reviews_m6cV6Q"
   ]
 }
