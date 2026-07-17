@@ -10,8 +10,45 @@
 {
   "layout": "theme",
   "sections": {
-    "main": {
+    "main_product_eRRbCc": {
       "type": "main-product",
+      "blocks": {
+        "title_rJxXVr": {
+          "type": "title",
+          "settings": {}
+        },
+        "price_3kxUAA": {
+          "type": "price",
+          "settings": {}
+        },
+        "description_XfXYxq": {
+          "type": "description",
+          "settings": {}
+        },
+        "form_wpyWqd": {
+          "type": "form",
+          "settings": {}
+        },
+        "accordion_Fpd7nf": {
+          "type": "accordion",
+          "settings": {
+            "tab_1_title": "Product Details",
+            "tab_1_content": "100% Organic Hand-woven Cotton. Authentic Hand-embroidery.",
+            "tab_2_title": "Shipping & Delivery",
+            "tab_2_content": "Free shipping on orders above ₹999.",
+            "tab_3_title": "Returns & Exchange",
+            "tab_3_content": "7-day hassle-free returns and exchanges."
+          }
+        }
+      },
+      "block_order": [
+        "title_rJxXVr",
+        "price_3kxUAA",
+        "description_XfXYxq",
+        "form_wpyWqd",
+        "accordion_Fpd7nf"
+      ],
+      "name": "Product Information",
       "settings": {}
     },
     "recommendations": {
@@ -25,7 +62,7 @@
     }
   },
   "order": [
-    "main",
+    "main_product_eRRbCc",
     "recommendations"
   ]
 }
