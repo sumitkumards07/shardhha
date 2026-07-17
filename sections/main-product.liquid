@@ -55,8 +55,8 @@
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       gap: 0.75rem;
-      margin: 0 -2rem;
-      padding: 0 2rem;
+      margin: 0 -1.25rem;
+      padding: 0 1.25rem;
     }
     .pdp-gallery::-webkit-scrollbar {
       display: none;
@@ -86,6 +86,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
     font-family: var(--font-body);
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -103,10 +104,11 @@
 
   .pdp-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
     color: var(--color-dark-green);
     line-height: 1.2;
     margin-bottom: 0.75rem;
+    word-wrap: break-word;
   }
   .pdp-subtitle {
     font-family: var(--font-body);
@@ -121,6 +123,7 @@
     display: flex;
     align-items: baseline;
     gap: 0.75rem;
+    flex-wrap: wrap;
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--color-border);
@@ -311,7 +314,6 @@
     font-family: var(--font-body);
     font-size: 0.78rem;
     color: var(--color-secondary-text);
-    white-space: nowrap;
   }
   .pdp-usp__item svg { width: 18px; height: 18px; color: var(--color-dark-green); flex-shrink: 0; }
 
