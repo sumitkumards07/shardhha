@@ -126,60 +126,63 @@
 <footer class="footer">
   <div class="container">
     <div class="footer__inner">
-      <!-- Brand Block -->
-      <div class="footer__block">
-        <a href="{{ routes.root_url }}" class="footer__logo">
-          {{ shop.name | default: 'SHARDDHA WEAVES' }}
-        </a>
-        <p>
-          Rooted in culture, woven for today. Premium ethnic fashion celebrating craftsmanship and timeless elegance.
-        </p>
-        <div class="footer__social">
-          <a href="#" class="footer__social-link" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="#" class="footer__social-link" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </a>
-          <a href="#" class="footer__social-link" aria-label="Twitter">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Quick Links Block -->
-      <div class="footer__block">
-        <h3 class="footer__block-title">Quick Links</h3>
-        <ul class="footer__menu">
-          {% for link in linklists.footer.links %}
-            <li class="footer__menu-item"><a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a></li>
-          {% else %}
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">About Us</a></li>
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Contact Us</a></li>
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Track Your Order</a></li>
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Return & Exchange</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <!-- Policies Block -->
-      <div class="footer__block">
-        <h3 class="footer__block-title">Policies</h3>
-        <ul class="footer__menu">
-          {% for link in linklists.policies.links %}
-            <li class="footer__menu-item"><a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a></li>
-          {% else %}
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Privacy Policy</a></li>
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Shipping & Delivery</a></li>
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Refund Policy</a></li>
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Terms of Service</a></li>
-          {% endfor %}
-        </ul>
-      </div>
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'text' %}
+            <!-- Brand / Text Block -->
+            <div class="footer__block" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <a href="{{ routes.root_url }}" class="footer__logo">
+                  {{ block.settings.heading }}
+                </a>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                <p>{{ block.settings.text }}</p>
+              {% endif %}
+              
+              {% if block.settings.show_social %}
+                <div class="footer__social">
+                  {% if settings.social_instagram_link != blank %}
+                    <a href="{{ settings.social_instagram_link }}" class="footer__social-link" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </a>
+                  {% endif %}
+                  {% if settings.social_facebook_link != blank %}
+                    <a href="{{ settings.social_facebook_link }}" class="footer__social-link" aria-label="Facebook">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                    </a>
+                  {% endif %}
+                  {% if settings.social_twitter_link != blank %}
+                    <a href="{{ settings.social_twitter_link }}" class="footer__social-link" aria-label="Twitter">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+            
+          {% when 'link_list' %}
+            <!-- Menu Block -->
+            <div class="footer__block" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <h3 class="footer__block-title">{{ block.settings.heading }}</h3>
+              {% endif %}
+              
+              {% if block.settings.menu != blank %}
+                <ul class="footer__menu">
+                  {% for link in linklists[block.settings.menu].links %}
+                    <li class="footer__menu-item"><a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+            
+        {% endcase %}
+      {% endfor %}
     </div>
 
     <div class="footer__bottom">
-      &copy; {{ 'now' | date: "%Y" }} {{ shop.name | default: 'Sharddha Weaves' }}. All Rights Reserved.
+      &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All Rights Reserved.
     </div>
   </div>
 </footer>
@@ -187,6 +190,76 @@
 {% schema %}
 {
   "name": "Footer",
-  "settings": []
+  "max_blocks": 4,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Quick links",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Store details",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "Share store details, promotions, or brand content with your customers.",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social",
+          "default": true,
+          "label": "Show social media icons"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text",
+        "settings": {
+          "heading": "SHARDDHA WEAVES",
+          "text": "Rooted in culture, woven for today. Premium ethnic fashion celebrating craftsmanship and timeless elegance."
+        }
+      },
+      {
+        "type": "link_list",
+        "settings": {
+          "heading": "Quick links",
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "link_list",
+        "settings": {
+          "heading": "Policies",
+          "menu": "footer"
+        }
+      }
+    ]
+  }
 }
 {% endschema %}
