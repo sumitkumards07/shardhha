@@ -137,7 +137,7 @@
                 </a>
               {% endif %}
               {% if block.settings.text != blank %}
-                <p>{{ block.settings.text }}</p>
+                <p>{{ block.settings.text | newline_to_br }}</p>
               {% endif %}
               
               {% if block.settings.show_social %}
@@ -254,7 +254,7 @@
         "type": "text",
         "settings": {
           "heading": "SHARDDHA WEAVES",
-          "text": "Rooted in culture, woven for today. Premium ethnic fashion celebrating craftsmanship and timeless elegance."
+          "text": "Rooted in culture, woven for today. Premium ethnic fashion celebrating craftsmanship and timeless elegance.\n\nAngad Yadav\nLahartara, Varanasi 221106"
         }
       },
       {
