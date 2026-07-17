@@ -116,7 +116,7 @@
       "type": "featured-collection",
       "settings": {
         "title": "Best Sellers",
-        "collection": "",
+        "collection": "bestseller",
         "products_to_show": 4,
         "show_view_all": true
       }
@@ -135,22 +135,117 @@
       "type": "featured-collection",
       "settings": {
         "title": "New Arrivals",
-        "collection": "",
+        "collection": "frontpage",
         "products_to_show": 4,
         "show_view_all": true
       }
     },
-    "faq": {
-      "type": "faq",
-      "settings": {}
-    },
-    "reviews": {
+    "customer_reviews_m6cV6Q": {
       "type": "customer-reviews",
-      "settings": {}
+      "blocks": {
+        "review_G4KD3d": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Absolutely love the sarees! The fabric is so premium and the design is just beautiful.",
+            "author": "Anjali K."
+          }
+        },
+        "review_extXeT": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "The quality of the kurtis is absolutely amazing. Fast shipping and great customer service!",
+            "author": "Priya S."
+          }
+        },
+        "review_bAffye": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "I bought a lehenga for a wedding and received so many compliments. Highly recommend Sharddha Weaves!",
+            "author": "Neha R."
+          }
+        },
+        "review_kPX8zr": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Beautiful packaging and the clothing is exactly as pictured. Will definitely buy again.",
+            "author": "Sneha P."
+          }
+        }
+      },
+      "block_order": [
+        "review_G4KD3d",
+        "review_extXeT",
+        "review_bAffye",
+        "review_kPX8zr"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "title": "What Our Customers Say"
+      }
+    },
+    "faq_Bnqa9X": {
+      "type": "faq",
+      "blocks": {
+        "faq_item_jWEEV7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How should I care for my silk sarees and embroidered kurtis?",
+            "answer": "We highly recommend dry cleaning for all silk sarees, heavy fabrics, and embroidered pieces to maintain their intricate detailing and shine. For daily wear cotton kurtis, a gentle hand wash in cold water is ideal."
+          }
+        },
+        "faq_item_qUjyax": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you provide custom stitching for blouses?",
+            "answer": "All our sarees come with an attached unstitched blouse piece. At this time, we do not offer custom tailoring or stitching services, allowing you to design the blouse exactly to your local tailor's fit."
+          }
+        },
+        "faq_item_QXPctj": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return and exchange policy?",
+            "answer": "We accept returns and exchanges within 7 days of delivery. Please ensure the garments are unworn, unwashed, and have all original tags intact. Fall-picot or stitched sarees cannot be returned."
+          }
+        },
+        "faq_item_hqnkaX": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long will it take to receive my order?",
+            "answer": "Standard domestic orders are processed within 2-3 business days and typically arrive in 5-7 business days. International shipping timelines vary between 10-14 business days depending on customs."
+          }
+        },
+        "faq_item_qfQaCJ": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I track my order once it has shipped?",
+            "answer": "Absolutely! As soon as your order is dispatched, you will receive a shipping confirmation email containing a tracking link so you can monitor your package right to your doorstep."
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_jWEEV7",
+        "faq_item_qUjyax",
+        "faq_item_QXPctj",
+        "faq_item_hqnkaX",
+        "faq_item_qfQaCJ"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "title": "Get Early Access to New Arrivals",
+        "description": "Be the first to know when new kurtis drop. No spam, ever.",
+        "placeholder": "E-mail",
+        "button_text": "Subscribe"
+      }
     }
   },
   "order": [
@@ -160,8 +255,8 @@
     "featured_collection_1",
     "image_with_text",
     "featured_collection_2",
-    "reviews",
-    "faq",
+    "customer_reviews_m6cV6Q",
+    "faq_Bnqa9X",
     "newsletter"
   ]
 }
