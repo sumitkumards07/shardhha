@@ -647,14 +647,19 @@
                     <div class="pdp-actions">
                       <button type="submit" name="add" class="pdp-btn-primary" {% if current_product and current_product.available == false %}disabled{% endif %}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                        {% if current_product and current_product.available == false %}Sold Out{% else %}Add to Cart{% endif %}
+                        <span id="pdp-btn-text">{% if current_product and current_product.available == false %}Sold Out{% else %}Add to Cart{% endif %}</span>
                       </button>
-                      <button type="button" class="pdp-btn-secondary" onclick="if(this.closest('form')){this.closest('form').querySelector('input[name=return_to]')?.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';this.closest('form').appendChild(h);this.closest('form').submit();}">
+                      <button type="button" class="pdp-btn-secondary" onclick="var f=this.closest('form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.submit();}">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         Buy Now
                       </button>
                     </div>
                   {% endform %}
+                  {% if current_product %}
+                    <script id="ProductJson-{{ section.id }}" type="application/json">
+                      {{ current_product.variants | json }}
+                    </script>
+                  {% endif %}
                 </div>
 
               {% when 'accordion' %}
@@ -727,11 +732,11 @@
 
 <!-- ═══ Sticky Bottom Bar (Myntra-style, mobile only) ═══ -->
 <div class="pdp-sticky-bar">
-  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--cart" onclick="document.getElementById('pdp-form')?.requestSubmit ? document.getElementById('pdp-form').requestSubmit() : document.getElementById('pdp-form')?.submit()">
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--cart" onclick="var f=document.getElementById('pdp-form'); if(f){f.requestSubmit ? f.requestSubmit() : f.submit();}">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     Add to Cart
   </button>
-  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--buy" onclick="var f=document.getElementById('pdp-form');if(f){f.querySelector('input[name=return_to]')?.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.requestSubmit ? f.requestSubmit() : f.submit();}">
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--buy" onclick="var f=document.getElementById('pdp-form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.submit();}">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     Buy Now
   </button>
@@ -769,6 +774,68 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }, 50);
   });
+});
+
+// Variant Selector Logic
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('pdp-form');
+  var jsonEl = document.getElementById('ProductJson-{{ section.id }}');
+  if (!form || !jsonEl) return;
+  
+  try {
+    var variants = JSON.parse(jsonEl.innerHTML);
+    var radios = form.querySelectorAll('input[type="radio"]');
+    var idInput = form.querySelector('input[name="id"]');
+    var priceEl = document.querySelector('.pdp-price__current');
+    var btnText = document.getElementById('pdp-btn-text');
+    var btn = form.querySelector('button[name="add"]');
+    
+    radios.forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        // Find selected options
+        var selectedOptions = {};
+        form.querySelectorAll('input[type="radio"]:checked').forEach(function(r) {
+          selectedOptions[r.name.replace('options[', '').replace(']', '')] = r.value;
+        });
+        
+        // Find matching variant
+        var matchedVariant = variants.find(function(v) {
+          return Object.keys(selectedOptions).every(function(key, idx) {
+            var optKey = 'option' + (idx + 1);
+            return v[optKey] === selectedOptions[key];
+          });
+        });
+        
+        if (matchedVariant) {
+          idInput.value = matchedVariant.id;
+          
+          // Update Price
+          if (priceEl) {
+            var formatter = new Intl.NumberFormat('en-IN', {
+              style: 'currency',
+              currency: 'INR',
+              minimumFractionDigits: 0
+            });
+            priceEl.innerHTML = formatter.format(matchedVariant.price / 100);
+          }
+          
+          // Update URL
+          window.history.replaceState({}, '', '?variant=' + matchedVariant.id);
+          
+          // Update Availability
+          if (matchedVariant.available) {
+            btn.disabled = false;
+            if(btnText) btnText.innerHTML = 'Add to Cart';
+          } else {
+            btn.disabled = true;
+            if(btnText) btnText.innerHTML = 'Sold Out';
+          }
+        }
+      });
+    });
+  } catch(e) {
+    console.error('Error parsing product variants', e);
+  }
 });
 </script>
 
