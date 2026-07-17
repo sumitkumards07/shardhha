@@ -4,13 +4,14 @@
   .pdp-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   @media (min-width: 768px) {
     .pdp-grid {
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
     }
+    .pdp { padding: 1.5rem 0 4rem; }
   }
   @media (min-width: 1024px) {
     .pdp-grid {
@@ -19,7 +20,7 @@
     }
   }
 
-  /* ── Image Gallery ── */
+  /* ── Image Gallery (Desktop: 2-col grid) ── */
   .pdp-gallery {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -33,9 +34,6 @@
     cursor: zoom-in;
     position: relative;
   }
-  .pdp-gallery__item:first-child {
-    border-radius: 16px;
-  }
   .pdp-gallery__item img {
     width: 100%;
     height: 100%;
@@ -45,6 +43,8 @@
   .pdp-gallery__item:hover img {
     transform: scale(1.04);
   }
+
+  /* ── Image Gallery (Mobile: horizontal swiper like Myntra) ── */
   @media (max-width: 767px) {
     .pdp-gallery {
       display: flex;
@@ -52,40 +52,69 @@
       scroll-snap-type: x mandatory;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      gap: 0.75rem;
+      gap: 0;
       margin: 0 -1.25rem;
-      padding: 0 1.25rem;
+      padding: 0;
+      border-radius: 0;
     }
-    .pdp-gallery::-webkit-scrollbar {
-      display: none;
-    }
+    .pdp-gallery::-webkit-scrollbar { display: none; }
     .pdp-gallery__item {
-      flex: 0 0 85%;
-      scroll-snap-align: center;
-      aspect-ratio: 4/5;
-      border-radius: 16px;
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      aspect-ratio: 3/4;
+      border-radius: 0;
+      max-height: 55vh;
     }
-    .pdp-gallery__item:first-child {
-      flex: 0 0 85%;
-      aspect-ratio: 4/5;
-      border-radius: 16px;
+    .pdp-gallery__item img {
+      border-radius: 0;
+    }
+  }
+
+  /* ── Gallery Dots (mobile only) ── */
+  .pdp-gallery-dots {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .pdp-gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 0.75rem 0 0;
+    }
+    .pdp-gallery-dots__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--color-border);
+      transition: all 0.3s ease;
+    }
+    .pdp-gallery-dots__dot.active {
+      background: var(--color-dark-green);
+      width: 20px;
+      border-radius: 10px;
     }
   }
 
   /* ── Product Info Sidebar ── */
-  .pdp-info {
-    position: relative;
-  }
+  .pdp-info { position: relative; }
   .pdp-info__sticky {
     position: sticky;
     top: 100px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
   }
-  .pdp-info__sticky::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+  .pdp-info__sticky::-webkit-scrollbar { display: none; }
+  @media (max-width: 767px) {
+    .pdp-info__sticky {
+      position: relative;
+      top: 0;
+      max-height: none;
+      overflow-y: visible;
+    }
   }
+
+  /* Breadcrumbs */
   .pdp-breadcrumbs {
     display: flex;
     align-items: center;
@@ -105,21 +134,29 @@
   }
   .pdp-breadcrumbs a:hover { color: var(--color-dark-green); }
   .pdp-breadcrumbs svg { width: 12px; height: 12px; opacity: 0.5; }
+  @media (max-width: 767px) {
+    .pdp-breadcrumbs { display: none; }
+  }
 
+  /* Title */
   .pdp-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
     color: var(--color-dark-green);
     line-height: 1.2;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.25rem;
     word-wrap: break-word;
   }
   .pdp-subtitle {
     font-family: var(--font-body);
     font-size: 0.85rem;
     color: var(--color-secondary-text);
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.75rem;
     line-height: 1.5;
+  }
+  @media (max-width: 767px) {
+    .pdp-title { font-size: 1.25rem; margin-bottom: 0.2rem; }
+    .pdp-subtitle { font-size: 0.8rem; margin-bottom: 0.5rem; }
   }
 
   /* Price */
@@ -128,8 +165,8 @@
     align-items: baseline;
     gap: 0.75rem;
     flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--color-border);
   }
   .pdp-price__current {
@@ -155,9 +192,14 @@
     padding: 0.25rem 0.75rem;
     border-radius: 50px;
   }
+  @media (max-width: 767px) {
+    .pdp-price { margin-bottom: 1rem; padding-bottom: 1rem; }
+    .pdp-price__current { font-size: 1.3rem; }
+    .pdp-price__compare { font-size: 0.9rem; }
+  }
 
   /* Variants */
-  .pdp-option { margin-bottom: 1.5rem; }
+  .pdp-option { margin-bottom: 1.25rem; }
   .pdp-option__label {
     font-family: var(--font-body);
     font-size: 0.8rem;
@@ -165,7 +207,7 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-primary-text);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
     display: block;
   }
   .pdp-option__values {
@@ -173,19 +215,17 @@
     gap: 0.5rem;
     flex-wrap: wrap;
   }
-  .pdp-option__value {
-    cursor: pointer;
-  }
+  .pdp-option__value { cursor: pointer; }
   .pdp-option__value input { display: none; }
   .pdp-option__value span {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 48px;
-    height: 48px;
-    padding: 0 1rem;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 0.9rem;
     border: 1.5px solid var(--color-border);
-    border-radius: 14px;
+    border-radius: 12px;
     font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 500;
@@ -200,13 +240,24 @@
   .pdp-option__value:hover span {
     border-color: var(--color-dark-green);
   }
+  @media (max-width: 767px) {
+    .pdp-option { margin-bottom: 1rem; }
+    .pdp-option__label { font-size: 0.75rem; margin-bottom: 0.5rem; }
+    .pdp-option__value span {
+      min-width: 40px;
+      height: 40px;
+      padding: 0 0.75rem;
+      font-size: 0.8rem;
+      border-radius: 10px;
+    }
+  }
 
   /* Quantity */
   .pdp-quantity {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
   .pdp-quantity__label {
     font-family: var(--font-body);
@@ -246,12 +297,15 @@
     background: transparent !important;
   }
 
-  /* Action Buttons */
+  /* ── Inline Action Buttons (hidden on mobile, replaced by sticky bar) ── */
   .pdp-actions {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     margin-bottom: 2rem;
+  }
+  @media (max-width: 767px) {
+    .pdp-actions { display: none; }
   }
   .pdp-btn-primary {
     width: 100%;
@@ -301,6 +355,54 @@
   }
   .pdp-btn-secondary svg { width: 18px; height: 18px; }
 
+  /* ── Sticky Bottom Bar (Myntra-style, mobile only) ── */
+  .pdp-sticky-bar {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .pdp-sticky-bar {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 150;
+      background: #FAF9F6;
+      border-top: 1px solid var(--color-border);
+      padding: 0.75rem 1rem;
+      gap: 0.75rem;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+    }
+    .pdp-sticky-bar__btn {
+      flex: 1;
+      padding: 0.85rem;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .pdp-sticky-bar__btn svg { width: 18px; height: 18px; }
+    .pdp-sticky-bar__btn--cart {
+      background: transparent;
+      border: 1.5px solid var(--color-dark-green);
+      color: var(--color-dark-green);
+    }
+    .pdp-sticky-bar__btn--buy {
+      background: var(--color-dark-green);
+      color: #FAF9F6;
+    }
+    .pdp { padding-bottom: 5rem; } /* space for sticky bar */
+  }
+
   /* USP Row */
   .pdp-usp {
     display: flex;
@@ -308,7 +410,7 @@
     padding: 1.25rem 0;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
   }
   .pdp-usp__item {
@@ -320,6 +422,20 @@
     color: var(--color-secondary-text);
   }
   .pdp-usp__item svg { width: 18px; height: 18px; color: var(--color-dark-green); flex-shrink: 0; }
+  @media (max-width: 767px) {
+    .pdp-usp {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .pdp-usp__item {
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.7rem;
+    }
+  }
 
   /* Accordion Tabs */
   .pdp-tabs { margin-top: 0.5rem; }
@@ -330,7 +446,7 @@
     width: 100%;
     background: none;
     border: none;
-    padding: 1.1rem 0;
+    padding: 1rem 0;
     font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 600;
@@ -368,6 +484,10 @@
     line-height: 1.7;
     color: var(--color-secondary-text);
   }
+  @media (max-width: 767px) {
+    .pdp-tab__trigger { font-size: 0.78rem; padding: 0.85rem 0; }
+    .pdp-tab__body { font-size: 0.85rem; }
+  }
 </style>
 
 {% assign current_product = product %}
@@ -377,31 +497,35 @@
     <div class="pdp-grid">
 
       <!-- ═══ LEFT: Image Gallery ═══ -->
-      <div class="pdp-gallery">
-        {% if current_product and current_product.images.size > 0 %}
-          {% for image in current_product.images limit: 5 %}
+      <div>
+        <div class="pdp-gallery" id="pdpGallery-{{ section.id }}">
+          {% if current_product and current_product.images.size > 0 %}
+            {% for image in current_product.images limit: 5 %}
+              <div class="pdp-gallery__item">
+                {{ image | image_url: width: 1000 | image_tag: alt: current_product.title }}
+              </div>
+            {% endfor %}
+          {% else %}
             <div class="pdp-gallery__item">
-              {{ image | image_url: width: 1000 | image_tag: alt: current_product.title }}
+              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000&auto=format&fit=crop" alt="Product">
             </div>
-          {% endfor %}
-        {% else %}
-          <div class="pdp-gallery__item">
-            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000&auto=format&fit=crop" alt="Product">
-          </div>
-          <div class="pdp-gallery__item">
-            <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=800&auto=format&fit=crop" alt="Product">
-          </div>
-          <div class="pdp-gallery__item">
-            <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=800&auto=format&fit=crop" alt="Product">
-          </div>
-        {% endif %}
+            <div class="pdp-gallery__item">
+              <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=800&auto=format&fit=crop" alt="Product">
+            </div>
+            <div class="pdp-gallery__item">
+              <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=800&auto=format&fit=crop" alt="Product">
+            </div>
+          {% endif %}
+        </div>
+        <!-- Dots (mobile only) -->
+        <div class="pdp-gallery-dots" id="pdpDots-{{ section.id }}"></div>
       </div>
 
       <!-- ═══ RIGHT: Product Info ═══ -->
       <div class="pdp-info">
         <div class="pdp-info__sticky">
 
-          <!-- Breadcrumbs -->
+          <!-- Breadcrumbs (desktop only) -->
           <nav class="pdp-breadcrumbs">
             <a href="{{ routes.root_url }}">Home</a>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -440,18 +564,18 @@
 
               {% when 'description' %}
                 {% if current_product and current_product.description != blank %}
-                  <p class="pdp-subtitle" style="margin-bottom: 1.5rem;" {{ block.shopify_attributes }}>
+                  <p class="pdp-subtitle" style="margin-bottom: 1.25rem;" {{ block.shopify_attributes }}>
                     {{ current_product.description | strip_html | truncatewords: 30 }}
                   </p>
                 {% else %}
-                  <p class="pdp-subtitle" style="margin-bottom: 1.5rem;">
+                  <p class="pdp-subtitle" style="margin-bottom: 1.25rem;">
                     A testament to slow fashion. Delicate cream hand-embroidery on premium organic cotton, crafted by master artisans.
                   </p>
                 {% endif %}
 
               {% when 'form' %}
                 <div {{ block.shopify_attributes }}>
-                  {% form 'product', current_product %}
+                  {% form 'product', current_product, id: 'pdp-form' %}
                     <input type="hidden" name="id" value="{% if current_product %}{{ current_product.selected_or_first_available_variant.id }}{% endif %}">
 
                     <!-- Variants -->
@@ -494,7 +618,7 @@
                       </div>
                     </div>
 
-                    <!-- Action Buttons -->
+                    <!-- Inline Action Buttons (desktop only, hidden on mobile) -->
                     <div class="pdp-actions">
                       <button type="submit" name="add" class="pdp-btn-primary" {% if current_product and current_product.available == false %}disabled{% endif %}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -575,6 +699,53 @@
     </div>
   </div>
 </div>
+
+<!-- ═══ Sticky Bottom Bar (Myntra-style, mobile only) ═══ -->
+<div class="pdp-sticky-bar">
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--cart" onclick="document.getElementById('pdp-form')?.requestSubmit ? document.getElementById('pdp-form').requestSubmit() : document.getElementById('pdp-form')?.submit()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    Add to Cart
+  </button>
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--buy" onclick="var f=document.getElementById('pdp-form');if(f){f.querySelector('input[name=return_to]')?.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.requestSubmit ? f.requestSubmit() : f.submit();}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    Buy Now
+  </button>
+</div>
+
+<!-- ═══ Gallery Dots JS ═══ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var gallery = document.getElementById('pdpGallery-{{ section.id }}');
+  var dotsContainer = document.getElementById('pdpDots-{{ section.id }}');
+  if (!gallery || !dotsContainer) return;
+
+  var items = gallery.querySelectorAll('.pdp-gallery__item');
+  if (items.length <= 1) return;
+
+  // Create dots
+  items.forEach(function(_, i) {
+    var dot = document.createElement('div');
+    dot.className = 'pdp-gallery-dots__dot' + (i === 0 ? ' active' : '');
+    dotsContainer.appendChild(dot);
+  });
+
+  var dots = dotsContainer.querySelectorAll('.pdp-gallery-dots__dot');
+
+  // Update dots on scroll
+  var scrollTimeout;
+  gallery.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function() {
+      var scrollLeft = gallery.scrollLeft;
+      var itemWidth = items[0].offsetWidth;
+      var activeIndex = Math.round(scrollLeft / itemWidth);
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === activeIndex);
+      });
+    }, 50);
+  });
+});
+</script>
 
 {% schema %}
 {
