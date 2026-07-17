@@ -1,0 +1,163 @@
+<style>
+  .sold-out {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem 2rem;
+    background-color: var(--color-warm-ivory);
+    text-align: center;
+    min-height: 80vh;
+    justify-content: center;
+  }
+  .sold-out__badge {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-muted-gold);
+    margin-bottom: 1.5rem;
+  }
+  .sold-out__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--color-dark-green);
+    margin: 0 0 1.5rem;
+    line-height: 1.1;
+    max-width: 800px;
+  }
+  .sold-out__text {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--color-primary-text);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+  }
+  .sold-out__form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .sold-out__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .sold-out__input {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-primary-text);
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  .sold-out__input:focus {
+    border-color: var(--color-dark-green);
+  }
+  .sold-out__submit {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--color-dark-green);
+    color: #FAF9F6;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .sold-out__submit:hover {
+    background: var(--color-muted-gold);
+  }
+  .sold-out__success {
+    padding: 1.5rem;
+    background: var(--color-soft-beige);
+    border: 1px solid var(--color-border);
+    color: var(--color-dark-green);
+    font-family: var(--font-body);
+    margin-bottom: 2rem;
+  }
+  @media (min-width: 768px) {
+    .sold-out__form {
+      flex-direction: row;
+      gap: 0;
+    }
+    .sold-out__input {
+      border-right: none;
+    }
+    .sold-out__submit {
+      width: auto;
+      padding: 1.2rem 2.5rem;
+    }
+  }
+</style>
+
+<div class="sold-out">
+  <span class="sold-out__badge">{{ section.settings.badge | default: 'Limited Edition' }}</span>
+  <h1 class="sold-out__title">{{ section.settings.heading | default: 'Currently Out of Stock' }}</h1>
+  <p class="sold-out__text">
+    {{ section.settings.text | default: 'Our exquisite pieces are woven with time and heritage. Due to the intricate craftsmanship, collections are extremely limited. Sign up to be the first to know when we restock.' }}
+  </p>
+
+  <div class="sold-out__form-container">
+    {% form 'customer', class: 'sold-out__form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter, restock">
+      
+      {% if form.posted_successfully? %}
+        <div class="sold-out__success">
+          Thank you! You will be notified of our next exquisite drop.
+        </div>
+      {% endif %}
+      
+      {% if form.errors %}
+        <div class="sold-out__success" style="color: red; border-color: red;">
+          {{ form.errors | default_errors }}
+        </div>
+      {% endif %}
+
+      {% unless form.posted_successfully? %}
+        <input 
+          type="email" 
+          name="contact[email]" 
+          class="sold-out__input" 
+          placeholder="Enter your email address" 
+          required
+          aria-label="Email Address"
+        >
+        <button type="submit" class="sold-out__submit">Notify Me</button>
+      {% endunless %}
+    {% endform %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Sold Out",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge Text",
+      "default": "Limited Edition"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Currently Out of Stock"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Our exquisite pieces are woven with time and heritage. Due to the intricate craftsmanship, collections are extremely limited. Sign up to be the first to know when we restock."
+    }
+  ]
+}
+{% endschema %}

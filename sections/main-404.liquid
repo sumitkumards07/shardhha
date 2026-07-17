@@ -1,0 +1,69 @@
+<style>
+  .error-page {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    background-color: var(--color-warm-ivory);
+  }
+  .error-page__title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--color-dark-green);
+    margin: 0;
+    line-height: 1;
+  }
+  .error-page__subtitle {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--color-primary-text);
+    margin: 1rem 0 2rem;
+  }
+  .error-page__text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-secondary-text);
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+  }
+  .error-page__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-dark-green);
+    color: #FAF9F6;
+    padding: 1rem 3rem;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+  }
+  .error-page__btn:hover {
+    background: var(--color-muted-gold);
+  }
+</style>
+
+<div class="error-page">
+  <h1 class="error-page__title">404</h1>
+  <h2 class="error-page__subtitle">{{ 'general.404.title' | t | default: 'Page Not Found' }}</h2>
+  <p class="error-page__text">
+    {{ 'general.404.subtext_html' | t | default: "We're sorry, but the page you are looking for does not exist. It might have been moved or the link you followed might be broken." }}
+  </p>
+  <a href="{{ routes.root_url }}" class="error-page__btn">
+    {{ 'general.404.link' | t | default: 'Return to Homepage' }}
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "404 Page",
+  "settings": []
+}
+{% endschema %}
