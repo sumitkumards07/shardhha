@@ -742,7 +742,7 @@
 
 <!-- ═══ Sticky Bottom Bar (Myntra-style, mobile only) ═══ -->
 <div class="pdp-sticky-bar">
-  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--cart" id="sticky-btn-cart" onclick="var f=document.getElementById('pdp-form'); if(f){f.requestSubmit ? f.requestSubmit() : f.submit();}" {% if current_product and current_product.available == false %}disabled{% endif %}>
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--cart" id="sticky-btn-cart" onclick="var f=document.getElementById('pdp-form'); if(f){if(f.requestSubmit) { f.requestSubmit(); } else { f.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true})); }}" {% if current_product and current_product.available == false %}disabled{% endif %}>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     <span id="sticky-btn-cart-text">{% if current_product and current_product.available == false %}Sold Out{% else %}Add to Cart{% endif %}</span>
   </button>
