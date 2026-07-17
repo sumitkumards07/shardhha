@@ -33,9 +33,9 @@
          
          <div class="aspect-[4/5] overflow-hidden bg-surface-container-low border border-outline-variant/30 rounded-3xl">
             {% if section.settings.image != blank %}
-              {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105', alt: section.settings.title }}
+              {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105', alt: section.settings.title, loading: 'lazy' }}
             {% else %}
-              <img src="{{ 'crafted_heritage.png' | asset_url }}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Crafted With Heritage">
+              <img src="{{ 'crafted_heritage.png' | asset_url }}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Crafted With Heritage" loading="lazy">
             {% endif %}
          </div>
       </div>

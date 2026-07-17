@@ -527,18 +527,22 @@
           {% if current_product and current_product.images.size > 0 %}
             {% for image in current_product.images limit: 5 %}
               <div class="pdp-gallery__item">
-                {{ image | image_url: width: 1000 | image_tag: alt: current_product.title }}
+                {% if forloop.first %}
+                  {{ image | image_url: width: 1000 | image_tag: alt: current_product.title, preload: true }}
+                {% else %}
+                  {{ image | image_url: width: 1000 | image_tag: alt: current_product.title, loading: 'lazy' }}
+                {% endif %}
               </div>
             {% endfor %}
           {% else %}
             <div class="pdp-gallery__item">
-              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000&auto=format&fit=crop" alt="Product">
+              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000&auto=format&fit=crop" alt="Product" fetchpriority="high">
             </div>
             <div class="pdp-gallery__item">
-              <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=800&auto=format&fit=crop" alt="Product">
+              <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=800&auto=format&fit=crop" alt="Product" loading="lazy">
             </div>
             <div class="pdp-gallery__item">
-              <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=800&auto=format&fit=crop" alt="Product">
+              <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=800&auto=format&fit=crop" alt="Product" loading="lazy">
             </div>
           {% endif %}
         </div>

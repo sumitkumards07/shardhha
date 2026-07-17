@@ -150,12 +150,16 @@
     {% for block in section.blocks %}
       <div class="hero-slide" id="slide-{{ section.id }}-{{ forloop.index }}">
         {% if block.settings.image != blank %}
-          {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'hero-slide__image', alt: block.settings.heading }}
+          {% if forloop.first %}
+            {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'hero-slide__image', alt: block.settings.heading, preload: true }}
+          {% else %}
+            {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'hero-slide__image', alt: block.settings.heading, loading: 'lazy' }}
+          {% endif %}
         {% else %}
           {% if forloop.index == 1 %}
-            <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=2000&auto=format&fit=crop" class="hero-slide__image" alt="Hero 1">
+            <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=2000&auto=format&fit=crop" class="hero-slide__image" alt="Hero 1" fetchpriority="high">
           {% else %}
-            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=2000&auto=format&fit=crop" class="hero-slide__image" alt="Hero 2">
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=2000&auto=format&fit=crop" class="hero-slide__image" alt="Hero 2" loading="lazy">
           {% endif %}
         {% endif %}
         
