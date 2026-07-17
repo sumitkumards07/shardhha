@@ -59,18 +59,18 @@
         
         {% for i in (0..3) %}
           <div class="premium-product-card">
-            <a href="#" class="premium-product-card__image-link">
+            <a href="{{ routes.all_products_collection_url }}" class="premium-product-card__image-link">
               <div class="premium-product-card__image-wrapper">
                 <img src="{{ demo_images[i] }}" class="premium-product-card__image" alt="{{ demo_titles[i] }}">
               </div>
             </a>
             <div class="premium-product-card__info">
-              <a href="#" style="text-decoration: none;">
+              <a href="{{ routes.all_products_collection_url }}" style="text-decoration: none;">
                 <h3 class="premium-product-card__title">{{ demo_titles[i] }}</h3>
               </a>
               <div class="premium-product-card__price"><span>{{ demo_prices[i] }}</span></div>
               <div class="premium-product-card__actions">
-                <a href="#" class="premium-product-card__buy-btn" style="display:block; text-decoration:none;">Buy Now</a>
+                <a href="{{ routes.all_products_collection_url }}" class="premium-product-card__buy-btn" style="display:block; text-decoration:none;">Buy Now</a>
               </div>
             </div>
           </div>
