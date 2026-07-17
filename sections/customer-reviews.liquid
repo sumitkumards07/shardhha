@@ -2,6 +2,7 @@
 .reviews-section {
   padding: var(--section-spacing) 0;
   background-color: #eaf2ee;
+  border-radius: 0;
 }
 .reviews-header {
   text-align: center;
@@ -16,7 +17,7 @@
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: 2rem;
+  gap: 1.5rem;
   padding-bottom: 2rem;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
@@ -28,12 +29,19 @@
   background: #FAF9F6;
   padding: 2.5rem 2rem;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 24px;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 .review-stars {
-  color: #f5b041; /* Gold star color */
+  color: #f5b041;
   margin-bottom: 1rem;
   font-size: 1.2rem;
+  letter-spacing: 0.1em;
 }
 .review-text {
   font-family: var(--font-body);
@@ -45,7 +53,7 @@
 }
 .review-author {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--color-dark-green);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -59,6 +67,7 @@
   .review-card {
     flex: 0 0 85%;
     padding: 2rem 1.5rem;
+    border-radius: 20px;
   }
 }
 </style>
@@ -80,7 +89,7 @@
             {% endfor %}
           </div>
           <div class="review-text">"{{ block.settings.text }}"</div>
-          <div class="review-author">- {{ block.settings.author }}</div>
+          <div class="review-author">— {{ block.settings.author }}</div>
         </div>
       {% endfor %}
     </div>

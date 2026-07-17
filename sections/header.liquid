@@ -1,11 +1,13 @@
 <style>
 .header {
-  padding: 1.5rem 0;
+  padding: 1.25rem 0;
   border-bottom: 1px solid var(--color-border);
   background-color: var(--color-warm-ivory);
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .header__inner {
   display: flex;
@@ -14,10 +16,11 @@
 }
 .header__logo {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: var(--color-dark-green);
   text-decoration: none;
   font-weight: 600;
+  letter-spacing: 0.02em;
 }
 .header__nav {
   display: flex;
@@ -26,36 +29,73 @@
 .header__nav-link {
   color: var(--color-primary-text);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  font-weight: 500;
+  transition: color 0.3s ease, opacity 0.3s ease;
+  position: relative;
+  padding-bottom: 4px;
+}
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--color-dark-green);
+  transition: width 0.3s ease;
 }
 .header__nav-link:hover {
   color: var(--color-dark-green);
 }
+.header__nav-link:hover::after {
+  width: 100%;
+}
 .header__icons {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  align-items: center;
+}
+.header__icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--color-primary-text);
+}
+.header__icon-link:hover {
+  background-color: rgba(15, 45, 36, 0.08);
+  color: var(--color-dark-green);
 }
 .header__icon {
-  width: 24px;
-  height: 24px;
-  color: var(--color-primary-text);
+  width: 22px;
+  height: 22px;
 }
 .header__hamburger {
   display: none;
   background: none;
   border: none;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+.header__hamburger:hover {
+  background-color: rgba(15, 45, 36, 0.08);
 }
 .header__hamburger svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
 @media (max-width: 768px) {
   .header__nav {
-    display: none; /* In a full theme, this would toggle a mobile drawer via JS */
+    display: none;
   }
   .header__hamburger {
     display: block;
@@ -66,11 +106,16 @@
     align-items: center;
   }
   .header__logo {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     text-align: center;
   }
   .header__icons {
     justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  .header__icon-link {
+    width: 36px;
+    height: 36px;
   }
 }
 </style>
@@ -78,7 +123,7 @@
 <header class="header">
   <div class="container header__inner">
     <button class="header__hamburger" aria-label="Menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
     
     <a href="{{ routes.root_url }}" class="header__logo">
@@ -99,10 +144,10 @@
     </nav>
     
     <div class="header__icons">
-      <a href="{{ routes.search_url }}">
+      <a href="{{ routes.search_url }}" class="header__icon-link">
         <svg class="header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
       </a>
-      <a href="{{ routes.cart_url }}">
+      <a href="{{ routes.cart_url }}" class="header__icon-link">
         <svg class="header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
       </a>
     </div>

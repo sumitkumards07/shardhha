@@ -1,18 +1,23 @@
 <style>
 .default-page {
   padding: var(--section-spacing) 0;
-  background-color: var(--color-warm-ivory);
 }
 .default-page__container {
   max-width: 800px;
   margin: 0 auto;
 }
+.default-page__card {
+  background: #FAF9F6;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 3rem;
+}
 .default-page__title {
   text-align: center;
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 3rem);
   color: var(--color-dark-green);
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 .default-page__content {
   font-family: var(--font-body);
@@ -31,13 +36,33 @@
   color: var(--color-dark-green);
   text-decoration: underline;
 }
+.default-page__content ul,
+.default-page__content ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+.default-page__content li {
+  margin-bottom: 0.5rem;
+}
+.default-page__content img {
+  border-radius: 16px;
+  margin: 1.5rem 0;
+}
+@media (max-width: 768px) {
+  .default-page__card {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+}
 </style>
 
 <div class="default-page">
   <div class="container default-page__container">
-    <h1 class="default-page__title">{{ page.title }}</h1>
-    <div class="default-page__content">
-      {{ page.content }}
+    <div class="default-page__card">
+      <h1 class="default-page__title">{{ page.title }}</h1>
+      <div class="default-page__content">
+        {{ page.content }}
+      </div>
     </div>
   </div>
 </div>

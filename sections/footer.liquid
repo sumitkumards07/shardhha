@@ -13,17 +13,22 @@
 }
 .footer__block-title {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-bottom: 1.5rem;
   color: var(--color-dark-green);
 }
 .footer__logo {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 1rem;
   display: block;
   text-decoration: none;
   color: var(--color-dark-green);
+}
+.footer__block p {
+  color: var(--color-primary-text);
+  line-height: 1.7;
+  font-size: 0.95rem;
 }
 .footer__menu {
   list-style: none;
@@ -37,10 +42,12 @@
   color: var(--color-primary-text);
   text-decoration: none;
   font-size: 0.95rem;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+  display: inline-block;
 }
 .footer__menu-link:hover {
   color: var(--color-dark-green);
+  padding-left: 4px;
 }
 .footer__bottom {
   text-align: center;
@@ -48,6 +55,31 @@
   border-top: 1px solid var(--color-border);
   font-size: 0.85rem;
   color: var(--color-secondary-text);
+}
+.footer__social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  color: var(--color-primary-text);
+  transition: all 0.3s ease;
+}
+.footer__social-link:hover {
+  background-color: var(--color-dark-green);
+  border-color: var(--color-dark-green);
+  color: #FAF9F6;
+}
+.footer__social-link svg {
+  width: 18px;
+  height: 18px;
 }
 @media (max-width: 768px) {
   .footer {
@@ -60,7 +92,7 @@
     margin-bottom: 2rem;
   }
   .footer__logo {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
   }
   .footer__block p {
@@ -82,6 +114,12 @@
   .footer__menu-link {
     font-size: 0.85rem;
   }
+  .footer__menu-link:hover {
+    padding-left: 0;
+  }
+  .footer__social {
+    justify-content: center;
+  }
 }
 </style>
 
@@ -93,9 +131,20 @@
         <a href="{{ routes.root_url }}" class="footer__logo">
           {{ shop.name | default: 'SHARDDHA WEAVES' }}
         </a>
-        <p style="color: var(--color-primary-text); line-height: 1.6; font-size: 0.95rem;">
+        <p>
           Rooted in culture, woven for today. Premium ethnic fashion celebrating craftsmanship and timeless elegance.
         </p>
+        <div class="footer__social">
+          <a href="#" class="footer__social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+        </div>
       </div>
 
       <!-- Quick Links Block -->
@@ -105,7 +154,6 @@
           {% for link in linklists.footer.links %}
             <li class="footer__menu-item"><a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a></li>
           {% else %}
-            <!-- Demo Links if no menu is selected -->
             <li class="footer__menu-item"><a href="#" class="footer__menu-link">About Us</a></li>
             <li class="footer__menu-item"><a href="#" class="footer__menu-link">Contact Us</a></li>
             <li class="footer__menu-item"><a href="#" class="footer__menu-link">Track Your Order</a></li>
@@ -121,9 +169,8 @@
           {% for link in linklists.policies.links %}
             <li class="footer__menu-item"><a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a></li>
           {% else %}
-             <!-- Demo Links -->
             <li class="footer__menu-item"><a href="#" class="footer__menu-link">Privacy Policy</a></li>
-            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Shipping & Delivery Policy</a></li>
+            <li class="footer__menu-item"><a href="#" class="footer__menu-link">Shipping & Delivery</a></li>
             <li class="footer__menu-item"><a href="#" class="footer__menu-link">Refund Policy</a></li>
             <li class="footer__menu-item"><a href="#" class="footer__menu-link">Terms of Service</a></li>
           {% endfor %}
