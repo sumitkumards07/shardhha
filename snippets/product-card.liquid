@@ -29,16 +29,13 @@
     </div>
 
     <div class="premium-product-card__actions">
-      {% form 'product', product, class: 'premium-product-card__form' %}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        <button type="submit" class="premium-product-card__buy-btn" {% unless product.available %}disabled{% endunless %}>
-          {% if product.available %}
-            Buy Now
-          {% else %}
-            Sold Out
-          {% endif %}
-        </button>
-      {% endform %}
+      <a href="{{ product.url | within: collection }}" class="premium-product-card__buy-btn" style="display:block; text-decoration:none;" {% unless product.available %}disabled{% endunless %}>
+        {% if product.available %}
+          Buy Now
+        {% else %}
+          Sold Out
+        {% endif %}
+      </a>
     </div>
   </div>
 </div>
