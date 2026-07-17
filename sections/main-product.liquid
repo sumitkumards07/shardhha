@@ -44,8 +44,13 @@
     transform: scale(1.04);
   }
 
-  /* ── Image Gallery (Mobile: horizontal swiper like Myntra) ── */
+  /* ── Image Gallery (Mobile: full-width swiper like Myntra) ── */
   @media (max-width: 767px) {
+    .pdp { padding: 0 0 5rem; }
+    .pdp-grid { gap: 0; }
+    .pdp-gallery-wrapper {
+      margin: 0 -1.25rem;
+    }
     .pdp-gallery {
       display: flex;
       overflow-x: auto;
@@ -53,20 +58,28 @@
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       gap: 0;
-      margin: 0 -1.25rem;
-      padding: 0;
       border-radius: 0;
+      width: 100vw;
     }
     .pdp-gallery::-webkit-scrollbar { display: none; }
     .pdp-gallery__item {
-      flex: 0 0 100%;
+      flex: 0 0 100vw;
+      width: 100vw;
+      min-width: 100vw;
       scroll-snap-align: start;
-      aspect-ratio: 3/4;
+      aspect-ratio: auto;
+      height: 60vh;
       border-radius: 0;
-      max-height: 55vh;
+      background: #f5f2f0;
     }
     .pdp-gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       border-radius: 0;
+    }
+    .pdp-info {
+      padding: 0 1.25rem;
     }
   }
 
@@ -497,7 +510,7 @@
     <div class="pdp-grid">
 
       <!-- ═══ LEFT: Image Gallery ═══ -->
-      <div>
+      <div class="pdp-gallery-wrapper">
         <div class="pdp-gallery" id="pdpGallery-{{ section.id }}">
           {% if current_product and current_product.images.size > 0 %}
             {% for image in current_product.images limit: 5 %}
