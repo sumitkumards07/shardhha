@@ -93,11 +93,7 @@
                 <input type="hidden" name="id" value="{{ product.variants.first.id }}">
                 <button type="submit" class="w-full py-2.5 bg-deep-forest text-antique-cream text-[10px] md:text-[11px] uppercase tracking-wider font-semibold rounded-full hover:bg-opacity-90 transition-all">Add to Cart</button>
               {% endform %}
-              {% form 'product', product, class: 'w-1/2' %}
-                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                <input type="hidden" name="return_to" value="/checkout">
-                <button type="submit" class="w-full py-2.5 border border-deep-forest text-deep-forest text-[10px] md:text-[11px] uppercase tracking-wider font-semibold rounded-full hover:bg-surface-container-low transition-all">Buy Now</button>
-              {% endform %}
+              <a href="{{ product.url }}" class="w-1/2 py-2.5 border border-deep-forest text-deep-forest text-[10px] md:text-[11px] uppercase tracking-wider font-semibold rounded-full hover:bg-surface-container-low transition-all text-center flex items-center justify-center">Buy Now</a>
             </div>
           </div>
         {% else %}

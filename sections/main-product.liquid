@@ -1,152 +1,446 @@
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: {
-            extend: {
-                "colors": {
-                    "antique-cream": "#F5F0E8",
-                    "deep-forest": "#0F2D24",
-                    "soft-gold": "#a38f7b",
-                    "subtle-grey": "#737973",
-                    "surface-container-low": "#f6f3f2",
-                    "outline-variant": "#c3c8c1"
-                },
-                "fontFamily": {
-                    "headline-md": ["var(--font-heading)"],
-                    "label-sm": ["var(--font-body)"],
-                    "body-md": ["var(--font-body)"],
-                    "display": ["var(--font-heading)"],
-                    "headline-lg-mobile": ["var(--font-heading)"],
-                    "body-lg": ["var(--font-body)"],
-                    "headline-lg": ["var(--font-heading)"]
-                }
-            }
-        }
-    }
-</script>
 <style>
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    
-    .sticky-sidebar {
-      top: 120px;
-      height: fit-content;
+  /* ── Product Page Layout ── */
+  .pdp { padding: 1.5rem 0 4rem; }
+  .pdp-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 768px) {
+    .pdp-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
     }
-    
-    .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
+  }
+  @media (min-width: 1024px) {
+    .pdp-grid {
+      grid-template-columns: 55% 45%;
+      gap: 4rem;
     }
-    .accordion-active .accordion-content {
-        max-height: 500px;
+  }
+
+  /* ── Image Gallery ── */
+  .pdp-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .pdp-gallery__item {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #f0eded;
+    cursor: zoom-in;
+    position: relative;
+  }
+  .pdp-gallery__item:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 3/4;
+    border-radius: 20px;
+  }
+  .pdp-gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .pdp-gallery__item:hover img {
+    transform: scale(1.04);
+  }
+  @media (max-width: 767px) {
+    .pdp-gallery {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
     }
-    .accordion-active .accordion-icon {
-        transform: rotate(180deg);
-    }
-    
-    .bg-antique-cream {
-      background-color: transparent !important;
-    }
+    .pdp-gallery__item { border-radius: 14px; }
+    .pdp-gallery__item:first-child { border-radius: 14px; }
+  }
+
+  /* ── Product Info Sidebar ── */
+  .pdp-info {
+    position: relative;
+  }
+  .pdp-info__sticky {
+    position: sticky;
+    top: 100px;
+  }
+  .pdp-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-secondary-text);
+    margin-bottom: 1.5rem;
+  }
+  .pdp-breadcrumbs a {
+    color: var(--color-secondary-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .pdp-breadcrumbs a:hover { color: var(--color-dark-green); }
+  .pdp-breadcrumbs svg { width: 12px; height: 12px; opacity: 0.5; }
+
+  .pdp-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--color-dark-green);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .pdp-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-secondary-text);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  /* Price */
+  .pdp-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .pdp-price__current {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-dark-green);
+  }
+  .pdp-price__compare {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-secondary-text);
+    text-decoration: line-through;
+  }
+  .pdp-price__badge {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+  }
+
+  /* Variants */
+  .pdp-option { margin-bottom: 1.5rem; }
+  .pdp-option__label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary-text);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .pdp-option__values {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .pdp-option__value {
+    cursor: pointer;
+  }
+  .pdp-option__value input { display: none; }
+  .pdp-option__value span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    padding: 0 1rem;
+    border: 1.5px solid var(--color-border);
+    border-radius: 14px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-primary-text);
+    transition: all 0.2s ease;
+  }
+  .pdp-option__value input:checked + span {
+    background: var(--color-dark-green);
+    border-color: var(--color-dark-green);
+    color: #FAF9F6;
+  }
+  .pdp-option__value:hover span {
+    border-color: var(--color-dark-green);
+  }
+
+  /* Quantity */
+  .pdp-quantity {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .pdp-quantity__label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .pdp-quantity__controls {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--color-border);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  .pdp-quantity__btn {
+    background: none;
+    border: none;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--color-primary-text);
+    transition: background 0.2s ease;
+    line-height: 1;
+  }
+  .pdp-quantity__btn:hover { background: rgba(0,0,0,0.04); }
+  .pdp-quantity__input {
+    width: 40px;
+    text-align: center;
+    border: none !important;
+    border-left: 1px solid var(--color-border) !important;
+    border-right: 1px solid var(--color-border) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    background: transparent !important;
+  }
+
+  /* Action Buttons */
+  .pdp-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .pdp-btn-primary {
+    width: 100%;
+    background: var(--color-dark-green);
+    color: #FAF9F6;
+    border: none;
+    padding: 1.1rem;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .pdp-btn-primary:hover { background: var(--color-muted-gold); }
+  .pdp-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .pdp-btn-primary svg { width: 20px; height: 20px; }
+  .pdp-btn-secondary {
+    width: 100%;
+    background: transparent;
+    color: var(--color-primary-text);
+    border: 1.5px solid var(--color-border);
+    padding: 1.1rem;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .pdp-btn-secondary:hover {
+    border-color: var(--color-dark-green);
+    color: var(--color-dark-green);
+  }
+  .pdp-btn-secondary svg { width: 18px; height: 18px; }
+
+  /* USP Row */
+  .pdp-usp {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .pdp-usp__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--color-secondary-text);
+    white-space: nowrap;
+  }
+  .pdp-usp__item svg { width: 18px; height: 18px; color: var(--color-dark-green); flex-shrink: 0; }
+
+  /* Accordion Tabs */
+  .pdp-tabs { margin-top: 0.5rem; }
+  .pdp-tab {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .pdp-tab__trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.1rem 0;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary-text);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease;
+  }
+  .pdp-tab__trigger:hover { color: var(--color-dark-green); }
+  .pdp-tab__trigger svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .pdp-tab.active .pdp-tab__trigger svg {
+    transform: rotate(180deg);
+  }
+  .pdp-tab__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .pdp-tab.active .pdp-tab__content {
+    max-height: 500px;
+  }
+  .pdp-tab__body {
+    padding-bottom: 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-secondary-text);
+  }
 </style>
 
-{% assign current_product = product | default: null %}
+{% assign current_product = product %}
 
-<div class="bg-antique-cream text-deep-forest font-body-md" style="padding-top: 4rem; padding-bottom: 4rem;">
-  <div class="max-w-[1280px] mx-auto px-5 md:px-16">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-      
-      <!-- Product Image Grid (Left/Top) -->
-      <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="pdp">
+  <div class="container">
+    <div class="pdp-grid">
+
+      <!-- ═══ LEFT: Image Gallery ═══ -->
+      <div class="pdp-gallery">
         {% if current_product and current_product.images.size > 0 %}
-          {% for image in current_product.images limit: 4 %}
-            <div class="aspect-[3/4] overflow-hidden bg-surface-container-low">
-              {{ image | image_url: width: 1000 | image_tag: class: 'w-full h-full object-cover transition-transform duration-500 hover:scale-105' }}
+          {% for image in current_product.images limit: 5 %}
+            <div class="pdp-gallery__item">
+              {{ image | image_url: width: 1000 | image_tag: alt: current_product.title }}
             </div>
           {% endfor %}
         {% else %}
-          <!-- Demo Images -->
-          <div class="aspect-[3/4] overflow-hidden bg-surface-container-low">
-            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Demo">
+          <div class="pdp-gallery__item">
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000&auto=format&fit=crop" alt="Product">
           </div>
-          <div class="aspect-[3/4] overflow-hidden bg-surface-container-low">
-            <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Demo">
+          <div class="pdp-gallery__item">
+            <img src="https://images.unsplash.com/photo-1583391733958-d25e07fac66e?q=80&w=800&auto=format&fit=crop" alt="Product">
           </div>
-          <div class="aspect-[3/4] overflow-hidden bg-surface-container-low">
-            <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Demo">
-          </div>
-          <div class="aspect-[3/4] overflow-hidden bg-surface-container-low">
-            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Demo">
+          <div class="pdp-gallery__item">
+            <img src="https://images.unsplash.com/photo-1596455607563-ad6193f76b17?q=80&w=800&auto=format&fit=crop" alt="Product">
           </div>
         {% endif %}
       </div>
 
-      <!-- Product Details Sidebar (Right/Bottom) -->
-      <div class="lg:col-span-5 relative">
-        <div class="sticky-sidebar lg:pl-8">
-          
+      <!-- ═══ RIGHT: Product Info ═══ -->
+      <div class="pdp-info">
+        <div class="pdp-info__sticky">
+
           <!-- Breadcrumbs -->
-          <nav class="mb-8 flex items-center gap-2 text-subtle-grey text-[11px] uppercase tracking-widest font-semibold" style="font-family: var(--font-body);">
-            <a class="hover:text-deep-forest" href="/">Home</a>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            <a class="hover:text-deep-forest" href="/collections/all">Collections</a>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            <span class="text-deep-forest">{{ current_product.title | default: 'Kurti' }}</span>
+          <nav class="pdp-breadcrumbs">
+            <a href="{{ routes.root_url }}">Home</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            {% if current_product.collections.size > 0 %}
+              <a href="{{ current_product.collections.first.url }}">{{ current_product.collections.first.title }}</a>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            {% endif %}
+            <span style="color: var(--color-primary-text);">{{ current_product.title | default: 'Product' }}</span>
           </nav>
 
+          <!-- Title & Subtitle -->
           {% for block in section.blocks %}
             {% case block.type %}
-              
+
               {% when 'title' %}
-                <h2 class="text-[32px] md:text-[40px] text-deep-forest leading-tight mb-2" style="font-family: var(--font-heading);" {{ block.shopify_attributes }}>
-                  {{ current_product.title | default: 'Ruhani Hand-Embroidered Kurti' }}
-                </h2>
-                
+                <h1 class="pdp-title" {{ block.shopify_attributes }}>{{ current_product.title | default: 'Ruhani Hand-Embroidered Kurti' }}</h1>
+                {% if current_product.vendor %}
+                  <p class="pdp-subtitle">by {{ current_product.vendor }}</p>
+                {% endif %}
+
               {% when 'price' %}
-                <div class="flex items-center gap-4 mb-6" {{ block.shopify_attributes }}>
-                  <span class="text-[24px] font-medium text-deep-forest" style="font-family: var(--font-body);">
-                    {% if current_product %}
-                      {{ current_product.price | money }}
-                    {% else %}
-                      ₹899.00
-                    {% endif %}
+                <div class="pdp-price" {{ block.shopify_attributes }}>
+                  <span class="pdp-price__current">
+                    {% if current_product %}{{ current_product.price | money }}{% else %}₹2,499{% endif %}
                   </span>
                   {% if current_product and current_product.compare_at_price > current_product.price %}
-                    <span class="text-[18px] text-subtle-grey line-through">{{ current_product.compare_at_price | money }}</span>
+                    <span class="pdp-price__compare">{{ current_product.compare_at_price | money }}</span>
+                    {% assign discount = current_product.compare_at_price | minus: current_product.price | times: 100 | divided_by: current_product.compare_at_price %}
+                    <span class="pdp-price__badge">{{ discount }}% OFF</span>
                   {% endif %}
-                  <span class="bg-surface-container-low px-3 py-1 text-[11px] font-semibold uppercase tracking-wider border border-outline-variant/30">In Stock</span>
+                  {% if current_product == nil %}
+                    <span class="pdp-price__compare">₹3,999</span>
+                    <span class="pdp-price__badge">37% OFF</span>
+                  {% endif %}
                 </div>
 
               {% when 'description' %}
-                <div class="text-[16px] text-subtle-grey leading-relaxed mb-10 max-w-lg" style="font-family: var(--font-body);" {{ block.shopify_attributes }}>
-                  {% if current_product %}
-                    {{ current_product.description }}
-                  {% else %}
-                    A testament to slow fashion, this forest green kurti features delicate cream hand-embroidery on premium organic cotton. Inspired by heritage motifs, each piece is uniquely crafted by our master weavers.
-                  {% endif %}
-                </div>
-                
+                {% if current_product and current_product.description != blank %}
+                  <p class="pdp-subtitle" style="margin-bottom: 1.5rem;" {{ block.shopify_attributes }}>
+                    {{ current_product.description | strip_html | truncatewords: 30 }}
+                  </p>
+                {% else %}
+                  <p class="pdp-subtitle" style="margin-bottom: 1.5rem;">
+                    A testament to slow fashion. Delicate cream hand-embroidery on premium organic cotton, crafted by master artisans.
+                  </p>
+                {% endif %}
+
               {% when 'form' %}
-                <div class="mb-12" {{ block.shopify_attributes }}>
-                  {% form 'product', current_product, class: 'w-full' %}
+                <div {{ block.shopify_attributes }}>
+                  {% form 'product', current_product %}
                     <input type="hidden" name="id" value="{% if current_product %}{{ current_product.selected_or_first_available_variant.id }}{% endif %}">
-                    
-                    <!-- Size / Variants -->
+
+                    <!-- Variants -->
                     {% if current_product %}
                       {% unless current_product.has_only_default_variant %}
                         {% for option in current_product.options_with_values %}
-                          <div class="mb-8">
-                            <div class="flex justify-between items-center mb-4">
-                              <span class="text-[12px] font-semibold uppercase tracking-widest" style="font-family: var(--font-body);">Select {{ option.name }}</span>
-                            </div>
-                            <div class="flex gap-3 flex-wrap">
+                          <div class="pdp-option">
+                            <span class="pdp-option__label">{{ option.name }}</span>
+                            <div class="pdp-option__values">
                               {% for value in option.values %}
-                                <label class="cursor-pointer">
-                                  <input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" class="hidden peer" {% if option.selected_value == value %}checked{% endif %}>
-                                  <div class="w-12 h-12 flex items-center justify-center border border-outline-variant text-deep-forest text-[14px] peer-checked:bg-deep-forest peer-checked:text-antique-cream transition-all hover:border-deep-forest" style="font-family: var(--font-body);">
-                                    {{ value }}
-                                  </div>
+                                <label class="pdp-option__value">
+                                  <input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                                  <span>{{ value }}</span>
                                 </label>
                               {% endfor %}
                             </div>
@@ -155,93 +449,105 @@
                       {% endunless %}
                     {% else %}
                       <!-- Demo Sizes -->
-                      <div class="mb-8">
-                        <div class="flex justify-between items-center mb-4">
-                          <span class="text-[12px] font-semibold uppercase tracking-widest" style="font-family: var(--font-body);">Select Size</span>
-                        </div>
-                        <div class="flex gap-3">
-                          <div class="w-12 h-12 flex items-center justify-center border border-deep-forest bg-deep-forest text-antique-cream text-[14px] cursor-pointer" style="font-family: var(--font-body);">S</div>
-                          <div class="w-12 h-12 flex items-center justify-center border border-outline-variant text-deep-forest text-[14px] cursor-pointer hover:border-deep-forest" style="font-family: var(--font-body);">M</div>
-                          <div class="w-12 h-12 flex items-center justify-center border border-outline-variant text-deep-forest text-[14px] cursor-pointer hover:border-deep-forest" style="font-family: var(--font-body);">L</div>
+                      <div class="pdp-option">
+                        <span class="pdp-option__label">Size</span>
+                        <div class="pdp-option__values">
+                          <label class="pdp-option__value"><input type="radio" name="size" checked><span>S</span></label>
+                          <label class="pdp-option__value"><input type="radio" name="size"><span>M</span></label>
+                          <label class="pdp-option__value"><input type="radio" name="size"><span>L</span></label>
+                          <label class="pdp-option__value"><input type="radio" name="size"><span>XL</span></label>
                         </div>
                       </div>
                     {% endif %}
 
-                    <!-- Quantity & Action -->
-                    <div class="flex flex-col gap-4 mb-12">
-                      <div class="flex items-center gap-6 mb-4">
-                        <span class="text-[12px] font-semibold uppercase tracking-widest" style="font-family: var(--font-body);">Quantity</span>
-                        <div class="flex items-center border border-outline-variant">
-                          <button type="button" class="px-4 py-2 hover:text-soft-gold transition-colors" onclick="this.nextElementSibling.stepDown()">
-                            <span style="font-size: 1.2rem;">-</span>
-                          </button>
-                          <input type="number" name="quantity" value="1" min="1" class="w-12 text-center font-body-md bg-transparent border-none focus:ring-0 p-0" style="font-family: var(--font-body);">
-                          <button type="button" class="px-4 py-2 hover:text-soft-gold transition-colors" onclick="this.previousElementSibling.stepUp()">
-                            <span style="font-size: 1.2rem;">+</span>
-                          </button>
-                        </div>
+                    <!-- Quantity -->
+                    <div class="pdp-quantity">
+                      <span class="pdp-quantity__label">Quantity</span>
+                      <div class="pdp-quantity__controls">
+                        <button type="button" class="pdp-quantity__btn" onclick="this.nextElementSibling.stepDown()">−</button>
+                        <input type="number" name="quantity" value="1" min="1" class="pdp-quantity__input">
+                        <button type="button" class="pdp-quantity__btn" onclick="this.previousElementSibling.stepUp()">+</button>
                       </div>
+                    </div>
 
-                      <!-- Add to Cart Button -->
-                      <button type="submit" name="add" class="w-full bg-deep-forest text-antique-cream py-5 text-[14px] font-semibold uppercase tracking-[0.2em] hover:bg-opacity-90 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed" style="font-family: var(--font-body);" {% if current_product and current_product.available == false %}disabled{% endif %}>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mb-0.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                        {% if current_product and current_product.available == false %}
-                          SOLD OUT
-                        {% else %}
-                          ADD TO CART
-                        {% endif %}
+                    <!-- Action Buttons -->
+                    <div class="pdp-actions">
+                      <button type="submit" name="add" class="pdp-btn-primary" {% if current_product and current_product.available == false %}disabled{% endif %}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        {% if current_product and current_product.available == false %}Sold Out{% else %}Add to Cart{% endif %}
+                      </button>
+                      <button type="button" class="pdp-btn-secondary" onclick="if(this.closest('form')){this.closest('form').querySelector('input[name=return_to]')?.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';this.closest('form').appendChild(h);this.closest('form').submit();}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Buy Now
                       </button>
                     </div>
                   {% endform %}
                 </div>
-                
+
               {% when 'accordion' %}
-                <div class="space-y-4 border-t border-outline-variant pt-8" {{ block.shopify_attributes }}>
-                  
-                  <div class="accordion-item border-b border-outline-variant pb-4">
-                    <button type="button" class="flex justify-between items-center w-full group py-2" onclick="this.parentElement.classList.toggle('accordion-active')">
-                      <span class="text-[13px] font-semibold uppercase tracking-widest text-deep-forest group-hover:text-soft-gold transition-colors" style="font-family: var(--font-body);">{{ block.settings.tab_1_title | default: 'Details' }}</span>
-                      <svg class="accordion-icon transition-transform duration-300 text-deep-forest" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <!-- USP Row -->
+                <div class="pdp-usp">
+                  <div class="pdp-usp__item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                    Free Delivery
+                  </div>
+                  <div class="pdp-usp__item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"/></svg>
+                    7-Day Returns
+                  </div>
+                  <div class="pdp-usp__item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138c.157.733.542 1.4 1.084 1.876a3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    100% Authentic
+                  </div>
+                </div>
+
+                <!-- Accordion Tabs -->
+                <div class="pdp-tabs" {{ block.shopify_attributes }}>
+                  <div class="pdp-tab">
+                    <button type="button" class="pdp-tab__trigger" onclick="this.parentElement.classList.toggle('active')">
+                      {{ block.settings.tab_1_title | default: 'Product Details' }}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
-                    <div class="accordion-content">
-                      <div class="pt-4 pb-2 text-[16px] text-subtle-grey leading-relaxed" style="font-family: var(--font-body);">
-                        {{ block.settings.tab_1_content | default: '100% Organic Hand-woven Cotton. Authentic Hand-embroidery. Relaxed fit silhouette.' }}
+                    <div class="pdp-tab__content">
+                      <div class="pdp-tab__body">
+                        {% if current_product and current_product.description != blank %}
+                          {{ current_product.description }}
+                        {% else %}
+                          {{ block.settings.tab_1_content | default: '100% Organic Hand-woven Cotton. Authentic Hand-embroidery. Relaxed fit silhouette. Dry clean recommended.' }}
+                        {% endif %}
                       </div>
                     </div>
                   </div>
-
-                  <div class="accordion-item border-b border-outline-variant pb-4">
-                    <button type="button" class="flex justify-between items-center w-full group py-2" onclick="this.parentElement.classList.toggle('accordion-active')">
-                      <span class="text-[13px] font-semibold uppercase tracking-widest text-deep-forest group-hover:text-soft-gold transition-colors" style="font-family: var(--font-body);">{{ block.settings.tab_2_title | default: 'Shipping' }}</span>
-                      <svg class="accordion-icon transition-transform duration-300 text-deep-forest" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  <div class="pdp-tab">
+                    <button type="button" class="pdp-tab__trigger" onclick="this.parentElement.classList.toggle('active')">
+                      {{ block.settings.tab_2_title | default: 'Shipping & Delivery' }}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
-                    <div class="accordion-content">
-                      <div class="pt-4 pb-2 text-[16px] text-subtle-grey leading-relaxed" style="font-family: var(--font-body);">
-                        {{ block.settings.tab_2_content | default: 'Free shipping on orders above ₹1299. Standard delivery in 5-7 business days.' }}
+                    <div class="pdp-tab__content">
+                      <div class="pdp-tab__body">
+                        {{ block.settings.tab_2_content | default: 'Free shipping on orders above ₹1299. Standard delivery in 5-7 business days. Express delivery available.' }}
                       </div>
                     </div>
                   </div>
-
-                  <div class="accordion-item border-b border-outline-variant pb-4">
-                    <button type="button" class="flex justify-between items-center w-full group py-2" onclick="this.parentElement.classList.toggle('accordion-active')">
-                      <span class="text-[13px] font-semibold uppercase tracking-widest text-deep-forest group-hover:text-soft-gold transition-colors" style="font-family: var(--font-body);">{{ block.settings.tab_3_title | default: 'Returns' }}</span>
-                      <svg class="accordion-icon transition-transform duration-300 text-deep-forest" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  <div class="pdp-tab">
+                    <button type="button" class="pdp-tab__trigger" onclick="this.parentElement.classList.toggle('active')">
+                      {{ block.settings.tab_3_title | default: 'Returns & Exchange' }}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
-                    <div class="accordion-content">
-                      <div class="pt-4 pb-2 text-[16px] text-subtle-grey leading-relaxed" style="font-family: var(--font-body);">
-                        {{ block.settings.tab_3_content | default: '7-day hassle-free returns and exchanges.' }}
+                    <div class="pdp-tab__content">
+                      <div class="pdp-tab__body">
+                        {{ block.settings.tab_3_content | default: '7-day hassle-free returns and exchanges. Items must be unworn with original tags attached.' }}
                       </div>
                     </div>
                   </div>
-
                 </div>
 
             {% endcase %}
           {% endfor %}
-          
+
         </div>
       </div>
-      
+
     </div>
   </div>
 </div>
@@ -273,14 +579,14 @@
     },
     {
       "type": "accordion",
-      "name": "Information Accordions",
+      "name": "Information Tabs",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "tab_1_title",
           "label": "Tab 1 Title",
-          "default": "Details"
+          "default": "Product Details"
         },
         {
           "type": "textarea",
@@ -292,7 +598,7 @@
           "type": "text",
           "id": "tab_2_title",
           "label": "Tab 2 Title",
-          "default": "Shipping"
+          "default": "Shipping & Delivery"
         },
         {
           "type": "textarea",
@@ -304,7 +610,7 @@
           "type": "text",
           "id": "tab_3_title",
           "label": "Tab 3 Title",
-          "default": "Returns"
+          "default": "Returns & Exchange"
         },
         {
           "type": "textarea",
