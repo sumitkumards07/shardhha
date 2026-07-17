@@ -8,9 +8,10 @@
  * ------------------------------------------------------------
  */
 {
+  "layout": "theme",
   "sections": {
     "main": {
-      "type": "main-story",
+      "type": "main-page",
       "settings": {}
     }
   },
