@@ -413,6 +413,10 @@
       border: none;
       line-height: 1;
     }
+    .pdp-sticky-bar__btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
     .pdp-sticky-bar__btn svg { width: 18px; height: 18px; }
     .pdp-sticky-bar__btn--cart {
       background: transparent;
@@ -736,11 +740,11 @@
 
 <!-- ═══ Sticky Bottom Bar (Myntra-style, mobile only) ═══ -->
 <div class="pdp-sticky-bar">
-  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--cart" onclick="var f=document.getElementById('pdp-form'); if(f){f.requestSubmit ? f.requestSubmit() : f.submit();}">
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--cart" id="sticky-btn-cart" onclick="var f=document.getElementById('pdp-form'); if(f){f.requestSubmit ? f.requestSubmit() : f.submit();}" {% if current_product and current_product.available == false %}disabled{% endif %}>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    Add to Cart
+    <span id="sticky-btn-cart-text">{% if current_product and current_product.available == false %}Sold Out{% else %}Add to Cart{% endif %}</span>
   </button>
-  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--buy" onclick="var f=document.getElementById('pdp-form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.submit();}">
+  <button type="button" class="pdp-sticky-bar__btn pdp-sticky-bar__btn--buy" id="sticky-btn-buy" onclick="var f=document.getElementById('pdp-form');if(f){var ex=f.querySelector('input[name=return_to]');if(ex)ex.remove();var h=document.createElement('input');h.type='hidden';h.name='return_to';h.value='/checkout';f.appendChild(h);f.submit();}" {% if current_product and current_product.available == false %}disabled{% endif %}>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     Buy Now
   </button>
@@ -793,6 +797,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var priceEl = document.querySelector('.pdp-price__current');
     var btnText = document.getElementById('pdp-btn-text');
     var btn = form.querySelector('button[name="add"]');
+    var stickyCartBtn = document.getElementById('sticky-btn-cart');
+    var stickyCartBtnText = document.getElementById('sticky-btn-cart-text');
+    var stickyBuyBtn = document.getElementById('sticky-btn-buy');
     
     radios.forEach(function(radio) {
       radio.addEventListener('change', function() {
@@ -828,11 +835,17 @@ document.addEventListener('DOMContentLoaded', function() {
           
           // Update Availability
           if (matchedVariant.available) {
-            btn.disabled = false;
+            if(btn) btn.disabled = false;
             if(btnText) btnText.innerHTML = 'Add to Cart';
+            if(stickyCartBtn) stickyCartBtn.disabled = false;
+            if(stickyCartBtnText) stickyCartBtnText.innerHTML = 'Add to Cart';
+            if(stickyBuyBtn) stickyBuyBtn.disabled = false;
           } else {
-            btn.disabled = true;
+            if(btn) btn.disabled = true;
             if(btnText) btnText.innerHTML = 'Sold Out';
+            if(stickyCartBtn) stickyCartBtn.disabled = true;
+            if(stickyCartBtnText) stickyCartBtnText.innerHTML = 'Sold Out';
+            if(stickyBuyBtn) stickyBuyBtn.disabled = true;
           }
         }
       });
