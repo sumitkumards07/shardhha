@@ -852,6 +852,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
+    
+    // Trigger initial state
+    var checkedRadio = form.querySelector('input[type="radio"]:checked');
+    if (checkedRadio) {
+      checkedRadio.dispatchEvent(new Event('change'));
+    }
   } catch(e) {
     console.error('Error parsing product variants', e);
   }
