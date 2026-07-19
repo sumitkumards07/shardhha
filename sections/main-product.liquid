@@ -611,35 +611,7 @@
                   {% form 'product', current_product, id: 'pdp-form' %}
                     <input type="hidden" name="id" value="{% if current_product %}{{ current_product.selected_or_first_available_variant.id }}{% endif %}">
 
-                    <!-- Variants -->
-                    {% if current_product %}
-                      {% unless current_product.has_only_default_variant %}
-                        {% for option in current_product.options_with_values %}
-                          <div class="pdp-option">
-                            <span class="pdp-option__label">{{ option.name }}</span>
-                            <div class="pdp-option__values">
-                              {% for value in option.values %}
-                                <label class="pdp-option__value">
-                                  <input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
-                                  <span>{{ value }}</span>
-                                </label>
-                              {% endfor %}
-                            </div>
-                          </div>
-                        {% endfor %}
-                      {% endunless %}
-                    {% else %}
-                      <!-- Demo Sizes -->
-                      <div class="pdp-option">
-                        <span class="pdp-option__label">Size</span>
-                        <div class="pdp-option__values">
-                          <label class="pdp-option__value"><input type="radio" name="size" checked><span>S</span></label>
-                          <label class="pdp-option__value"><input type="radio" name="size"><span>M</span></label>
-                          <label class="pdp-option__value"><input type="radio" name="size"><span>L</span></label>
-                          <label class="pdp-option__value"><input type="radio" name="size"><span>XL</span></label>
-                        </div>
-                      </div>
-                    {% endif %}
+
 
                     <!-- Quantity -->
                     <div class="pdp-option">
@@ -665,11 +637,7 @@
                       </button>
                     </div>
                   {% endform %}
-                  {% if current_product %}
-                    <script id="ProductJson-{{ section.id }}" type="application/json">
-                      {{ current_product.variants | json }}
-                    </script>
-                  {% endif %}
+
                 </div>
 
               {% when 'accordion' %}
@@ -786,127 +754,55 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Variant Selector Logic
+// AJAX Form Submission
 document.addEventListener('DOMContentLoaded', function() {
   var form = document.getElementById('pdp-form');
-  var jsonEl = document.getElementById('ProductJson-{{ section.id }}');
-  if (!form || !jsonEl) return;
-  
-  try {
-    var variants = JSON.parse(jsonEl.innerHTML);
-    var radios = form.querySelectorAll('input[type="radio"]');
-    var idInput = form.querySelector('input[name="id"]');
-    var priceEl = document.querySelector('.pdp-price__current');
-    var btnText = document.getElementById('pdp-btn-text');
-    var btn = form.querySelector('button[name="add"]');
-    var stickyCartBtn = document.getElementById('sticky-btn-cart');
-    var stickyCartBtnText = document.getElementById('sticky-btn-cart-text');
-    var stickyBuyBtn = document.getElementById('sticky-btn-buy');
-    
-    var productOptions = {{ current_product.options | json }} || [];
-    
-    radios.forEach(function(radio) {
-      radio.addEventListener('change', function() {
-        // Find selected options
-        var selectedOptions = {};
-        form.querySelectorAll('input[type="radio"]:checked').forEach(function(r) {
-          selectedOptions[r.name.replace('options[', '').replace(']', '')] = r.value;
-        });
-        
-        // Find matching variant robustly using exact option order
-        var matchedVariant = variants.find(function(v) {
-          return productOptions.every(function(optName, idx) {
-            var optKey = 'option' + (idx + 1);
-            return v[optKey] === selectedOptions[optName];
-          });
-        });
-        
-        if (matchedVariant) {
-          idInput.value = matchedVariant.id;
-          
-          // Update Price
-          if (priceEl) {
-            var formatter = new Intl.NumberFormat('en-IN', {
-              style: 'currency',
-              currency: 'INR',
-              minimumFractionDigits: 0
-            });
-            priceEl.innerHTML = formatter.format(matchedVariant.price / 100);
-          }
-          
-          // Update URL
-          window.history.replaceState({}, '', '?variant=' + matchedVariant.id);
-          
-          // Update Availability
-          if (matchedVariant.available) {
-            if(btn) btn.disabled = false;
-            if(btnText) btnText.innerHTML = 'Add to Cart';
-            if(stickyCartBtn) stickyCartBtn.disabled = false;
-            if(stickyCartBtnText) stickyCartBtnText.innerHTML = 'Add to Cart';
-            if(stickyBuyBtn) stickyBuyBtn.disabled = false;
-          } else {
-            if(btn) btn.disabled = true;
-            if(btnText) btnText.innerHTML = 'Sold Out';
-            if(stickyCartBtn) stickyCartBtn.disabled = true;
-            if(stickyCartBtnText) stickyCartBtnText.innerHTML = 'Sold Out';
-            if(stickyBuyBtn) stickyBuyBtn.disabled = true;
-          }
+  if (!form) return;
+
+  var btn = form.querySelector('button[name="add"]');
+  var stickyBuyBtn = document.getElementById('sticky-btn-buy');
+  var errorContainer = document.getElementById('pdp-error-message');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(errorContainer) errorContainer.style.display = 'none';
+
+    // Check if this is a Buy Now click
+    var isBuyNow = form.querySelector('input[name="return_to"]') !== null;
+    var submitBtn = isBuyNow ? stickyBuyBtn : btn;
+    var originalText = submitBtn ? submitBtn.innerHTML : '';
+    if(submitBtn) submitBtn.innerHTML = 'Processing...';
+
+    var formData = new FormData(form);
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function(response) {
+      return response.json().then(function(json) {
+        if (!response.ok) {
+          throw json;
         }
+        return json;
       });
+    })
+    .then(function(cartData) {
+      if (isBuyNow) {
+        window.location.href = '/checkout';
+      } else {
+        window.location.href = '/cart';
+      }
+    })
+    .catch(function(error) {
+      console.error('Add to cart error:', error);
+      if(submitBtn) submitBtn.innerHTML = originalText;
+      if(errorContainer) {
+        errorContainer.innerHTML = error.description || error.message || 'Something went wrong. Please try again.';
+        errorContainer.style.display = 'block';
+      }
     });
-    
-    // Trigger initial state
-    var checkedRadio = form.querySelector('input[type="radio"]:checked');
-    if (checkedRadio) {
-      checkedRadio.dispatchEvent(new Event('change'));
-    }
-    
-    // AJAX Form Submission
-    var errorContainer = document.getElementById('pdp-error-message');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      if(errorContainer) errorContainer.style.display = 'none';
-      
-      // Check if this is a Buy Now click
-      var isBuyNow = form.querySelector('input[name="return_to"]') !== null;
-      var submitBtn = isBuyNow ? stickyBuyBtn : btn;
-      var originalText = submitBtn ? submitBtn.innerHTML : '';
-      if(submitBtn) submitBtn.innerHTML = 'Processing...';
-      
-      var formData = new FormData(form);
-      
-      fetch('/cart/add.js', {
-        method: 'POST',
-        body: formData
-      })
-      .then(function(response) {
-        return response.json().then(function(json) {
-          if (!response.ok) {
-            throw json;
-          }
-          return json;
-        });
-      })
-      .then(function(cartData) {
-        if (isBuyNow) {
-          window.location.href = '/checkout';
-        } else {
-          window.location.href = '/cart';
-        }
-      })
-      .catch(function(error) {
-        console.error('Add to cart error:', error);
-        if(submitBtn) submitBtn.innerHTML = originalText;
-        if(errorContainer) {
-          errorContainer.innerHTML = error.description || error.message || 'Something went wrong. Please try again.';
-          errorContainer.style.display = 'block';
-        }
-      });
-    });
-    
-  } catch(e) {
-    console.error('Error parsing product variants', e);
-  }
+  });
 });
 </script>
 
