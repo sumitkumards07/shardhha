@@ -22,7 +22,7 @@
         "block2": {
           "type": "announcement",
           "settings": {
-            "text": "Free Shipping on All Orders"
+            "text": "Free Shipping on All Prepaid Orders"
           }
         },
         "block3": {
