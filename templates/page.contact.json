@@ -15,7 +15,14 @@
     },
     "contact": {
       "type": "contact-form",
-      "settings": {}
+      "settings": {
+        "title": "Get in Touch",
+        "description": "Have a question about our collections, your order, or custom requirements? We're here to help.",
+        "email": "Support@shraddhaweaves.com",
+        "phone": "Support@shraddhaweaves.com",
+        "address": "Varanasi, UP 221001\nIndia",
+        "hours": "Mon - Sat, 10:00 AM - 7:00 PM (IST)"
+      }
     }
   },
   "order": [
