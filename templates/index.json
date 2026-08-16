@@ -42,6 +42,18 @@
     "hero": {
       "type": "hero",
       "blocks": {
+        "slide2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_16_2026_03_36_34_PM.png",
+            "subheading": "",
+            "heading": "",
+            "heading_script": "",
+            "description": "",
+            "button_label": "EXPLORE",
+            "button_link": ""
+          }
+        },
         "slide1": {
           "type": "slide",
           "settings": {
@@ -53,22 +65,11 @@
             "button_label": "SHOP NOW",
             "button_link": ""
           }
-        },
-        "slide2": {
-          "type": "slide",
-          "settings": {
-            "subheading": "Handcrafted with love",
-            "heading": "FESTIVE",
-            "heading_script": "Elegance",
-            "description": "DISCOVER THE NEW ARRIVALS",
-            "button_label": "EXPLORE",
-            "button_link": ""
-          }
         }
       },
       "block_order": [
-        "slide1",
-        "slide2"
+        "slide2",
+        "slide1"
       ],
       "settings": {}
     },
