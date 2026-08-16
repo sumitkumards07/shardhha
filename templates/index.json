@@ -13,6 +13,12 @@
     "marquee": {
       "type": "scrolling-marquee",
       "blocks": {
+        "announcement_Va4erX": {
+          "type": "announcement",
+          "settings": {
+            "text": "Raksha Bandan Sales upto 50% off"
+          }
+        },
         "block1": {
           "type": "announcement",
           "settings": {
@@ -33,6 +39,7 @@
         }
       },
       "block_order": [
+        "announcement_Va4erX",
         "block1",
         "block2",
         "block3"
