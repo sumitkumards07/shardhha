@@ -46,13 +46,10 @@
   {{ 'theme.css' | asset_url | stylesheet_tag }}
   </head>
 
-  <body>
-    {% section 'header' %}
-
-    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-      {{ content_for_layout }}
-    </main>
-    
-    {% section 'footer' %}
+  <body style="display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; flex-direction: column;">
+    <div style="padding: 2rem;">
+      <h1 style="font-family: var(--font-heading); color: var(--color-dark-green); font-size: 3rem; margin-bottom: 1rem;">Site Under Maintenance</h1>
+      <p style="font-family: var(--font-body); font-size: 1.25rem; color: var(--color-primary-text);">We are currently updating our store. Please check back soon.</p>
+    </div>
   </body>
 </html>
